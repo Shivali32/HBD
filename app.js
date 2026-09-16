@@ -1,0 +1,501 @@
+﻿/* ==========================================================================
+   PRANAV'S LEGO BIRTHDAY ADVENTURE - APPLICATION JAVASCRIPT
+   ========================================================================== */
+
+// Sound Engine using Web Audio API (Zero external assets required!)
+class LegoAudio {
+  constructor() {
+    this.ctx = null;
+    this.enabled = true;
+  }
+
+  init() {
+    if (!this.ctx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext) {
+        this.ctx = new AudioContext();
+      }
+    }
+    if (this.ctx && this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
+  }
+
+  // Snappy Lego brick snap click
+  click() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    const now = this.ctx.currentTime;
+
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(650, now);
+    osc.frequency.exponentialRampToValueAtTime(180, now + 0.05);
+
+    gain.gain.setValueAtTime(0.3, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+
+    osc.start(now);
+    osc.stop(now + 0.06);
+  }
+
+  // Playful boing/whoosh for the runaway "NO" button
+  boing() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    const now = this.ctx.currentTime;
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(260, now);
+    osc.frequency.exponentialRampToValueAtTime(800, now + 0.12);
+    osc.frequency.exponentialRampToValueAtTime(320, now + 0.22);
+
+    gain.gain.setValueAtTime(0.2, now);
+    gain.gain.linearRampToValueAtTime(0.01, now + 0.22);
+
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+
+    osc.start(now);
+    osc.stop(now + 0.24);
+  }
+
+  // Success sparkle chime
+  chime() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+
+    const notes = [523.25, 659.25, 783.99, 1046.50]; // C, E, G, High C
+    notes.forEach((freq, idx) => {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      const now = this.ctx.currentTime + (idx * 0.08);
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, now);
+
+      gain.gain.setValueAtTime(0.25, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.36);
+    });
+  }
+
+  // Celebratory birthday fanfare
+  fanfare() {
+    if (!this.enabled) return;
+    this.init();
+    if (!this.ctx) return;
+
+    // Happy Birthday melody snippet (G4, G4, A4, G4, C5, B4)
+    const melody = [
+      { f: 392.00, d: 0.2 },
+      { f: 392.00, d: 0.2 },
+      { f: 440.00, d: 0.35 },
+      { f: 392.00, d: 0.35 },
+      { f: 523.25, d: 0.4 },
+      { f: 493.88, d: 0.6 }
+    ];
+
+    let t = this.ctx.currentTime + 0.05;
+    melody.forEach((note) => {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(note.f, t);
+
+      gain.gain.setValueAtTime(0.18, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + note.d);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start(t);
+      osc.stop(t + note.d + 0.02);
+      t += note.d + 0.04;
+    });
+  }
+}
+
+const sfx = new LegoAudio();
+
+// Sound toggle handler
+const soundToggle = document.getElementById('sound-toggle');
+soundToggle.addEventListener('click', () => {
+  sfx.enabled = !sfx.enabled;
+  const label = soundToggle.querySelector('.sound-label');
+  const icon = soundToggle.querySelector('.sound-icon');
+  if (sfx.enabled) {
+    label.textContent = 'Audio ON';
+    icon.textContent = '🔊';
+    sfx.chime();
+  } else {
+    label.textContent = 'Muted';
+    icon.textContent = '🔇';
+  }
+});
+
+
+// ==========================================================================
+// PAGE ROUTING & NAVIGATION
+// ==========================================================================
+const pages = {
+  home: { section: document.getElementById('page-home'), theme: 'theme-home' },
+  story: { section: document.getElementById('page-story'), theme: 'theme-story' },
+  travels: { section: document.getElementById('page-travels'), theme: 'theme-travels' },
+  quiz: { section: document.getElementById('page-quiz'), theme: 'theme-quiz' },
+  surprise: { section: document.getElementById('page-surprise'), theme: 'theme-surprise' }
+};
+
+function switchPage(pageKey) {
+  if (!pages[pageKey]) return;
+
+  sfx.click();
+
+  // Update Navigation Active State
+  document.querySelectorAll('.nav-brick').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.page === pageKey);
+  });
+
+  // Switch Active Page Element
+  Object.keys(pages).forEach(key => {
+    const isCurrent = (key === pageKey);
+    pages[key].section.classList.toggle('active', isCurrent);
+  });
+
+  // Update Body Baseplate Color Theme
+  document.body.className = pages[pageKey].theme;
+
+  // Scroll to top smoothly
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Nav Click Listeners
+document.querySelectorAll('.nav-brick').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const targetPage = btn.dataset.page;
+    if (targetPage) switchPage(targetPage);
+  });
+});
+
+// Inline Target Buttons Listeners
+document.querySelectorAll('[data-target]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const targetPage = btn.dataset.target;
+    if (targetPage) switchPage(targetPage);
+  });
+});
+
+
+// ==========================================================================
+// TIMELINE MEMORY REVEAL LOGIC
+// ==========================================================================
+function revealMemory(id) {
+  sfx.chime();
+  const box = document.getElementById(`mem-reveal-${id}`);
+  if (box) {
+    box.classList.remove('hidden');
+  }
+}
+
+function nudgeMemory(id) {
+  sfx.click();
+  const box = document.getElementById(`mem-reveal-${id}`);
+  if (box) {
+    box.classList.remove('hidden');
+  }
+}
+
+
+// ==========================================================================
+// TRAVEL MAP POLAROID MODAL
+// ==========================================================================
+const travelData = {
+  paris: {
+    emoji: '🗼',
+    tag: 'Paris, France',
+    title: 'Paris Trip, 2022',
+    text: '"Walking past the Eiffel Tower with warm crepes, taking silly selfies, and falling in love with every street corner."',
+    date: 'Autumn 2022 • The City of Lights'
+  },
+  amsterdam: {
+    emoji: '🌷',
+    tag: 'Amsterdam, Netherlands',
+    title: 'Windmills & Canals, 2023',
+    text: '"Biking alongside romantic canals, discovering cozy bakeries, and laughing through the drizzling rain."',
+    date: 'Spring 2023 • Tulips & Bikes'
+  },
+  rome: {
+    emoji: '🏛️',
+    tag: 'Rome, Italy',
+    title: 'Colosseum & Gelato, 2023',
+    text: '"Tossing coins into the Trevi Fountain, wishing for endless more adventures together, and eating authentic pizza every day."',
+    date: 'Summer 2023 • Eternal City'
+  },
+  london: {
+    emoji: '🎡',
+    tag: 'London, UK',
+    title: 'Big Ben & River Thames',
+    text: '"Late evening strolls by the London Eye, coffee stops, and making memories during MBA days."',
+    date: '4 Years Ago • London Chapter'
+  },
+  india: {
+    emoji: '❤️',
+    tag: 'Pune & Mumbai',
+    title: 'Where It All Began',
+    text: '"From CAT coaching desks in Pune to Marine Drive sunsets in Mumbai—home is always wherever we are together."',
+    date: 'Forever • Home Sweet Home'
+  }
+};
+
+const polaroidModal = document.getElementById('polaroid-modal');
+
+function openPolaroid(dest) {
+  sfx.chime();
+  const data = travelData[dest];
+  if (!data) return;
+
+  document.getElementById('polaroid-emoji').textContent = data.emoji;
+  document.getElementById('polaroid-tag').textContent = data.tag;
+  document.getElementById('polaroid-title').textContent = data.title;
+  document.getElementById('polaroid-text').textContent = data.text;
+  document.getElementById('polaroid-date').textContent = data.date;
+
+  polaroidModal.classList.remove('hidden');
+}
+
+function closePolaroid() {
+  sfx.click();
+  polaroidModal.classList.add('hidden');
+}
+
+// Close polaroid when clicking outside
+document.addEventListener('click', (e) => {
+  if (!polaroidModal.classList.contains('hidden') && 
+      !polaroidModal.contains(e.target) && 
+      !e.target.closest('.map-pin') && 
+      !e.target.closest('.brick-chip')) {
+    polaroidModal.classList.add('hidden');
+  }
+});
+
+
+// ==========================================================================
+// THE RELATIONSHIP QUIZ - THE RUNAWAY "NO" BUTTON
+// ==========================================================================
+const btnNo = document.getElementById('btn-quiz-no');
+const btnYes = document.getElementById('btn-quiz-yes');
+const noLabel = document.getElementById('no-btn-label');
+const dialogueBubble = document.getElementById('quiz-dialogue-bubble');
+const bubbleMessage = document.getElementById('bubble-message');
+const quizArena = document.getElementById('quiz-arena');
+const quizSuccessPanel = document.getElementById('quiz-success-panel');
+
+let dodgeCount = 0;
+let yesScale = 1.0;
+
+const wittyPhrases = [
+  "Nice try, Pranav! 😂",
+  "Nope! That button doesn't work! 😜",
+  "Are you sure? Try again! 😉",
+  "Oops, missed it! 🏃‍♂️💨",
+  "Error 404: 'NO' not found! ⚠️",
+  "You know it made us stronger! 💕",
+  "Almost had it... NOT! 😆",
+  "Just click YES already! 💖"
+];
+
+function dodgeNoButton() {
+  dodgeCount++;
+  sfx.boing();
+
+  // Grow the YES button bigger on every dodge!
+  yesScale += 0.12;
+  btnYes.style.transform = `scale(${Math.min(yesScale, 1.8)})`;
+
+  // Randomize button positions within the quiz arena bounds
+  const arenaRect = quizArena.getBoundingClientRect();
+  const btnRect = btnNo.getBoundingClientRect();
+
+  const maxOffsetX = (arenaRect.width / 2) - 80;
+  const maxOffsetY = (arenaRect.height / 2) - 60;
+
+  const randomX = (Math.random() - 0.5) * 2 * maxOffsetX;
+  const randomY = (Math.random() - 0.5) * 2 * maxOffsetY;
+
+  btnNo.style.transform = `translate(${randomX}px, ${randomY}px) scale(0.9)`;
+
+  // Update button label & dialogue bubble
+  const randomPhrase = wittyPhrases[dodgeCount % wittyPhrases.length];
+  bubbleMessage.textContent = randomPhrase;
+  dialogueBubble.classList.remove('hidden');
+
+  if (dodgeCount > 3) {
+    noLabel.textContent = "YES? 🥺";
+  }
+}
+
+// Dodge on hover, touch, and click
+btnNo.addEventListener('mouseenter', dodgeNoButton);
+btnNo.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  dodgeNoButton();
+});
+btnNo.addEventListener('click', (e) => {
+  e.preventDefault();
+  dodgeNoButton();
+});
+
+// YES Button Click Handler
+btnYes.addEventListener('click', () => {
+  sfx.fanfare();
+  launchConfetti(40);
+  quizSuccessPanel.classList.remove('hidden');
+});
+
+
+// ==========================================================================
+// PAGE 5: BIRTHDAY SURPRISE REVEAL & CONFETTI CANNON
+// ==========================================================================
+const btnRedeem = document.getElementById('btn-redeem-trip');
+const unredeemedDock = document.getElementById('unredeemed-dock');
+const ticketContainer = document.getElementById('revealed-ticket-container');
+
+btnRedeem.addEventListener('click', () => {
+  sfx.fanfare();
+  unredeemedDock.classList.add('hidden');
+  ticketContainer.classList.remove('hidden');
+
+  // Trigger grand celebration confetti
+  launchConfetti(120);
+  setTimeout(() => launchConfetti(80), 500);
+  setTimeout(() => launchConfetti(60), 1200);
+
+  // Scroll smoothly to the revealed ticket
+  ticketContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+
+
+// ==========================================================================
+// CUSTOM CANVAS LEGO CONFETTI ENGINE
+// ==========================================================================
+const canvas = document.getElementById('confetti-canvas');
+let ctx = canvas ? canvas.getContext('2d') : null;
+let particles = [];
+let animId = null;
+
+function resizeCanvas() {
+  if (!canvas) return;
+  canvas.width = canvas.parentElement.clientWidth;
+  canvas.height = canvas.parentElement.clientHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+const brickColors = ['#e63946', '#ffb703', '#3a86ff', '#2a9d8f', '#ad1457', '#ffffff'];
+
+class LegoParticle {
+  constructor() {
+    this.reset();
+  }
+
+  reset() {
+    this.x = canvas.width / 2 + (Math.random() - 0.5) * 100;
+    this.y = canvas.height * 0.65;
+    this.vx = (Math.random() - 0.5) * 18;
+    this.vy = -Math.random() * 20 - 8;
+    this.color = brickColors[Math.floor(Math.random() * brickColors.length)];
+    this.width = Math.random() * 12 + 10;
+    this.height = Math.random() * 8 + 6;
+    this.rotation = Math.random() * Math.PI * 2;
+    this.vRot = (Math.random() - 0.5) * 0.2;
+    this.gravity = 0.55;
+    this.opacity = 1;
+    this.isStud = Math.random() > 0.5;
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vy += this.gravity;
+    this.rotation += this.vRot;
+    if (this.y > canvas.height * 0.6) {
+      this.opacity -= 0.015;
+    }
+  }
+
+  draw(c) {
+    c.save();
+    c.translate(this.x, this.y);
+    c.rotate(this.rotation);
+    c.globalAlpha = Math.max(0, this.opacity);
+    c.fillStyle = this.color;
+    c.strokeStyle = '#000';
+    c.lineWidth = 1.5;
+
+    if (this.isStud) {
+      // Draw Lego Circular Stud
+      c.beginPath();
+      c.arc(0, 0, this.width / 2, 0, Math.PI * 2);
+      c.fill();
+      c.stroke();
+    } else {
+      // Draw Lego Rectangular 2x1 Brick
+      c.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+      c.strokeRect(-this.width / 2, -this.height / 2, this.width, this.height);
+    }
+
+    c.restore();
+  }
+}
+
+function launchConfetti(count = 60) {
+  resizeCanvas();
+  if (!ctx) return;
+
+  for (let i = 0; i < count; i++) {
+    particles.push(new LegoParticle());
+  }
+
+  if (!animId) {
+    renderConfetti();
+  }
+}
+
+function renderConfetti() {
+  if (!ctx) return;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.update();
+    p.draw(ctx);
+
+    if (p.opacity <= 0 || p.y > canvas.height + 50) {
+      particles.splice(i, 1);
+    }
+  }
+
+  if (particles.length > 0) {
+    animId = requestAnimationFrame(renderConfetti);
+  } else {
+    animId = null;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+}

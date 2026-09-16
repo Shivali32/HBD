@@ -1,0 +1,440 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Pranav! 🧱 Lego Adventure</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Press+Start+2P&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-home">
+  <!-- Audio FX Engine -->
+  <div id="sound-toggle" class="sound-chip" title="Toggle Sound">
+    <span class="sound-icon">🔊</span>
+    <span class="sound-label">Audio ON</span>
+  </div>
+
+  <!-- Persistent Top Lego Navigation Bar -->
+  <header class="lego-nav-bar">
+    <div class="nav-container">
+      <button class="nav-brick home-btn" data-page="home" title="Home">
+        <span class="brick-studs"></span>
+        <span class="brick-content">🏠 <span>Home</span></span>
+      </button>
+
+      <div class="nav-bricks-group">
+        <button class="nav-brick brick-yellow" data-page="story">
+          <span class="brick-studs"></span>
+          <span class="brick-content">
+            <span class="pixel-icon icon-heart">❤️</span>
+            <span class="nav-label">Our Story</span>
+          </span>
+        </button>
+
+        <button class="nav-brick brick-blue" data-page="travels">
+          <span class="brick-studs"></span>
+          <span class="brick-content">
+            <span class="pixel-icon icon-plane">✈️</span>
+            <span class="nav-label">Travels</span>
+          </span>
+        </button>
+
+        <button class="nav-brick brick-green" data-page="quiz">
+          <span class="brick-studs"></span>
+          <span class="brick-content">
+            <span class="pixel-icon icon-gallery">🧩</span>
+            <span class="nav-label">The Quiz</span>
+          </span>
+        </button>
+
+        <button class="nav-brick brick-red pulse-brick" data-page="surprise">
+          <span class="brick-studs"></span>
+          <span class="brick-content">
+            <span class="pixel-icon icon-surprise">🎁</span>
+            <span class="nav-label">Surprise</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main View Container for 5 Pages -->
+  <main id="app-viewport">
+
+    <!-- ================= PAGE 1: HOMEPAGE (THE HOOK) ================= -->
+    <section id="page-home" class="page-section active">
+      <div class="baseplate-wrapper">
+        <div class="brick-banner-frame">
+          <div class="brick-border-top"></div>
+          <h1 class="brick-title">HAPPY BIRTHDAY, PRANAV!</h1>
+          <div class="brick-border-bottom"></div>
+        </div>
+
+        <div class="stage-scene-card">
+          <div class="stage-image-container">
+            <img src="assets/1-home.jpg" alt="Pranav and Partner Lego Journey Map" class="hero-image">
+            <div class="interactive-glow-ring"></div>
+          </div>
+          
+          <div class="scene-subcaption">
+            <span class="pin-badge">📍 Pune</span>
+            <span class="pin-dash">┈┈✈┈┈</span>
+            <span class="pin-badge">📍 London</span>
+            <span class="pin-dash">┈┈✈┈┈</span>
+            <span class="pin-badge">📍 Mumbai</span>
+          </div>
+        </div>
+
+        <div class="cta-container">
+          <button id="btn-start-adventure" class="lego-btn lego-btn-glow lego-btn-yellow" data-target="story">
+            <span class="btn-studs"></span>
+            <span class="btn-text">BEGIN OUR ADVENTURE! 🚀</span>
+          </button>
+        </div>
+
+        <div class="footer-pixel-heart">
+          <span class="heart-pulse">❤️</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= PAGE 2: OUR STORY (THE TIMELINE) ================= -->
+    <section id="page-story" class="page-section">
+      <div class="baseplate-wrapper">
+        <div class="page-header-pill grey-pill">
+          <span class="pill-studs"></span>
+          <h2>OUR STORY: HOW THE PIECES CLICKED 🧩</h2>
+        </div>
+
+        <div class="story-grid-layout">
+          <!-- Illustration Vignette -->
+          <div class="story-artwork-box">
+            <img src="assets/2-timeline.jpg" alt="Lego Timeline Milestones" class="story-artwork-img">
+            <div class="artwork-badge">Milestone Map</div>
+          </div>
+
+          <!-- Interactive Timeline Track -->
+          <div class="timeline-stepper">
+            <!-- Milestone 1 -->
+            <div class="timeline-brick-node" data-milestone="1">
+              <div class="brick-node-icon">📚</div>
+              <div class="brick-node-card">
+                <div class="node-time">5–6 YEARS AGO</div>
+                <h3 class="node-title">Pune: CAT Classes & Desk Dates</h3>
+                <p class="node-desc">Where our journey started! Surrounded by mock tests, coaching formulas, and subtle glances across study tables.</p>
+                <div class="decision-block">
+                  <span class="question-tag">Do you remember?</span>
+                  <div class="decision-buttons">
+                    <button class="decision-btn yes-mem" onclick="revealMemory(1)">Yes, loved every second! 😍</button>
+                    <button class="decision-btn nudge-mem" onclick="nudgeMemory(1)">Remind me! 👀</button>
+                  </div>
+                  <div id="mem-reveal-1" class="memory-quote hidden">
+                    💡 <em>"You always pretended to study quantitative aptitude just to sit nearby!"</em>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Milestone 2 -->
+            <div class="timeline-brick-node" data-milestone="2">
+              <div class="brick-node-icon">🇬🇧</div>
+              <div class="brick-node-card">
+                <div class="node-time">4 YEARS AGO</div>
+                <h3 class="node-title">London: The MBA & Long Distance</h3>
+                <p class="node-desc">Suitcases packed, timezones synchronized. 5,000 miles apart between Big Ben and Mumbai, held together by hours-long FaceTime calls.</p>
+                <div class="decision-block">
+                  <span class="question-tag">Memory Checkpoint</span>
+                  <div class="decision-buttons">
+                    <button class="decision-btn yes-mem" onclick="revealMemory(2)">Those 3 AM calls! 🌙</button>
+                    <button class="decision-btn nudge-mem" onclick="nudgeMemory(2)">The time difference! ⏰</button>
+                  </div>
+                  <div id="mem-reveal-2" class="memory-quote hidden">
+                    💡 <em>"Freezing London winters vs. sultry Mumbai heatwaves—yet we never missed our night talks."</em>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Milestone 3 -->
+            <div class="timeline-brick-node" data-milestone="3">
+              <div class="brick-node-icon">🇮🇳</div>
+              <div class="brick-node-card">
+                <div class="node-time">3 YEARS AGO → TODAY</div>
+                <h3 class="node-title">Mumbai: Reunited & Stronger Than Ever</h3>
+                <p class="node-desc">Gateway of India, corporate life, weekend getaways, and finally sharing the same timezone permanently.</p>
+                <div class="decision-block">
+                  <span class="question-tag">Final Verdict</span>
+                  <div class="decision-buttons">
+                    <button class="decision-btn yes-mem" onclick="revealMemory(3)">Best decision ever! 🥂</button>
+                  </div>
+                  <div id="mem-reveal-3" class="memory-quote hidden">
+                    💡 <em>"Distance taught us how deeply every brick of our love is cemented."</em>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-continue-row">
+          <button class="lego-btn lego-btn-blue" data-target="travels">
+            <span class="btn-studs"></span>
+            <span class="btn-text">EXPLORE OUR TRAVEL MAP ✈️</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= PAGE 3: TRAVELS (INTERACTIVE MAP) ================= -->
+    <section id="page-travels" class="page-section">
+      <div class="baseplate-wrapper">
+        <div class="page-header-pill green-pill">
+          <span class="pill-studs"></span>
+          <h2>PASSPORT STAMPS & BRICK WONDERS 🗺️</h2>
+        </div>
+
+        <div class="map-interactive-container">
+          <div class="map-artwork-wrapper">
+            <img src="assets/3-travels.jpg" alt="Lego World Travel Map" class="map-artwork-img">
+            
+            <!-- Interactive Hotspots on the map -->
+            <button class="map-pin pin-paris" onclick="openPolaroid('paris')" title="Paris, France">
+              <span class="pin-dot">🗼</span>
+              <span class="pin-label">Paris 2022</span>
+            </button>
+
+            <button class="map-pin pin-amsterdam" onclick="openPolaroid('amsterdam')" title="Amsterdam, Netherlands">
+              <span class="pin-dot">🌷</span>
+              <span class="pin-label">Amsterdam</span>
+            </button>
+
+            <button class="map-pin pin-rome" onclick="openPolaroid('rome')" title="Rome, Italy">
+              <span class="pin-dot">🏛️</span>
+              <span class="pin-label">Rome 2023</span>
+            </button>
+
+            <button class="map-pin pin-london" onclick="openPolaroid('london')" title="London, UK">
+              <span class="pin-dot">🎡</span>
+              <span class="pin-label">London</span>
+            </button>
+
+            <button class="map-pin pin-india" onclick="openPolaroid('india')" title="India">
+              <span class="pin-dot">❤️</span>
+              <span class="pin-label">Pune & Mumbai</span>
+            </button>
+          </div>
+
+          <!-- Polaroid Modal Overlay -->
+          <div id="polaroid-modal" class="polaroid-display-card">
+            <div class="tape-strip"></div>
+            <div class="polaroid-inner">
+              <div class="polaroid-img-placeholder" id="polaroid-photo">
+                <span class="photo-icon" id="polaroid-emoji">🗼</span>
+                <span class="photo-tag" id="polaroid-tag">Paris, France</span>
+              </div>
+              <div class="polaroid-caption">
+                <h4 id="polaroid-title">Paris Trip, 2022</h4>
+                <p id="polaroid-text">"Walking past the Eiffel Tower with crepes in hand, making lifelong memories together."</p>
+                <div class="polaroid-date" id="polaroid-date">Autumn 2022 • The City of Love</div>
+              </div>
+            </div>
+            <div class="polaroid-close" onclick="closePolaroid()">✕</div>
+          </div>
+        </div>
+
+        <div class="travel-quick-selector">
+          <span class="selector-title">Click Landmark Memories:</span>
+          <div class="chips-list">
+            <button class="brick-chip" onclick="openPolaroid('paris')">🇫🇷 Paris</button>
+            <button class="brick-chip" onclick="openPolaroid('amsterdam')">🇳🇱 Amsterdam</button>
+            <button class="brick-chip" onclick="openPolaroid('rome')">🇮🇹 Rome</button>
+            <button class="brick-chip" onclick="openPolaroid('london')">🇬🇧 London</button>
+            <button class="brick-chip" onclick="openPolaroid('india')">🇮🇳 Pune & Mumbai</button>
+          </div>
+        </div>
+
+        <div class="nav-continue-row">
+          <button class="lego-btn lego-btn-green" data-target="quiz">
+            <span class="btn-studs"></span>
+            <span class="btn-text">TAKE THE LOVE QUIZ 🧩</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= PAGE 4: THE RELATIONSHIP QUIZ (INTERACTIVE LOOP) ================= -->
+    <section id="page-quiz" class="page-section">
+      <div class="baseplate-wrapper">
+        <div class="page-header-pill pink-pill">
+          <span class="pill-studs"></span>
+          <h2>OUR LOVE STORY: THE OFFICIAL QUIZ 💘</h2>
+        </div>
+
+        <!-- The Lego Whiteboard Question Card -->
+        <div class="quiz-board-frame">
+          <div class="quiz-stud-border"></div>
+          
+          <div class="quiz-inner-board" id="quiz-arena">
+            <div class="quiz-counter-tag">QUESTION 01 / 01</div>
+            
+            <h3 class="quiz-question-text">
+              "DIDN'T THOSE LONG DISTANCE CALLS MAKE US STRONGER?"
+            </h3>
+
+            <p class="quiz-subtext">Choose your honest answer below, Pranav... (Choose wisely! 😉)</p>
+
+            <!-- Interactive Buttons Arena -->
+            <div class="quiz-answers-dock">
+              <!-- The Big Glowing YES Button -->
+              <button id="btn-quiz-yes" class="lego-btn lego-btn-green lego-btn-large">
+                <span class="btn-studs"></span>
+                <span class="btn-text">YES! 💖</span>
+              </button>
+
+              <!-- The Elusive Runaway NO Button -->
+              <button id="btn-quiz-no" class="lego-btn lego-btn-red lego-btn-large">
+                <span class="btn-studs"></span>
+                <span class="btn-text" id="no-btn-label">NO 🙅‍♂️</span>
+              </button>
+            </div>
+
+            <!-- Humorous Prank Bubble -->
+            <div id="quiz-dialogue-bubble" class="prank-bubble hidden">
+              <span class="bubble-tail"></span>
+              <span class="bubble-text" id="bubble-message">Nice try! That button doesn't work! 😜</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Success Reveal State (Triggered on YES) -->
+        <div id="quiz-success-panel" class="quiz-success-modal hidden">
+          <div class="success-brick-card">
+            <div class="success-emojis">🎉 💑 💖</div>
+            <h3>CORRECT ANSWER!</h3>
+            <p>Every call, every flight, and every timezone only proved that we belong together. Now it's time for your birthday reward!</p>
+            <button class="lego-btn lego-btn-glow lego-btn-yellow" data-target="surprise">
+              <span class="btn-studs"></span>
+              <span class="btn-text">UNLOCK YOUR BIRTHDAY SURPRISE 🎁</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================= PAGE 5: THE BIRTHDAY SURPRISE REVEAL ================= -->
+    <section id="page-surprise" class="page-section">
+      <div class="baseplate-wrapper">
+        <div class="brick-banner-frame gold-banner">
+          <div class="brick-border-top"></div>
+          <h1 class="brick-title">THE BEST IS YET TO COME! HAPPY BIRTHDAY, PRANAV!</h1>
+          <div class="brick-border-bottom"></div>
+        </div>
+
+        <div class="surprise-showcase-box">
+          <div class="surprise-art-wrapper">
+            <img src="assets/5-surprise.jpg" alt="Lego Exploding Birthday Present" class="surprise-art-img">
+            <canvas id="confetti-canvas"></canvas>
+          </div>
+
+          <!-- Unopened State Button -->
+          <div id="unredeemed-dock" class="reveal-cta-dock">
+            <button id="btn-redeem-trip" class="lego-btn lego-btn-rainbow lego-btn-huge">
+              <span class="btn-studs"></span>
+              <span class="btn-text">✨ REDEEM MY SURPRISE TRIP! ✨</span>
+            </button>
+            <p class="cta-hint">Click the rainbow brick to unbox your birthday ticket!</p>
+          </div>
+
+          <!-- Golden Boarding Pass & Surprise Trip Ticket (Revealed on Click) -->
+          <div id="revealed-ticket-container" class="ticket-container hidden">
+            <div class="golden-boarding-pass">
+              <div class="pass-header">
+                <div class="pass-airline">🧱 LEGO AIRWAYS • FLIGHT OF A LIFETIME</div>
+                <div class="pass-class">VIP BIRTHDAY PASS</div>
+              </div>
+
+              <div class="pass-body">
+                <div class="pass-column main-info">
+                  <div class="info-row">
+                    <span class="label">PASSENGER NAME</span>
+                    <span class="val highlight">PRANAV (BIRTHDAY BOY) & HIS FAVORITE PERSON</span>
+                  </div>
+
+                  <div class="flight-route-row">
+                    <div class="route-city">
+                      <span class="code">BOM</span>
+                      <span class="city-name">MUMBAI</span>
+                    </div>
+                    <div class="route-flight-icon">
+                      <span>┈┈┈┈ ✈️ ┈┈┈┈</span>
+                      <span class="direct-badge">CONFIRMED GETAWAY</span>
+                    </div>
+                    <div class="route-city">
+                      <span class="code">???</span>
+                      <span class="city-name">OUR NEXT ADVENTURE!</span>
+                    </div>
+                  </div>
+
+                  <div class="info-grid-3">
+                    <div class="info-box">
+                      <span class="label">DATE</span>
+                      <span class="val">PACK YOUR BAGS! 🧳</span>
+                    </div>
+                    <div class="info-box">
+                      <span class="label">SEATS</span>
+                      <span class="val">1A & 1B (TOGETHER)</span>
+                    </div>
+                    <div class="info-box">
+                      <span class="label">STATUS</span>
+                      <span class="val green-text">BOOKED & READY! 🏖️</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pass-column tear-off">
+                  <div class="stub-header">BOARDING STUB</div>
+                  <div class="stub-passenger">PRANAV</div>
+                  <div class="stub-dest">NEXT DESTINATION</div>
+                  <div class="barcode">
+                    <span>||| | | |||| | ||| |||| | ||| | |||||</span>
+                  </div>
+                  <div class="stamp-approved">BIRTHDAY APPROVED</div>
+                </div>
+              </div>
+
+              <!-- Heartfelt Birthday Card -->
+              <div class="pass-letter-card">
+                <h4>💌 A Note for Pranav:</h4>
+                <p>
+                  "From cramming CAT coaching formulas in Pune, to surviving the long-distance countdown across London and Mumbai—you have been my favorite person every single step of the way. 
+                  Now that we're back in the same timezone, our best travels are just beginning. 
+                  Happy Birthday to the most amazing guy in the world! Let's build a million more memories brick by brick."
+                </p>
+                <div class="letter-signature">Forever Your Favorite Player 2 ❤️</div>
+              </div>
+
+              <div class="replay-dock">
+                <button class="lego-btn lego-btn-yellow" onclick="switchPage('home')">
+                  <span class="btn-studs"></span>
+                  <span class="btn-text">🔄 REPLAY OUR STORY</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
