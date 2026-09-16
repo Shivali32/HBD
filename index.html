@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#64b5f6" id="theme-color-meta">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="mobile-web-app-capable" content="yes">
   <title>Happy Birthday Pranav! 🧱 Lego Adventure</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,21 +14,23 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-home">
-  <!-- Audio FX Engine -->
-  <div id="sound-toggle" class="sound-chip" title="Toggle Sound">
-    <span class="sound-icon">🔊</span>
-    <span class="sound-label">Audio ON</span>
-  </div>
-
   <!-- Persistent Top Lego Navigation Bar -->
   <header class="lego-nav-bar">
     <div class="nav-container">
-      <button class="nav-brick home-btn" data-page="home" title="Home">
-        <span class="brick-studs"></span>
-        <span class="brick-content">🏠 <span>Home</span></span>
-      </button>
+      <div class="nav-brand-row">
+        <button class="nav-brick home-btn" data-page="home" title="Home">
+          <span class="brick-studs"></span>
+          <span class="brick-content">🏠 <span class="home-text">Home</span></span>
+        </button>
 
-      <div class="nav-bricks-group">
+        <!-- Audio FX Engine Controller -->
+        <div id="sound-toggle" class="sound-chip" title="Toggle Sound">
+          <span class="sound-icon">🔊</span>
+          <span class="sound-label">Audio ON</span>
+        </div>
+      </div>
+
+      <nav class="nav-bricks-group" aria-label="Main Navigation">
         <button class="nav-brick brick-yellow" data-page="story">
           <span class="brick-studs"></span>
           <span class="brick-content">
@@ -56,7 +62,7 @@
             <span class="nav-label">Surprise</span>
           </span>
         </button>
-      </div>
+      </nav>
     </div>
   </header>
 
@@ -74,7 +80,7 @@
 
         <div class="stage-scene-card">
           <div class="stage-image-container">
-            <img src="assets/1-home.jpg" alt="Pranav and Partner Lego Journey Map" class="hero-image">
+            <img src="assets/1-home.jpg" alt="Pranav and Partner Lego Journey Map" class="hero-image" loading="eager">
             <div class="interactive-glow-ring"></div>
           </div>
           
@@ -112,7 +118,7 @@
         <div class="story-grid-layout">
           <!-- Illustration Vignette -->
           <div class="story-artwork-box">
-            <img src="assets/2-timeline.jpg" alt="Lego Timeline Milestones" class="story-artwork-img">
+            <img src="assets/2-timeline.jpg" alt="Lego Timeline Milestones" class="story-artwork-img" loading="lazy">
             <div class="artwork-badge">Milestone Map</div>
           </div>
 
@@ -199,37 +205,37 @@
 
         <div class="map-interactive-container">
           <div class="map-artwork-wrapper">
-            <img src="assets/3-travels.jpg" alt="Lego World Travel Map" class="map-artwork-img">
+            <img src="assets/3-travels.jpg" alt="Lego World Travel Map" class="map-artwork-img" loading="lazy">
             
             <!-- Interactive Hotspots on the map -->
-            <button class="map-pin pin-paris" onclick="openPolaroid('paris')" title="Paris, France">
+            <button class="map-pin pin-paris" onclick="openPolaroid('paris')" title="Paris, France" aria-label="Paris, France">
               <span class="pin-dot">🗼</span>
               <span class="pin-label">Paris 2022</span>
             </button>
 
-            <button class="map-pin pin-amsterdam" onclick="openPolaroid('amsterdam')" title="Amsterdam, Netherlands">
+            <button class="map-pin pin-amsterdam" onclick="openPolaroid('amsterdam')" title="Amsterdam, Netherlands" aria-label="Amsterdam, Netherlands">
               <span class="pin-dot">🌷</span>
               <span class="pin-label">Amsterdam</span>
             </button>
 
-            <button class="map-pin pin-rome" onclick="openPolaroid('rome')" title="Rome, Italy">
+            <button class="map-pin pin-rome" onclick="openPolaroid('rome')" title="Rome, Italy" aria-label="Rome, Italy">
               <span class="pin-dot">🏛️</span>
               <span class="pin-label">Rome 2023</span>
             </button>
 
-            <button class="map-pin pin-london" onclick="openPolaroid('london')" title="London, UK">
+            <button class="map-pin pin-london" onclick="openPolaroid('london')" title="London, UK" aria-label="London, UK">
               <span class="pin-dot">🎡</span>
               <span class="pin-label">London</span>
             </button>
 
-            <button class="map-pin pin-india" onclick="openPolaroid('india')" title="India">
+            <button class="map-pin pin-india" onclick="openPolaroid('india')" title="India" aria-label="Pune & Mumbai">
               <span class="pin-dot">❤️</span>
               <span class="pin-label">Pune & Mumbai</span>
             </button>
           </div>
 
           <!-- Polaroid Modal Overlay -->
-          <div id="polaroid-modal" class="polaroid-display-card">
+          <div id="polaroid-modal" class="polaroid-display-card hidden">
             <div class="tape-strip"></div>
             <div class="polaroid-inner">
               <div class="polaroid-img-placeholder" id="polaroid-photo">
@@ -242,7 +248,7 @@
                 <div class="polaroid-date" id="polaroid-date">Autumn 2022 • The City of Love</div>
               </div>
             </div>
-            <div class="polaroid-close" onclick="closePolaroid()">✕</div>
+            <div class="polaroid-close" onclick="closePolaroid()" aria-label="Close modal">✕</div>
           </div>
         </div>
 
@@ -339,7 +345,7 @@
 
         <div class="surprise-showcase-box">
           <div class="surprise-art-wrapper">
-            <img src="assets/5-surprise.jpg" alt="Lego Exploding Birthday Present" class="surprise-art-img">
+            <img src="assets/5-surprise.jpg" alt="Lego Exploding Birthday Present" class="surprise-art-img" loading="lazy">
             <canvas id="confetti-canvas"></canvas>
           </div>
 

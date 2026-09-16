@@ -1,5 +1,6 @@
 ﻿/* ==========================================================================
    PRANAV'S LEGO BIRTHDAY ADVENTURE - APPLICATION JAVASCRIPT
+   Enhanced for Mobile, Touch & Desktop Interaction
    ========================================================================== */
 
 // Sound Engine using Web Audio API (Zero external assets required!)
@@ -102,7 +103,6 @@ class LegoAudio {
     this.init();
     if (!this.ctx) return;
 
-    // Happy Birthday melody snippet (G4, G4, A4, G4, C5, B4)
     const melody = [
       { f: 392.00, d: 0.2 },
       { f: 392.00, d: 0.2 },
@@ -137,31 +137,35 @@ const sfx = new LegoAudio();
 
 // Sound toggle handler
 const soundToggle = document.getElementById('sound-toggle');
-soundToggle.addEventListener('click', () => {
-  sfx.enabled = !sfx.enabled;
-  const label = soundToggle.querySelector('.sound-label');
-  const icon = soundToggle.querySelector('.sound-icon');
-  if (sfx.enabled) {
-    label.textContent = 'Audio ON';
-    icon.textContent = '🔊';
-    sfx.chime();
-  } else {
-    label.textContent = 'Muted';
-    icon.textContent = '🔇';
-  }
-});
+if (soundToggle) {
+  soundToggle.addEventListener('click', () => {
+    sfx.enabled = !sfx.enabled;
+    const label = soundToggle.querySelector('.sound-label');
+    const icon = soundToggle.querySelector('.sound-icon');
+    if (sfx.enabled) {
+      if (label) label.textContent = 'Audio ON';
+      if (icon) icon.textContent = '🔊';
+      sfx.chime();
+    } else {
+      if (label) label.textContent = 'Muted';
+      if (icon) icon.textContent = '🔇';
+    }
+  });
+}
 
 
 // ==========================================================================
 // PAGE ROUTING & NAVIGATION
 // ==========================================================================
 const pages = {
-  home: { section: document.getElementById('page-home'), theme: 'theme-home' },
-  story: { section: document.getElementById('page-story'), theme: 'theme-story' },
-  travels: { section: document.getElementById('page-travels'), theme: 'theme-travels' },
-  quiz: { section: document.getElementById('page-quiz'), theme: 'theme-quiz' },
-  surprise: { section: document.getElementById('page-surprise'), theme: 'theme-surprise' }
+  home: { section: document.getElementById('page-home'), theme: 'theme-home', color: '#64b5f6' },
+  story: { section: document.getElementById('page-story'), theme: 'theme-story', color: '#b0bec5' },
+  travels: { section: document.getElementById('page-travels'), theme: 'theme-travels', color: '#66bb6a' },
+  quiz: { section: document.getElementById('page-quiz'), theme: 'theme-quiz', color: '#f48fb1' },
+  surprise: { section: document.getElementById('page-surprise'), theme: 'theme-surprise', color: '#ffd54f' }
 };
+
+const metaThemeColor = document.getElementById('theme-color-meta');
 
 function switchPage(pageKey) {
   if (!pages[pageKey]) return;
@@ -181,6 +185,11 @@ function switchPage(pageKey) {
 
   // Update Body Baseplate Color Theme
   document.body.className = pages[pageKey].theme;
+
+  // Update mobile status bar theme color
+  if (metaThemeColor) {
+    metaThemeColor.setAttribute('content', pages[pageKey].color);
+  }
 
   // Scroll to top smoothly
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -208,6 +217,7 @@ document.querySelectorAll('[data-target]').forEach(btn => {
 // ==========================================================================
 function revealMemory(id) {
   sfx.chime();
+  if (navigator.vibrate) navigator.vibrate(30);
   const box = document.getElementById(`mem-reveal-${id}`);
   if (box) {
     box.classList.remove('hidden');
@@ -268,6 +278,8 @@ const polaroidModal = document.getElementById('polaroid-modal');
 
 function openPolaroid(dest) {
   sfx.chime();
+  if (navigator.vibrate) navigator.vibrate(30);
+
   const data = travelData[dest];
   if (!data) return;
 
@@ -321,50 +333,59 @@ const wittyPhrases = [
   "Just click YES already! 💖"
 ];
 
-function dodgeNoButton() {
+function dodgeNoButton(e) {
+  if (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
   dodgeCount++;
   sfx.boing();
+  if (navigator.vibrate) navigator.vibrate([40, 20]);
 
   // Grow the YES button bigger on every dodge!
   yesScale += 0.12;
-  btnYes.style.transform = `scale(${Math.min(yesScale, 1.8)})`;
+  btnYes.style.transform = `scale(${Math.min(yesScale, 1.7)})`;
 
-  // Randomize button positions within the quiz arena bounds
-  const arenaRect = quizArena.getBoundingClientRect();
-  const btnRect = btnNo.getBoundingClientRect();
+  // Safely bound the random coordinates inside the quiz arena
+  const arenaWidth = quizArena.clientWidth;
+  const arenaHeight = quizArena.clientHeight;
+  const btnWidth = btnNo.offsetWidth || 110;
+  const btnHeight = btnNo.offsetHeight || 50;
 
-  const maxOffsetX = (arenaRect.width / 2) - 80;
-  const maxOffsetY = (arenaRect.height / 2) - 60;
+  // Maximum allowed translation from the center
+  const maxX = Math.max(10, (arenaWidth / 2) - (btnWidth / 2) - 15);
+  const maxY = Math.max(10, (arenaHeight / 2) - (btnHeight / 2) - 25);
 
-  const randomX = (Math.random() - 0.5) * 2 * maxOffsetX;
-  const randomY = (Math.random() - 0.5) * 2 * maxOffsetY;
+  const randomX = (Math.random() - 0.5) * 2 * maxX;
+  const randomY = (Math.random() - 0.5) * 2 * maxY;
 
-  btnNo.style.transform = `translate(${randomX}px, ${randomY}px) scale(0.9)`;
+  btnNo.style.transform = `translate(${randomX}px, ${randomY}px) scale(0.92)`;
 
   // Update button label & dialogue bubble
   const randomPhrase = wittyPhrases[dodgeCount % wittyPhrases.length];
   bubbleMessage.textContent = randomPhrase;
   dialogueBubble.classList.remove('hidden');
 
-  if (dodgeCount > 3) {
+  if (dodgeCount >= 3) {
     noLabel.textContent = "YES? 🥺";
   }
 }
 
-// Dodge on hover, touch, and click
+// Dodge on hover, touch, pointer events
 btnNo.addEventListener('mouseenter', dodgeNoButton);
-btnNo.addEventListener('touchstart', (e) => {
-  e.preventDefault();
-  dodgeNoButton();
+btnNo.addEventListener('touchstart', dodgeNoButton, { passive: false });
+btnNo.addEventListener('pointerdown', (e) => {
+  if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+    dodgeNoButton(e);
+  }
 });
-btnNo.addEventListener('click', (e) => {
-  e.preventDefault();
-  dodgeNoButton();
-});
+btnNo.addEventListener('click', dodgeNoButton);
 
 // YES Button Click Handler
 btnYes.addEventListener('click', () => {
   sfx.fanfare();
+  if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
   launchConfetti(40);
   quizSuccessPanel.classList.remove('hidden');
 });
@@ -377,19 +398,22 @@ const btnRedeem = document.getElementById('btn-redeem-trip');
 const unredeemedDock = document.getElementById('unredeemed-dock');
 const ticketContainer = document.getElementById('revealed-ticket-container');
 
-btnRedeem.addEventListener('click', () => {
-  sfx.fanfare();
-  unredeemedDock.classList.add('hidden');
-  ticketContainer.classList.remove('hidden');
+if (btnRedeem) {
+  btnRedeem.addEventListener('click', () => {
+    sfx.fanfare();
+    if (navigator.vibrate) navigator.vibrate([120, 80, 200]);
+    unredeemedDock.classList.add('hidden');
+    ticketContainer.classList.remove('hidden');
 
-  // Trigger grand celebration confetti
-  launchConfetti(120);
-  setTimeout(() => launchConfetti(80), 500);
-  setTimeout(() => launchConfetti(60), 1200);
+    // Trigger grand celebration confetti
+    launchConfetti(120);
+    setTimeout(() => launchConfetti(80), 500);
+    setTimeout(() => launchConfetti(60), 1200);
 
-  // Scroll smoothly to the revealed ticket
-  ticketContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-});
+    // Scroll smoothly to the revealed ticket
+    ticketContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+}
 
 
 // ==========================================================================
@@ -401,7 +425,7 @@ let particles = [];
 let animId = null;
 
 function resizeCanvas() {
-  if (!canvas) return;
+  if (!canvas || !canvas.parentElement) return;
   canvas.width = canvas.parentElement.clientWidth;
   canvas.height = canvas.parentElement.clientHeight;
 }
@@ -416,13 +440,13 @@ class LegoParticle {
   }
 
   reset() {
-    this.x = canvas.width / 2 + (Math.random() - 0.5) * 100;
+    this.x = canvas.width / 2 + (Math.random() - 0.5) * Math.min(canvas.width * 0.6, 120);
     this.y = canvas.height * 0.65;
-    this.vx = (Math.random() - 0.5) * 18;
-    this.vy = -Math.random() * 20 - 8;
+    this.vx = (Math.random() - 0.5) * 16;
+    this.vy = -Math.random() * 18 - 8;
     this.color = brickColors[Math.floor(Math.random() * brickColors.length)];
-    this.width = Math.random() * 12 + 10;
-    this.height = Math.random() * 8 + 6;
+    this.width = Math.random() * 10 + 8;
+    this.height = Math.random() * 7 + 5;
     this.rotation = Math.random() * Math.PI * 2;
     this.vRot = (Math.random() - 0.5) * 0.2;
     this.gravity = 0.55;
@@ -436,7 +460,7 @@ class LegoParticle {
     this.vy += this.gravity;
     this.rotation += this.vRot;
     if (this.y > canvas.height * 0.6) {
-      this.opacity -= 0.015;
+      this.opacity -= 0.018;
     }
   }
 
@@ -447,16 +471,14 @@ class LegoParticle {
     c.globalAlpha = Math.max(0, this.opacity);
     c.fillStyle = this.color;
     c.strokeStyle = '#000';
-    c.lineWidth = 1.5;
+    c.lineWidth = 1.2;
 
     if (this.isStud) {
-      // Draw Lego Circular Stud
       c.beginPath();
       c.arc(0, 0, this.width / 2, 0, Math.PI * 2);
       c.fill();
       c.stroke();
     } else {
-      // Draw Lego Rectangular 2x1 Brick
       c.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
       c.strokeRect(-this.width / 2, -this.height / 2, this.width, this.height);
     }
