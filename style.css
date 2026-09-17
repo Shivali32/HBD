@@ -765,11 +765,6 @@ body {
     grid-template-columns: 1fr;
     gap: 16px;
   }
-  .story-artwork-box {
-    position: static;
-    top: auto;
-    margin-bottom: 8px;
-  }
 }
 
 .story-artwork-box {
@@ -778,16 +773,9 @@ body {
   border-radius: 0;
   padding: 0;
   box-shadow: none;
-  position: relative;
+  position: static;
   width: 100%;
-}
-
-@media (min-width: 861px) {
-  .story-artwork-box {
-    position: sticky;
-    top: 86px;
-    z-index: 2;
-  }
+  margin-bottom: 12px;
 }
 
 .story-artwork-img {
@@ -894,7 +882,6 @@ body {
 }
 
 .decision-btn {
-  position: relative;
   background: #fff;
   border: 2px solid #111;
   border-radius: 5px;
