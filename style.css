@@ -219,16 +219,18 @@ body {
 /* Mobile Navigation Layout */
 @media (max-width: 680px) {
   .lego-nav-bar {
-    padding: 6px 8px;
-    padding-top: max(6px, env(safe-area-inset-top));
+    padding: 7px 8px 10px;
+    padding-top: max(7px, env(safe-area-inset-top));
   }
   .nav-container {
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
   }
   .nav-brand-row {
     width: 100%;
     justify-content: space-between;
+    padding-bottom: 7px;
+    margin-bottom: 2px;
   }
   .home-btn {
     padding: 4px 10px;
@@ -462,21 +464,21 @@ body {
    PAGE 1: HOMEPAGE (THE HOOK)
    ========================================================================== */
 .stage-scene-card {
-  max-width: 440px;
+  max-width: 500px;
   width: 94%;
   background: transparent;
   border: none;
   border-radius: 0;
   padding: 0;
   box-shadow: none;
-  margin: 10px auto 16px;
+  margin: 12px auto 14px;
   text-align: center;
 }
 
 .stage-image-container {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 5 / 3;
   border-radius: 14px;
   overflow: hidden;
   border: 3.5px solid #111;
@@ -486,24 +488,74 @@ body {
 
 @media (max-width: 768px) {
   #page-home .baseplate-wrapper {
-    min-height: 85vh;
-    padding-bottom: 42px;
+    min-height: 80vh;
+    padding: 10px 10px 32px;
     justify-content: flex-start;
   }
+  .home-banner-wrapper,
+  .brick-banner-frame {
+    margin: 8px auto 6px;
+    max-width: 95%;
+  }
+  .home-banner-outer,
+  .brick-banner-frame {
+    padding: 8px 12px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-right-width: 10px;
+  }
+  .brick-title,
+  .brick-title-home {
+    font-size: clamp(0.66rem, 3vw, 0.95rem);
+    line-height: 1.35;
+  }
   .stage-scene-card {
-    max-width: 360px;
-    width: 90%;
-    margin: 8px auto 14px;
+    max-width: 370px;
+    width: 92%;
+    margin: 6px auto 8px;
   }
   .stage-image-container {
     border-radius: 12px;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 5 / 3;
   }
   .hero-image {
     width: 100%;
     height: 100%;
     display: block;
     object-fit: cover;
+  }
+  .scene-subcaption {
+    margin-top: 6px;
+    font-size: 0.82rem;
+    gap: 4px;
+  }
+  .builder-level-pill {
+    margin: 6px auto 4px;
+    padding: 5px 12px;
+    font-size: clamp(0.64rem, 2.7vw, 0.76rem);
+  }
+  .cta-container {
+    margin: 8px auto 10px;
+    width: 92%;
+  }
+  .lego-btn {
+    margin-top: 6px;
+    padding: 12px 18px;
+    font-size: clamp(0.72rem, 3.2vw, 0.95rem);
+  }
+  .nav-continue-row {
+    margin-top: 12px;
+  }
+  .page-header-pill {
+    margin-bottom: 12px;
+    padding: 6px 14px;
+  }
+  .surprise-banner-wrapper,
+  .brick-banner-frame.gold-banner {
+    margin: 8px auto 8px;
+    padding: 8px 12px;
+    border-width: 10px;
   }
 }
 
