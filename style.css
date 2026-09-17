@@ -787,27 +787,48 @@ body {
 .pin-world-london { top: 27%; left: 44%; }
 .pin-world-paris { top: 35%; left: 47%; }
 .pin-world-switzerland { top: 40%; left: 52%; }
-.pin-world-india { top: 54%; left: 68%; }
-
 /* India cluster pin on world map with pulsating attraction */
 .cluster-pin {
-  background: #ffea00 !important;
-  border-color: #d90429 !important;
-  animation: pulseCluster 2s infinite;
+  animation: pulseIndia 2.2s infinite;
 }
 
-@keyframes pulseCluster {
-  0% { box-shadow: 0 0 0 0 rgba(217, 4, 41, 0.6), 0 3px 0 #111; }
-  70% { box-shadow: 0 0 0 10px rgba(217, 4, 41, 0), 0 3px 0 #111; }
-  100% { box-shadow: 0 0 0 0 rgba(217, 4, 41, 0), 0 3px 0 #111; }
+@keyframes pulseIndia {
+  0% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0.7), 0 3px 0 #111; }
+  50% { box-shadow: 0 0 0 8px rgba(19, 136, 8, 0.35), 0 3px 0 #111; }
+  100% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0), 0 3px 0 #111; }
 }
 
-/* INDIA ZOOM MAP PINS */
-.pin-india-pune { top: 48%; left: 58%; }
-.pin-india-shrivardhan { top: 62%; left: 34%; }
-.pin-india-mumbai { top: 36%; left: 32%; }
-.pin-india-goa { top: 80%; left: 50%; }
-.pin-india-nashik { top: 22%; left: 54%; }
+/* India Pin on World Map with Tricolor Accent */
+.pin-world-india {
+  top: 54%;
+  left: 68%;
+  background: #ffffff !important;
+  border: 2px solid #ff9933 !important;
+  box-shadow: 0 3px 0 #111, 0 0 10px rgba(255, 153, 51, 0.4);
+}
+
+.pin-world-india:hover,
+.pin-world-india:active {
+  background: #fffdf5 !important;
+  border-color: #138808 !important;
+  transform: scale(1.15) translateY(-2px);
+  box-shadow: 0 4px 0 #111, 0 0 14px rgba(19, 136, 8, 0.5);
+}
+
+.tricolor-dot {
+  font-size: 1.15rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* INDIA ZOOM MAP PINS (Aligned with Arabian Sea coastline) */
+.pin-india-nashik { top: 18%; left: 64%; }
+.pin-india-mumbai { top: 36%; left: 42%; }
+.pin-india-pune { top: 48%; left: 68%; }
+.pin-india-shrivardhan { top: 60%; left: 56%; }
+.pin-india-goa { top: 78%; left: 78%; }
 
 @media (max-width: 600px) {
   .map-pin {

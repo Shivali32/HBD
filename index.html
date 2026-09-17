@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Press+Start+2P&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260917-3">
+  <link rel="stylesheet" href="style.css?v=20260917-4">
 </head>
 <body class="theme-home">
   <!-- Persistent Top Lego Navigation Bar -->
@@ -230,9 +230,9 @@
             </button>
 
             <!-- India Pin: Clicking opens the newly created India map -->
-            <button class="map-pin pin-world-india cluster-pin" onclick="openIndiaMap(event)" title="Explore India (5 Trips)" aria-label="Explore India">
-              <span class="pin-dot pulse-dot">🇮🇳</span>
-              <span class="pin-label">India (5 Trips) 🔍</span>
+            <button class="map-pin pin-world-india cluster-pin" onclick="openIndiaMap(event)" title="India" aria-label="India">
+              <span class="pin-dot tricolor-dot">🇮🇳</span>
+              <span class="pin-label">India</span>
             </button>
           </div>
 
@@ -248,6 +248,16 @@
             </div>
 
             <!-- All 5 India Options -->
+            <button class="map-pin pin-india-nashik" data-dest="nashik" onclick="openTripCard('nashik', event)" title="Nashik 2026" aria-label="Nashik 2026">
+              <span class="pin-dot">🍇</span>
+              <span class="pin-label">Nashik 2026</span>
+            </button>
+
+            <button class="map-pin pin-india-mumbai" data-dest="mumbai" onclick="openTripCard('mumbai', event)" title="Mumbai 2025" aria-label="Mumbai 2025">
+              <span class="pin-dot">🏙️</span>
+              <span class="pin-label">Mumbai 2025</span>
+            </button>
+
             <button class="map-pin pin-india-pune" data-dest="pune" onclick="openTripCard('pune', event)" title="Pune 2022" aria-label="Pune 2022">
               <span class="pin-dot">🎓</span>
               <span class="pin-label">Pune 2022</span>
@@ -258,19 +268,9 @@
               <span class="pin-label">Shrivardhan 2023</span>
             </button>
 
-            <button class="map-pin pin-india-mumbai" data-dest="mumbai" onclick="openTripCard('mumbai', event)" title="Mumbai 2025" aria-label="Mumbai 2025">
-              <span class="pin-dot">🏙️</span>
-              <span class="pin-label">Mumbai 2025</span>
-            </button>
-
             <button class="map-pin pin-india-goa" data-dest="goa" onclick="openTripCard('goa', event)" title="Goa 2025" aria-label="Goa 2025">
               <span class="pin-dot">🌴</span>
               <span class="pin-label">Goa 2025</span>
-            </button>
-
-            <button class="map-pin pin-india-nashik" data-dest="nashik" onclick="openTripCard('nashik', event)" title="Nashik 2026" aria-label="Nashik 2026">
-              <span class="pin-dot">🍇</span>
-              <span class="pin-label">Nashik 2026</span>
             </button>
           </div>
 
@@ -295,22 +295,6 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="travel-quick-selector">
-          <span class="selector-title">Select Any Destination:</span>
-          <div class="chips-list">
-            <button class="brick-chip" data-dest="london" onclick="openTripCard('london', event)">🇬🇧 London 2023</button>
-            <button class="brick-chip" data-dest="chicago" onclick="openTripCard('chicago', event)">🏙️ Chicago 2027</button>
-            <button class="brick-chip" data-dest="paris" onclick="openTripCard('paris', event)">🗼 Paris 2028</button>
-            <button class="brick-chip" data-dest="switzerland" onclick="openTripCard('switzerland', event)">🏔️ Switzerland 2029</button>
-            <button class="brick-chip chip-india-accent" onclick="openIndiaMap(event)">🇮🇳 Explore India (5) 🔍</button>
-            <button class="brick-chip" data-dest="pune" onclick="openTripCard('pune', event)">🎓 Pune 2022</button>
-            <button class="brick-chip" data-dest="shrivardhan" onclick="openTripCard('shrivardhan', event)">🌊 Shrivardhan 2023</button>
-            <button class="brick-chip" data-dest="mumbai" onclick="openTripCard('mumbai', event)">🏙️ Mumbai 2025</button>
-            <button class="brick-chip" data-dest="goa" onclick="openTripCard('goa', event)">🌴 Goa 2025</button>
-            <button class="brick-chip" data-dest="nashik" onclick="openTripCard('nashik', event)">🍇 Nashik 2026</button>
           </div>
         </div>
 
@@ -492,6 +476,6 @@
 
   </main>
 
-  <script src="app.js?v=20260917-3"></script>
+  <script src="app.js?v=20260917-4"></script>
 </body>
 </html>
