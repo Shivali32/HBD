@@ -464,7 +464,7 @@ body {
    PAGE 1: HOMEPAGE (THE HOOK)
    ========================================================================== */
 .stage-scene-card {
-  max-width: 500px;
+  max-width: 540px;
   width: 94%;
   background: transparent;
   border: none;
@@ -478,7 +478,7 @@ body {
 .stage-image-container {
   position: relative;
   width: 100%;
-  aspect-ratio: 5 / 3;
+  aspect-ratio: 680 / 346;
   border-radius: 14px;
   overflow: hidden;
   border: 3.5px solid #111;
@@ -511,13 +511,13 @@ body {
     line-height: 1.35;
   }
   .stage-scene-card {
-    max-width: 370px;
+    max-width: 380px;
     width: 92%;
     margin: 6px auto 8px;
   }
   .stage-image-container {
     border-radius: 12px;
-    aspect-ratio: 5 / 3;
+    aspect-ratio: 680 / 346;
   }
   .hero-image {
     width: 100%;
