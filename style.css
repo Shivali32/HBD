@@ -531,15 +531,15 @@ body {
 }
 
 /* ==========================================================================
-   GENERAL 3D LEGO BUTTON (MATTE FINISH + FULL LENGTH TOP FACE + STUD CROWN)
+   GENERAL 3D LEGO BUTTON (MATTE FINISH + COMPACT STUD CROWN)
    ========================================================================== */
 .lego-btn {
   position: relative;
   font-family: var(--font-retro);
   font-size: clamp(0.78rem, 2.6vw, 1.12rem);
-  padding: 18px 28px;
+  padding: 16px 28px;
   border: 3px solid #111;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   background-image: none !important; /* Pure matte finish, no glossy/gradient */
   box-shadow: 0 6px 0 #111, 0 8px 14px rgba(0, 0, 0, 0.2);
@@ -551,37 +551,17 @@ body {
   touch-action: manipulation;
   width: 100%;
   max-width: 490px;
-  margin-top: 26px;
+  margin-top: 14px;
   box-sizing: border-box;
 }
 
-/* Full-length trapezoid (slightly narrower top face w.r.t length) */
-.lego-btn::before {
-  content: "";
-  position: absolute;
-  top: -12px;
-  left: 0;
-  right: 0;
-  height: 12px;
-  background-color: inherit;
-  filter: brightness(1.12);
-  border-top: 3px solid #111;
-  border-left: 3px solid #111;
-  border-right: 3px solid #111;
-  clip-path: polygon(3% 0%, 97% 0%, 100% 100%, 0% 100%);
-  -webkit-clip-path: polygon(3% 0%, 97% 0%, 100% 100%, 0% 100%);
-  pointer-events: none;
-  z-index: 2;
-  box-sizing: border-box;
-}
-
-/* Stud crown row along top ridge */
+/* Compact Stud Crown row sitting directly along the button top edge */
 .lego-btn .btn-studs {
   position: absolute;
-  top: -20px;
-  left: 3%;
-  right: 3%;
-  height: 10px;
+  top: -7px;
+  left: 5%;
+  right: 5%;
+  height: 6px;
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
@@ -591,27 +571,27 @@ body {
 
 .lego-btn .stud {
   display: inline-block;
-  width: clamp(16px, 3.8vw, 24px);
-  height: 9px;
+  width: clamp(12px, 2.8vw, 18px);
+  height: 6px;
   background-color: inherit;
-  filter: brightness(1.18);
-  border: 2.2px solid #111;
+  filter: brightness(1.15);
+  border: 2px solid #111;
   border-bottom: none;
-  border-radius: 4px 4px 0 0;
-  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.45);
+  border-radius: 3px 3px 0 0;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
   box-sizing: border-box;
 }
 
 /* Fallback for empty .btn-studs */
 .lego-btn .btn-studs:empty {
   background-image: radial-gradient(circle at 50% 100%, currentColor 58%, transparent 62%);
-  background-size: 28px 10px;
+  background-size: 24px 6px;
   background-repeat: repeat-x;
 }
 
 .lego-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 0 #111, 0 10px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 0 #111, 0 10px 18px rgba(0, 0, 0, 0.25);
 }
 
 .lego-btn:active {
@@ -660,12 +640,6 @@ body {
   background-size: 200% 200%;
 }
 
-.lego-btn-rainbow::before {
-  background: linear-gradient(90deg, #e63946, #ffbe0b, #2bb84a, #0077b6, #7209b7);
-  background-size: 200% 200%;
-  animation: rainbowShift 4s infinite linear;
-}
-
 .lego-btn-rainbow .stud:nth-child(1) { background: #e63946; }
 .lego-btn-rainbow .stud:nth-child(2) { background: #ffbe0b; }
 .lego-btn-rainbow .stud:nth-child(3) { background: #2bb84a; }
@@ -680,167 +654,21 @@ body {
 }
 
 /* ==========================================================================
-   MOBILE HOME PAGE EXPANSION: CHAPTER PREVIEW & BUILDER STATS
+   BUILDER LEVEL 23 BADGE
    ========================================================================== */
-.home-deck-section {
-  width: 100%;
-  max-width: 900px;
-  margin: 20px auto;
-  box-sizing: border-box;
-}
-
-.deck-section-title {
-  font-family: var(--font-retro);
-  font-size: clamp(0.75rem, 2.4vw, 1rem);
-  color: #1e293b;
-  text-align: center;
-  margin: 18px 0 14px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.home-preview-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 14px;
-  width: 100%;
-  margin-bottom: 20px;
-  box-sizing: border-box;
-}
-
-.preview-brick-card {
-  background: #ffffff;
-  border: 3px solid #111;
-  border-radius: 8px;
-  padding: 14px 16px;
-  box-shadow: 0 4px 0 #111;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  position: relative;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.preview-brick-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 0 #111;
-}
-.preview-brick-card:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 0 #111;
-}
-
-.preview-card-header {
-  display: flex;
+.builder-level-pill {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.preview-card-tag {
-  font-family: var(--font-retro);
-  font-size: 0.65rem;
-  padding: 3px 8px;
-  border-radius: 4px;
-  border: 1.5px solid #111;
-  color: #fff;
-  font-weight: bold;
-}
-.tag-blue { background: #0077b6; }
-.tag-red { background: #e63946; }
-.tag-green { background: #2bb84a; }
-.tag-gold { background: #e67e22; }
-
-.preview-card-title {
-  font-family: var(--font-fun);
-  font-weight: 800;
-  font-size: 1.05rem;
-  color: #111;
-  margin: 4px 0 6px;
-}
-
-.preview-card-desc {
-  font-family: var(--font-body);
-  font-size: 0.88rem;
-  color: #475569;
-  line-height: 1.4;
-  margin: 0;
-}
-
-.preview-card-arrow {
-  margin-top: 10px;
-  font-family: var(--font-retro);
-  font-size: 0.65rem;
-  color: #0077b6;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-/* Builder Stats Grid */
-.home-stats-deck {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  width: 100%;
-  margin: 16px 0 24px;
-  box-sizing: border-box;
-}
-
-@media (max-width: 680px) {
-  .home-stats-deck {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.home-stat-brick {
-  background: #ffffff;
-  border: 2.5px solid #111;
-  border-radius: 8px;
-  padding: 12px 8px;
-  text-align: center;
-  box-shadow: 0 3px 0 #111;
-}
-.stat-brick-val {
-  font-family: var(--font-retro);
-  font-size: clamp(0.85rem, 2.8vw, 1.25rem);
-  color: #e63946;
-  margin-bottom: 4px;
-}
-.stat-brick-lbl {
-  font-family: var(--font-fun);
-  font-size: 0.76rem;
-  font-weight: 700;
-  color: #334155;
-}
-
-/* Warm Birthday Note */
-.home-birthday-note {
+  gap: 8px;
   background: #fffbeb;
-  border: 3px solid #111;
-  border-radius: 10px;
-  padding: 16px 20px;
-  box-shadow: 0 4px 0 #111;
-  text-align: center;
-  margin: 16px auto 22px;
-  max-width: 760px;
-  box-sizing: border-box;
-}
-.note-heading {
+  border: 2.5px solid #111;
+  border-radius: 20px;
+  padding: 7px 18px;
+  margin: 12px auto 6px;
   font-family: var(--font-retro);
-  font-size: clamp(0.78rem, 2.2vw, 0.95rem);
+  font-size: clamp(0.7rem, 2.2vw, 0.85rem);
   color: #92400e;
-  margin-bottom: 8px;
-}
-.note-body {
-  font-family: var(--font-fun);
-  font-size: clamp(0.88rem, 2.4vw, 1.02rem);
-  color: #1e293b;
-  line-height: 1.5;
-  font-weight: 600;
-  margin: 0;
+  box-shadow: 0 3px 0 #111;
 }
 
 .footer-pixel-heart {
@@ -996,24 +824,6 @@ body {
   box-shadow: 0 3px 0 #111;
   transition: all 0.15s;
   touch-action: manipulation;
-  margin-top: 7px;
-}
-
-.decision-btn::before {
-  content: "";
-  position: absolute;
-  top: -5px;
-  left: 0;
-  right: 0;
-  height: 5px;
-  background-color: inherit;
-  filter: brightness(1.08);
-  border-top: 2px solid #111;
-  border-left: 2px solid #111;
-  border-right: 2px solid #111;
-  clip-path: polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%);
-  -webkit-clip-path: polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%);
-  pointer-events: none;
 }
 
 .decision-btn:hover {
@@ -1122,24 +932,6 @@ body {
   cursor: pointer;
   touch-action: manipulation;
   transition: all 0.15s;
-  margin-top: 10px;
-}
-
-.back-to-world-btn::before {
-  content: "";
-  position: absolute;
-  top: -8px;
-  left: 0;
-  right: 0;
-  height: 8px;
-  background-color: inherit;
-  filter: brightness(1.12);
-  border-top: 2.5px solid #111;
-  border-left: 2.5px solid #111;
-  border-right: 2.5px solid #111;
-  clip-path: polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%);
-  -webkit-clip-path: polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%);
-  pointer-events: none;
 }
 
 .back-to-world-btn:hover {
