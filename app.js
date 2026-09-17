@@ -261,6 +261,14 @@ const travelData = {
     text: '"Golden sunset strolls along pristine Konkan beaches, rhythmic ocean waves, and serene coastal tranquility with just the two of us."',
     date: '2023 • Coastal Serenity'
   },
+  lonavla: {
+    image: 'assets/polaroid-lonavla.jpg',
+    tag: '📍 Lonavla, MH',
+    year: '2024',
+    title: 'Lonavla — 2024',
+    text: '"Scenic Western Ghats getaways, misty mountain hills, cascading waterfalls, hot cutting chai in the monsoon drizzle, and cozy drives hand-in-hand."',
+    date: '2024 • Monsoon Hills & Chai'
+  },
   mumbai: {
     image: 'assets/polaroid-mumbai.jpg',
     tag: '📍 Mumbai, India',
@@ -311,7 +319,7 @@ const travelData = {
   }
 };
 
-const indiaTrips = ['pune', 'shrivardhan', 'mumbai', 'goa', 'nashik'];
+const indiaTrips = ['pune', 'shrivardhan', 'lonavla', 'mumbai', 'goa', 'nashik'];
 
 function openIndiaMap(e) {
   if (e && e.stopPropagation) e.stopPropagation();

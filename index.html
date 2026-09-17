@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Press+Start+2P&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260917-4">
+  <link rel="stylesheet" href="style.css?v=20260917-5">
 </head>
 <body class="theme-home">
   <!-- Persistent Top Lego Navigation Bar -->
@@ -231,7 +231,17 @@
 
             <!-- India Pin: Clicking opens the newly created India map -->
             <button class="map-pin pin-world-india cluster-pin" onclick="openIndiaMap(event)" title="India" aria-label="India">
-              <span class="pin-dot tricolor-dot">🇮🇳</span>
+              <span class="pin-dot tricolor-dot">
+                <span class="flag-icon-svg" aria-hidden="true">
+                  <svg viewBox="0 0 30 20" width="18" height="12" class="flag-svg">
+                    <rect width="30" height="6.67" fill="#FF9933"/>
+                    <rect y="6.67" width="30" height="6.67" fill="#FFFFFF"/>
+                    <rect y="13.33" width="30" height="6.67" fill="#138808"/>
+                    <circle cx="15" cy="10" r="2.4" fill="none" stroke="#000088" stroke-width="0.7"/>
+                    <circle cx="15" cy="10" r="0.6" fill="#000088"/>
+                  </svg>
+                </span>
+              </span>
               <span class="pin-label">India</span>
             </button>
           </div>
@@ -244,10 +254,21 @@
               <button class="back-to-world-btn" onclick="openWorldMap(event)">
                 ⬅ Back to World Map 🌍
               </button>
-              <span class="india-map-badge">🇮🇳 India Chapters (5 Trips)</span>
+              <span class="india-map-badge">
+                <span class="flag-icon-svg" aria-hidden="true">
+                  <svg viewBox="0 0 30 20" width="18" height="12" class="flag-svg">
+                    <rect width="30" height="6.67" fill="#FF9933"/>
+                    <rect y="6.67" width="30" height="6.67" fill="#FFFFFF"/>
+                    <rect y="13.33" width="30" height="6.67" fill="#138808"/>
+                    <circle cx="15" cy="10" r="2.4" fill="none" stroke="#000088" stroke-width="0.7"/>
+                    <circle cx="15" cy="10" r="0.6" fill="#000088"/>
+                  </svg>
+                </span>
+                India
+              </span>
             </div>
 
-            <!-- All 5 India Options -->
+            <!-- All India Options -->
             <button class="map-pin pin-india-nashik" data-dest="nashik" onclick="openTripCard('nashik', event)" title="Nashik 2026" aria-label="Nashik 2026">
               <span class="pin-dot">🍇</span>
               <span class="pin-label">Nashik 2026</span>
@@ -256,6 +277,11 @@
             <button class="map-pin pin-india-mumbai" data-dest="mumbai" onclick="openTripCard('mumbai', event)" title="Mumbai 2025" aria-label="Mumbai 2025">
               <span class="pin-dot">🏙️</span>
               <span class="pin-label">Mumbai 2025</span>
+            </button>
+
+            <button class="map-pin pin-india-lonavla" data-dest="lonavla" onclick="openTripCard('lonavla', event)" title="Lonavla 2024" aria-label="Lonavla 2024">
+              <span class="pin-dot">⛰️</span>
+              <span class="pin-label">Lonavla 2024</span>
             </button>
 
             <button class="map-pin pin-india-pune" data-dest="pune" onclick="openTripCard('pune', event)" title="Pune 2022" aria-label="Pune 2022">
@@ -300,8 +326,13 @@
 
         <div class="nav-continue-row">
           <button class="lego-btn lego-btn-green" data-target="quiz">
-            <span class="btn-studs"></span>
-            <span class="btn-text">TAKE THE LOVE QUIZ 🧩</span>
+            <span class="btn-studs">
+              <i class="stud"></i>
+              <i class="stud"></i>
+              <i class="stud"></i>
+              <i class="stud"></i>
+            </span>
+            <span class="btn-text">Take the Quiz ➔</span>
           </button>
         </div>
       </div>
@@ -476,6 +507,6 @@
 
   </main>
 
-  <script src="app.js?v=20260917-4"></script>
+  <script src="app.js?v=20260917-5"></script>
 </body>
 </html>
