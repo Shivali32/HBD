@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Press+Start+2P&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20260917-3">
 </head>
 <body class="theme-home">
   <!-- Persistent Top Lego Navigation Bar -->
@@ -209,28 +209,28 @@
             <img src="assets/3-travels.jpg" alt="Lego World Travel Map" class="map-artwork-img" loading="lazy">
             
             <!-- World Pins -->
-            <button class="map-pin pin-world-chicago" onclick="openTripCard('chicago')" title="Chicago 2027" aria-label="Chicago 2027">
+            <button class="map-pin pin-world-chicago" data-dest="chicago" onclick="openTripCard('chicago', event)" title="Chicago 2027" aria-label="Chicago 2027">
               <span class="pin-dot">🏙️</span>
               <span class="pin-label">Chicago 2027</span>
             </button>
 
-            <button class="map-pin pin-world-london" onclick="openTripCard('london')" title="London 2023" aria-label="London 2023">
+            <button class="map-pin pin-world-london" data-dest="london" onclick="openTripCard('london', event)" title="London 2023" aria-label="London 2023">
               <span class="pin-dot">🎡</span>
               <span class="pin-label">London 2023</span>
             </button>
 
-            <button class="map-pin pin-world-paris" onclick="openTripCard('paris')" title="Paris 2028" aria-label="Paris 2028">
+            <button class="map-pin pin-world-paris" data-dest="paris" onclick="openTripCard('paris', event)" title="Paris 2028" aria-label="Paris 2028">
               <span class="pin-dot">🗼</span>
               <span class="pin-label">Paris 2028</span>
             </button>
 
-            <button class="map-pin pin-world-switzerland" onclick="openTripCard('switzerland')" title="Switzerland 2029" aria-label="Switzerland 2029">
+            <button class="map-pin pin-world-switzerland" data-dest="switzerland" onclick="openTripCard('switzerland', event)" title="Switzerland 2029" aria-label="Switzerland 2029">
               <span class="pin-dot">🏔️</span>
               <span class="pin-label">Switzerland 2029</span>
             </button>
 
             <!-- India Pin: Clicking opens the newly created India map -->
-            <button class="map-pin pin-world-india cluster-pin" onclick="openIndiaMap()" title="Explore India (5 Trips)" aria-label="Explore India">
+            <button class="map-pin pin-world-india cluster-pin" onclick="openIndiaMap(event)" title="Explore India (5 Trips)" aria-label="Explore India">
               <span class="pin-dot pulse-dot">🇮🇳</span>
               <span class="pin-label">India (5 Trips) 🔍</span>
             </button>
@@ -241,56 +241,58 @@
             <img src="assets/map-india.jpg" alt="Lego Zoomed India Map" class="map-artwork-img" loading="lazy">
             
             <div class="india-map-header">
-              <button class="back-to-world-btn" onclick="openWorldMap()">
+              <button class="back-to-world-btn" onclick="openWorldMap(event)">
                 ⬅ Back to World Map 🌍
               </button>
               <span class="india-map-badge">🇮🇳 India Chapters (5 Trips)</span>
             </div>
 
             <!-- All 5 India Options -->
-            <button class="map-pin pin-india-pune" onclick="openTripCard('pune')" title="Pune 2022" aria-label="Pune 2022">
+            <button class="map-pin pin-india-pune" data-dest="pune" onclick="openTripCard('pune', event)" title="Pune 2022" aria-label="Pune 2022">
               <span class="pin-dot">🎓</span>
               <span class="pin-label">Pune 2022</span>
             </button>
 
-            <button class="map-pin pin-india-shrivardhan" onclick="openTripCard('shrivardhan')" title="Shrivardhan 2023" aria-label="Shrivardhan 2023">
+            <button class="map-pin pin-india-shrivardhan" data-dest="shrivardhan" onclick="openTripCard('shrivardhan', event)" title="Shrivardhan 2023" aria-label="Shrivardhan 2023">
               <span class="pin-dot">🌊</span>
               <span class="pin-label">Shrivardhan 2023</span>
             </button>
 
-            <button class="map-pin pin-india-mumbai" onclick="openTripCard('mumbai')" title="Mumbai 2025" aria-label="Mumbai 2025">
+            <button class="map-pin pin-india-mumbai" data-dest="mumbai" onclick="openTripCard('mumbai', event)" title="Mumbai 2025" aria-label="Mumbai 2025">
               <span class="pin-dot">🏙️</span>
               <span class="pin-label">Mumbai 2025</span>
             </button>
 
-            <button class="map-pin pin-india-goa" onclick="openTripCard('goa')" title="Goa 2025" aria-label="Goa 2025">
+            <button class="map-pin pin-india-goa" data-dest="goa" onclick="openTripCard('goa', event)" title="Goa 2025" aria-label="Goa 2025">
               <span class="pin-dot">🌴</span>
               <span class="pin-label">Goa 2025</span>
             </button>
 
-            <button class="map-pin pin-india-nashik" onclick="openTripCard('nashik')" title="Nashik 2026" aria-label="Nashik 2026">
+            <button class="map-pin pin-india-nashik" data-dest="nashik" onclick="openTripCard('nashik', event)" title="Nashik 2026" aria-label="Nashik 2026">
               <span class="pin-dot">🍇</span>
               <span class="pin-label">Nashik 2026</span>
             </button>
           </div>
 
-          <!-- Fixed-Size Rectangular Lego City Card Modal -->
-          <div id="city-popup-modal" class="city-card-modal hidden">
-            <div class="city-card-frame">
-              <div class="city-card-topbar">
-                <span class="city-badge-tag" id="city-card-tag">📍 Paris, France</span>
-                <span class="city-year-pill" id="city-card-year">2028</span>
-                <button class="city-card-close" onclick="closeTripCard()" aria-label="Close">✕</button>
-              </div>
+          <!-- Fixed-Size Rectangular Lego City Card Modal with Backdrop -->
+          <div id="city-popup-modal" class="city-modal-backdrop hidden" onclick="closeTripCard(event)">
+            <div class="city-card-modal" onclick="event.stopPropagation()">
+              <div class="city-card-frame">
+                <div class="city-card-topbar">
+                  <span class="city-badge-tag" id="city-card-tag">📍 Paris, France</span>
+                  <span class="city-year-pill" id="city-card-year">2028</span>
+                  <button class="city-card-close" onclick="closeTripCard(event)" aria-label="Close">✕</button>
+                </div>
 
-              <div class="city-photo-box">
-                <img id="city-card-img" class="city-photo-img" src="assets/polaroid-paris.jpg" alt="Trip Lego Photo">
-              </div>
+                <div class="city-photo-box">
+                  <img id="city-card-img" class="city-photo-img" src="assets/polaroid-paris.jpg" alt="Trip Lego Photo">
+                </div>
 
-              <div class="city-caption-box">
-                <h4 id="city-card-title" class="city-card-title">Paris — 2028</h4>
-                <p id="city-card-text" class="city-card-text">"Walking past the Eiffel Tower with crepes in hand, making lifelong memories together."</p>
-                <div class="city-card-meta" id="city-card-date">2028 • The City of Love</div>
+                <div class="city-caption-box">
+                  <h4 id="city-card-title" class="city-card-title">Paris — 2028</h4>
+                  <p id="city-card-text" class="city-card-text">"Walking past the Eiffel Tower with crepes in hand, making lifelong memories together."</p>
+                  <div class="city-card-meta" id="city-card-date">2028 • The City of Love</div>
+                </div>
               </div>
             </div>
           </div>
@@ -299,16 +301,16 @@
         <div class="travel-quick-selector">
           <span class="selector-title">Select Any Destination:</span>
           <div class="chips-list">
-            <button class="brick-chip" onclick="openTripCard('london')">🇬🇧 London 2023</button>
-            <button class="brick-chip" onclick="openTripCard('chicago')">🏙️ Chicago 2027</button>
-            <button class="brick-chip" onclick="openTripCard('paris')">🗼 Paris 2028</button>
-            <button class="brick-chip" onclick="openTripCard('switzerland')">🏔️ Switzerland 2029</button>
-            <button class="brick-chip chip-india-accent" onclick="openIndiaMap()">🇮🇳 Explore India (5) 🔍</button>
-            <button class="brick-chip" onclick="openTripCard('pune')">🎓 Pune 2022</button>
-            <button class="brick-chip" onclick="openTripCard('shrivardhan')">🌊 Shrivardhan 2023</button>
-            <button class="brick-chip" onclick="openTripCard('mumbai')">🏙️ Mumbai 2025</button>
-            <button class="brick-chip" onclick="openTripCard('goa')">🌴 Goa 2025</button>
-            <button class="brick-chip" onclick="openTripCard('nashik')">🍇 Nashik 2026</button>
+            <button class="brick-chip" data-dest="london" onclick="openTripCard('london', event)">🇬🇧 London 2023</button>
+            <button class="brick-chip" data-dest="chicago" onclick="openTripCard('chicago', event)">🏙️ Chicago 2027</button>
+            <button class="brick-chip" data-dest="paris" onclick="openTripCard('paris', event)">🗼 Paris 2028</button>
+            <button class="brick-chip" data-dest="switzerland" onclick="openTripCard('switzerland', event)">🏔️ Switzerland 2029</button>
+            <button class="brick-chip chip-india-accent" onclick="openIndiaMap(event)">🇮🇳 Explore India (5) 🔍</button>
+            <button class="brick-chip" data-dest="pune" onclick="openTripCard('pune', event)">🎓 Pune 2022</button>
+            <button class="brick-chip" data-dest="shrivardhan" onclick="openTripCard('shrivardhan', event)">🌊 Shrivardhan 2023</button>
+            <button class="brick-chip" data-dest="mumbai" onclick="openTripCard('mumbai', event)">🏙️ Mumbai 2025</button>
+            <button class="brick-chip" data-dest="goa" onclick="openTripCard('goa', event)">🌴 Goa 2025</button>
+            <button class="brick-chip" data-dest="nashik" onclick="openTripCard('nashik', event)">🍇 Nashik 2026</button>
           </div>
         </div>
 
@@ -490,6 +492,6 @@
 
   </main>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=20260917-3"></script>
 </body>
 </html>

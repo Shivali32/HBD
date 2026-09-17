@@ -313,7 +313,8 @@ const travelData = {
 
 const indiaTrips = ['pune', 'shrivardhan', 'mumbai', 'goa', 'nashik'];
 
-function openIndiaMap() {
+function openIndiaMap(e) {
+  if (e && e.stopPropagation) e.stopPropagation();
   sfx.click();
   const worldView = document.getElementById('world-map-view');
   const indiaView = document.getElementById('india-map-view');
@@ -322,7 +323,8 @@ function openIndiaMap() {
   closeTripCard();
 }
 
-function openWorldMap() {
+function openWorldMap(e) {
+  if (e && e.stopPropagation) e.stopPropagation();
   sfx.click();
   const worldView = document.getElementById('world-map-view');
   const indiaView = document.getElementById('india-map-view');
@@ -331,7 +333,8 @@ function openWorldMap() {
   closeTripCard();
 }
 
-function openTripCard(dest) {
+function openTripCard(dest, e) {
+  if (e && e.stopPropagation) e.stopPropagation();
   sfx.chime();
   if (navigator.vibrate) navigator.vibrate(30);
 
@@ -346,13 +349,13 @@ function openTripCard(dest) {
     if (indiaView) indiaView.classList.remove('hidden');
   }
 
-  const modal = document.getElementById('city-popup-modal');
-  const imgEl = document.getElementById('city-card-img');
-  const tagEl = document.getElementById('city-card-tag');
+  const modal = document.getElementById('city-popup-modal') || document.getElementById('polaroid-modal');
+  const imgEl = document.getElementById('city-card-img') || document.getElementById('polaroid-img');
+  const tagEl = document.getElementById('city-card-tag') || document.getElementById('polaroid-tag');
   const yearEl = document.getElementById('city-card-year');
-  const titleEl = document.getElementById('city-card-title');
-  const textEl = document.getElementById('city-card-text');
-  const dateEl = document.getElementById('city-card-date');
+  const titleEl = document.getElementById('city-card-title') || document.getElementById('polaroid-title');
+  const textEl = document.getElementById('city-card-text') || document.getElementById('polaroid-text');
+  const dateEl = document.getElementById('city-card-date') || document.getElementById('polaroid-date');
 
   if (imgEl && data.image) {
     imgEl.src = data.image;
@@ -369,9 +372,10 @@ function openTripCard(dest) {
   }
 }
 
-function closeTripCard() {
+function closeTripCard(e) {
+  if (e && e.stopPropagation) e.stopPropagation();
   sfx.click();
-  const modal = document.getElementById('city-popup-modal');
+  const modal = document.getElementById('city-popup-modal') || document.getElementById('polaroid-modal');
   if (modal) {
     modal.classList.add('hidden');
   }
@@ -382,17 +386,26 @@ const openPolaroid = openTripCard;
 const closePolaroid = closeTripCard;
 const setMapView = (view) => (view === 'india' ? openIndiaMap() : openWorldMap());
 
-// Close city card when clicking outside
-document.addEventListener('click', (e) => {
-  const modal = document.getElementById('city-popup-modal');
-  if (modal && 
-      !modal.classList.contains('hidden') && 
-      !modal.contains(e.target) && 
-      !e.target.closest('.map-pin') && 
-      !e.target.closest('.brick-chip') &&
-      !e.target.closest('.back-to-world-btn')) {
-    modal.classList.add('hidden');
-  }
+// Attach explicit click handlers to all destination buttons & pins
+function initTripButtons() {
+  document.querySelectorAll('[data-dest]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const dest = btn.getAttribute('data-dest');
+      if (dest) openTripCard(dest, e);
+    });
+  });
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initTripButtons);
+} else {
+  initTripButtons();
+}
+
+// Close city card on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeTripCard();
 });
 
 
