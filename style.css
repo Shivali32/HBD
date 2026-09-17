@@ -679,64 +679,8 @@ body {
 }
 
 /* ==========================================================================
-   PAGE 3: TRAVELS (INTERACTIVE MAP & INDIA ZOOM)
+   PAGE 3: TRAVELS (WORLD MAP & INDIA ZOOM)
    ========================================================================== */
-.map-view-controls {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 14px;
-  width: 95%;
-  max-width: 700px;
-}
-
-.map-toggle-group {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.map-toggle-btn {
-  font-family: var(--font-fun);
-  font-weight: 800;
-  font-size: clamp(0.78rem, 2.4vw, 0.95rem);
-  padding: 8px 18px;
-  border: 3px solid #111;
-  border-radius: 10px;
-  background: #f8fafc;
-  color: #1e293b;
-  cursor: pointer;
-  box-shadow: 0 4px 0 #111;
-  transition: all 0.15s ease-in-out;
-  touch-action: manipulation;
-}
-
-.map-toggle-btn:hover {
-  background: #e2e8f0;
-  transform: translateY(-1px);
-}
-
-.map-toggle-btn.active {
-  background: #ffbe0b;
-  color: #111;
-  transform: translateY(2px);
-  box-shadow: 0 1px 0 #111;
-}
-
-.map-zoom-hint {
-  font-family: var(--font-fun);
-  font-size: clamp(0.75rem, 2.2vw, 0.86rem);
-  color: #0369a1;
-  background: #e0f2fe;
-  border: 2px solid #0284c7;
-  border-radius: 8px;
-  padding: 6px 14px;
-  text-align: center;
-  box-shadow: 0 2px 0 #0284c7;
-}
-
 .map-interactive-container {
   max-width: 960px;
   width: 95%;
@@ -762,19 +706,29 @@ body {
   display: block;
 }
 
-.back-to-world-btn {
+/* India Zoom Header & Back Button */
+.india-map-header {
   position: absolute;
   top: 10px;
   left: 10px;
+  right: 10px;
   z-index: 60;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+}
+
+.back-to-world-btn {
+  pointer-events: auto;
   background: #ffbe0b;
   color: #111;
   border: 2px solid #111;
   border-radius: 8px;
-  padding: 6px 12px;
+  padding: 6px 14px;
   font-family: var(--font-fun);
   font-weight: 800;
-  font-size: 0.8rem;
+  font-size: clamp(0.74rem, 2.2vw, 0.85rem);
   box-shadow: 0 3px 0 #111;
   cursor: pointer;
   touch-action: manipulation;
@@ -787,6 +741,18 @@ body {
 .back-to-world-btn:active {
   transform: translateY(2px);
   box-shadow: 0 1px 0 #111;
+}
+
+.india-map-badge {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #111;
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-family: var(--font-fun);
+  font-weight: 800;
+  font-size: clamp(0.7rem, 2vw, 0.8rem);
+  color: #1e293b;
+  box-shadow: 0 2px 0 #111;
 }
 
 /* Interactive Map Pins */
@@ -823,9 +789,9 @@ body {
 .pin-world-switzerland { top: 40%; left: 52%; }
 .pin-world-india { top: 54%; left: 68%; }
 
-/* Cluster pin pulse animation */
+/* India cluster pin on world map with pulsating attraction */
 .cluster-pin {
-  background: #fef08a !important;
+  background: #ffea00 !important;
   border-color: #d90429 !important;
   animation: pulseCluster 2s infinite;
 }
@@ -837,11 +803,11 @@ body {
 }
 
 /* INDIA ZOOM MAP PINS */
-.pin-india-nashik { top: 22%; left: 54%; }
-.pin-india-mumbai { top: 36%; left: 32%; }
 .pin-india-pune { top: 48%; left: 58%; }
 .pin-india-shrivardhan { top: 62%; left: 34%; }
+.pin-india-mumbai { top: 36%; left: 32%; }
 .pin-india-goa { top: 80%; left: 50%; }
+.pin-india-nashik { top: 22%; left: 54%; }
 
 @media (max-width: 600px) {
   .map-pin {
@@ -851,115 +817,166 @@ body {
   }
 }
 
-/* Polaroid Card Pop-up */
-.polaroid-display-card {
+/* ==========================================================================
+   STRICT FIXED-SIZE RECTANGULAR LEGO CITY POPUP CARD
+   ========================================================================== */
+.city-card-modal {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(-1deg);
-  width: min(330px, 92vw);
-  background: #fff;
-  border: 3px solid #111;
-  border-radius: 12px;
-  padding: 12px 12px 18px;
-  box-shadow: 0 14px 32px rgba(0,0,0,0.38), 0 6px 0 #111;
-  z-index: 150;
-  animation: popUpPolaroid 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  max-height: 88vh;
-  overflow-y: auto;
+  transform: translate(-50%, -50%);
+  width: 340px;
+  max-width: 92vw;
+  height: 385px; /* STRICT FIXED HEIGHT */
+  min-height: 385px;
+  max-height: 385px;
+  z-index: 200;
+  animation: popUpCard 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-@keyframes popUpPolaroid {
-  0% { opacity: 0; transform: translate(-50%, -42%) scale(0.85); }
-  100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-1deg); }
+@keyframes popUpCard {
+  0% { opacity: 0; transform: translate(-50%, -45%) scale(0.9); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
-.tape-strip {
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 75px;
-  height: 20px;
-  background: rgba(255, 230, 109, 0.88);
-  border: 1px solid rgba(0,0,0,0.2);
-}
-
-.polaroid-photo-frame {
+.city-card-frame {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border: 4px solid #111111;
+  border-radius: 14px;
+  box-shadow: 0 8px 0 #111111, 0 18px 32px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 10px 12px 12px;
   position: relative;
-  height: 190px;
-  background: #111;
-  border: 2px solid #111;
-  border-radius: 6px;
   overflow: hidden;
 }
 
-.polaroid-photo-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.city-card-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  margin-bottom: 8px;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
-.photo-tag {
-  position: absolute;
-  bottom: 8px;
-  left: 8px;
-  background: rgba(0,0,0,0.8);
-  color: #fff;
+.city-badge-tag {
+  background: #f1f5f9;
+  border: 2px solid #111;
+  border-radius: 6px;
   padding: 3px 8px;
-  border-radius: 12px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  border: 1px solid rgba(255,255,255,0.4);
-}
-
-.polaroid-caption {
-  margin-top: 10px;
-  text-align: center;
-}
-
-.polaroid-caption h4 {
   font-family: var(--font-fun);
-  font-size: 1.15rem;
+  font-size: 0.76rem;
   font-weight: 800;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.city-year-pill {
+  background: #ffbe0b;
+  border: 2px solid #111;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-family: var(--font-fun);
+  font-size: 0.76rem;
+  font-weight: 900;
   color: #111;
-  margin-bottom: 4px;
+  flex-shrink: 0;
 }
 
-.polaroid-caption p {
-  font-size: 0.88rem;
-  line-height: 1.45;
-  color: #334155;
-  font-style: italic;
-  margin-bottom: 6px;
-}
-
-.polaroid-date {
-  font-size: 0.72rem;
-  color: #64748b;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.polaroid-close {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  width: 30px;
-  height: 30px;
+.city-card-close {
+  width: 28px;
+  height: 28px;
   background: #e63946;
-  color: #fff;
+  color: #ffffff;
   border: 2px solid #111;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 900;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   cursor: pointer;
   box-shadow: 0 2px 0 #111;
   touch-action: manipulation;
+  flex-shrink: 0;
+}
+
+.city-card-close:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 #111;
+}
+
+/* FIXED-DIMENSION PHOTO BOX */
+.city-photo-box {
+  width: 100%;
+  height: 185px; /* STRICT FIXED HEIGHT */
+  border: 2px solid #111;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #1e293b;
+  flex-shrink: 0;
+}
+
+.city-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* FIXED-DIMENSION CAPTION BOX */
+.city-caption-box {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 8px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.city-card-title {
+  font-family: var(--font-fun);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #111;
+  margin: 0 0 2px 0;
+  line-height: 1.2;
+}
+
+.city-card-text {
+  font-size: 0.82rem;
+  line-height: 1.38;
+  color: #334155;
+  font-style: italic;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.city-card-meta {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #0284c7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+/* Accent for India Explore Chip */
+.chip-india-accent {
+  background: #ffbe0b !important;
+  font-weight: 900 !important;
+  border-color: #111 !important;
 }
 
 .travel-quick-selector {

@@ -234,143 +234,164 @@ function nudgeMemory(id) {
 
 
 // ==========================================================================
-// TRAVEL MAP VIEW TOGGLE & 9 TRIPS DATA
+// TRAVEL MAP LOGIC & FIXED-SIZE RECTANGULAR POPUP CARDS
 // ==========================================================================
 const travelData = {
   pune: {
     image: 'assets/polaroid-pune.jpg',
-    tag: 'Pune, India',
+    tag: '📍 Pune, India',
+    year: '2022',
     title: 'Pune — 2022',
     text: '"Where it all began during our MBA days! Late hours in the library, presentation prep, sharing cutting chai, and building the foundation of our bond."',
-    date: '2022 • The Beginning & MBA Days'
+    date: '2022 • The MBA Days'
   },
   london: {
     image: 'assets/polaroid-london.jpg',
-    tag: 'London, United Kingdom',
+    tag: '📍 London, UK',
+    year: '2023',
     title: 'London — 2023',
-    text: '"Red double-decker buses, Big Ben, and traversing 5,000 miles of distance. Every chilly London morning was warmed by our endless phone calls."',
+    text: '"Red double-decker buses, Big Ben, and traversing 5,000 miles of distance. Every chilly morning was warmed by our daily FaceTime calls."',
     date: '2023 • Across The Continents'
   },
   shrivardhan: {
     image: 'assets/polaroid-shrivardhan.jpg',
-    tag: 'Shrivardhan, Maharashtra',
+    tag: '📍 Shrivardhan, MH',
+    year: '2023',
     title: 'Shrivardhan — 2023',
     text: '"Golden sunset strolls along pristine Konkan beaches, rhythmic ocean waves, and serene coastal tranquility with just the two of us."',
     date: '2023 • Coastal Serenity'
   },
   mumbai: {
     image: 'assets/polaroid-mumbai.jpg',
-    tag: 'Mumbai, India',
+    tag: '📍 Mumbai, India',
+    year: '2025',
     title: 'Mumbai — 2025',
-    text: '"Reunited in the maximum city! Marine Drive sea breeze, bright city lights, celebrating sister’s MBA in Mumbai, and happily sharing the same timezone permanently."',
+    text: '"Reunited in the maximum city! Marine Drive sea breeze, bright city lights, celebrating sister’s MBA in Mumbai, and happily sharing the same timezone."',
     date: '2025 • Reunited & Thriving'
   },
   goa: {
     image: 'assets/polaroid-goa.jpg',
-    tag: 'Goa, India',
+    tag: '📍 Goa, India',
+    year: '2025',
     title: 'Goa — 2025',
-    text: '"Golden sand, coconut palms, sea breezes, and non-stop laughter! Unwinding by beach shacks, listening to waves, and soaking in sunny happiness."',
+    text: '"Golden sand, coconut palms, sea breezes, and non-stop laughter! Unwinding by beach shacks, dancing to waves, and sunny carefree joy."',
     date: '2025 • Tropical Sunshine'
   },
   nashik: {
     image: 'assets/polaroid-nashik.jpg',
-    tag: 'Nashik, Maharashtra',
+    tag: '📍 Nashik, MH',
+    year: '2026',
     title: 'Nashik — 2026',
     text: '"Rolling vineyard hills, barrel tastings, gorgeous sunset vistas, and raising a toast to how sweetly our love has aged through every chapter."',
     date: '2026 • Wine Country Romance'
   },
   chicago: {
     image: 'assets/polaroid-chicago.jpg',
-    tag: 'Chicago, United States',
+    tag: '📍 Chicago, USA',
+    year: '2027',
     title: 'Chicago — 2027',
     text: '"Taking iconic skyline selfies at The Bean, cruising along the Chicago River, and embracing the brisk Windy City breeze hand-in-hand."',
     date: '2027 • The Windy City Adventure'
   },
   paris: {
     image: 'assets/polaroid-paris.jpg',
-    tag: 'Paris, France',
+    tag: '📍 Paris, France',
+    year: '2028',
     title: 'Paris — 2028',
     text: '"The City of Lights! Warm buttery croissants at charming sidewalk cafés, glittering Eiffel Tower views at night, and strolling the banks of the Seine."',
     date: '2028 • The City of Love'
   },
   switzerland: {
     image: 'assets/polaroid-switzerland.jpg',
-    tag: 'Swiss Alps, Switzerland',
+    tag: '📍 Swiss Alps',
+    year: '2029',
     title: 'Switzerland — 2029',
     text: '"Panoramic alpine trains, snow-dusted Alpine peaks, cozy hot chocolates, and standing together atop the highest mountain wonders."',
     date: '2029 • Wonderland in the Alps'
   }
 };
 
-const polaroidModal = document.getElementById('polaroid-modal');
+const indiaTrips = ['pune', 'shrivardhan', 'mumbai', 'goa', 'nashik'];
 
-function setMapView(view) {
+function openIndiaMap() {
   sfx.click();
   const worldView = document.getElementById('world-map-view');
   const indiaView = document.getElementById('india-map-view');
-  const btnWorld = document.getElementById('btn-view-world');
-  const btnIndia = document.getElementById('btn-view-india');
-  const hint = document.getElementById('map-zoom-hint');
-
-  if (view === 'india') {
-    if (worldView) worldView.classList.add('hidden');
-    if (indiaView) indiaView.classList.remove('hidden');
-    if (btnWorld) btnWorld.classList.remove('active');
-    if (btnIndia) btnIndia.classList.add('active');
-    if (hint) hint.innerHTML = '🔍 <strong>Zoomed into India!</strong> Exploring Pune, Mumbai, Nashik, Shrivardhan & Goa without clutter.';
-  } else {
-    if (indiaView) indiaView.classList.add('hidden');
-    if (worldView) worldView.classList.remove('hidden');
-    if (btnIndia) btnIndia.classList.remove('active');
-    if (btnWorld) btnWorld.classList.add('active');
-    if (hint) hint.innerHTML = '💡 Many trips are in India! <strong>Zoom in</strong> to explore Pune, Mumbai, Nashik, Shrivardhan & Goa without clutter!';
-  }
+  if (worldView) worldView.classList.add('hidden');
+  if (indiaView) indiaView.classList.remove('hidden');
+  closeTripCard();
 }
 
-function openPolaroid(dest) {
+function openWorldMap() {
+  sfx.click();
+  const worldView = document.getElementById('world-map-view');
+  const indiaView = document.getElementById('india-map-view');
+  if (indiaView) indiaView.classList.add('hidden');
+  if (worldView) worldView.classList.remove('hidden');
+  closeTripCard();
+}
+
+function openTripCard(dest) {
   sfx.chime();
   if (navigator.vibrate) navigator.vibrate(30);
 
   const data = travelData[dest];
   if (!data) return;
 
-  const imgEl = document.getElementById('polaroid-img');
-  const tagEl = document.getElementById('polaroid-tag');
-  const titleEl = document.getElementById('polaroid-title');
-  const textEl = document.getElementById('polaroid-text');
-  const dateEl = document.getElementById('polaroid-date');
+  // If opening an India trip while currently in world view, automatically switch to India map
+  if (indiaTrips.includes(dest)) {
+    const worldView = document.getElementById('world-map-view');
+    const indiaView = document.getElementById('india-map-view');
+    if (worldView) worldView.classList.add('hidden');
+    if (indiaView) indiaView.classList.remove('hidden');
+  }
+
+  const modal = document.getElementById('city-popup-modal');
+  const imgEl = document.getElementById('city-card-img');
+  const tagEl = document.getElementById('city-card-tag');
+  const yearEl = document.getElementById('city-card-year');
+  const titleEl = document.getElementById('city-card-title');
+  const textEl = document.getElementById('city-card-text');
+  const dateEl = document.getElementById('city-card-date');
 
   if (imgEl && data.image) {
     imgEl.src = data.image;
     imgEl.alt = data.title;
   }
   if (tagEl) tagEl.textContent = data.tag;
+  if (yearEl) yearEl.textContent = data.year;
   if (titleEl) titleEl.textContent = data.title;
   if (textEl) textEl.textContent = data.text;
   if (dateEl) dateEl.textContent = data.date;
 
-  if (polaroidModal) {
-    polaroidModal.classList.remove('hidden');
+  if (modal) {
+    modal.classList.remove('hidden');
   }
 }
 
-function closePolaroid() {
+function closeTripCard() {
   sfx.click();
-  if (polaroidModal) {
-    polaroidModal.classList.add('hidden');
+  const modal = document.getElementById('city-popup-modal');
+  if (modal) {
+    modal.classList.add('hidden');
   }
 }
 
-// Close polaroid when clicking outside
+// Backward-compatibility aliases
+const openPolaroid = openTripCard;
+const closePolaroid = closeTripCard;
+const setMapView = (view) => (view === 'india' ? openIndiaMap() : openWorldMap());
+
+// Close city card when clicking outside
 document.addEventListener('click', (e) => {
-  if (polaroidModal && 
-      !polaroidModal.classList.contains('hidden') && 
-      !polaroidModal.contains(e.target) && 
+  const modal = document.getElementById('city-popup-modal');
+  if (modal && 
+      !modal.classList.contains('hidden') && 
+      !modal.contains(e.target) && 
       !e.target.closest('.map-pin') && 
       !e.target.closest('.brick-chip') &&
-      !e.target.closest('.map-toggle-btn') &&
       !e.target.closest('.back-to-world-btn')) {
-    polaroidModal.classList.add('hidden');
+    modal.classList.add('hidden');
   }
 });
 
