@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    PRANAV'S LEGO BIRTHDAY ADVENTURE - APPLICATION JAVASCRIPT
    Enhanced for Mobile, Touch & Desktop Interaction
    ========================================================================== */
@@ -234,47 +234,98 @@ function nudgeMemory(id) {
 
 
 // ==========================================================================
-// TRAVEL MAP POLAROID MODAL
+// TRAVEL MAP VIEW TOGGLE & 9 TRIPS DATA
 // ==========================================================================
 const travelData = {
-  paris: {
-    emoji: '🗼',
-    tag: 'Paris, France',
-    title: 'Paris Trip, 2022',
-    text: '"Walking past the Eiffel Tower with warm crepes, taking silly selfies, and falling in love with every street corner."',
-    date: 'Autumn 2022 • The City of Lights'
-  },
-  amsterdam: {
-    emoji: '🌷',
-    tag: 'Amsterdam, Netherlands',
-    title: 'Windmills & Canals, 2023',
-    text: '"Biking alongside romantic canals, discovering cozy bakeries, and laughing through the drizzling rain."',
-    date: 'Spring 2023 • Tulips & Bikes'
-  },
-  rome: {
-    emoji: '🏛️',
-    tag: 'Rome, Italy',
-    title: 'Colosseum & Gelato, 2023',
-    text: '"Tossing coins into the Trevi Fountain, wishing for endless more adventures together, and eating authentic pizza every day."',
-    date: 'Summer 2023 • Eternal City'
+  pune: {
+    image: 'assets/polaroid-pune.jpg',
+    tag: 'Pune, India',
+    title: 'Pune — 2022',
+    text: '"Where it all began during our MBA days! Late hours in the library, presentation prep, sharing cutting chai, and building the foundation of our bond."',
+    date: '2022 • The Beginning & MBA Days'
   },
   london: {
-    emoji: '🎡',
-    tag: 'London, UK',
-    title: 'Big Ben & River Thames',
-    text: '"Late evening strolls by the London Eye, coffee stops, and making memories during MBA days."',
-    date: '4 Years Ago • London Chapter'
+    image: 'assets/polaroid-london.jpg',
+    tag: 'London, United Kingdom',
+    title: 'London — 2023',
+    text: '"Red double-decker buses, Big Ben, and traversing 5,000 miles of distance. Every chilly London morning was warmed by our endless phone calls."',
+    date: '2023 • Across The Continents'
   },
-  india: {
-    emoji: '❤️',
-    tag: 'Pune & Mumbai',
-    title: 'Where It All Began',
-    text: '"From CAT coaching desks in Pune to Marine Drive sunsets in Mumbai—home is always wherever we are together."',
-    date: 'Forever • Home Sweet Home'
+  shrivardhan: {
+    image: 'assets/polaroid-shrivardhan.jpg',
+    tag: 'Shrivardhan, Maharashtra',
+    title: 'Shrivardhan — 2023',
+    text: '"Golden sunset strolls along pristine Konkan beaches, rhythmic ocean waves, and serene coastal tranquility with just the two of us."',
+    date: '2023 • Coastal Serenity'
+  },
+  mumbai: {
+    image: 'assets/polaroid-mumbai.jpg',
+    tag: 'Mumbai, India',
+    title: 'Mumbai — 2025',
+    text: '"Reunited in the maximum city! Marine Drive sea breeze, bright city lights, celebrating sister’s MBA in Mumbai, and happily sharing the same timezone permanently."',
+    date: '2025 • Reunited & Thriving'
+  },
+  goa: {
+    image: 'assets/polaroid-goa.jpg',
+    tag: 'Goa, India',
+    title: 'Goa — 2025',
+    text: '"Golden sand, coconut palms, sea breezes, and non-stop laughter! Unwinding by beach shacks, listening to waves, and soaking in sunny happiness."',
+    date: '2025 • Tropical Sunshine'
+  },
+  nashik: {
+    image: 'assets/polaroid-nashik.jpg',
+    tag: 'Nashik, Maharashtra',
+    title: 'Nashik — 2026',
+    text: '"Rolling vineyard hills, barrel tastings, gorgeous sunset vistas, and raising a toast to how sweetly our love has aged through every chapter."',
+    date: '2026 • Wine Country Romance'
+  },
+  chicago: {
+    image: 'assets/polaroid-chicago.jpg',
+    tag: 'Chicago, United States',
+    title: 'Chicago — 2027',
+    text: '"Taking iconic skyline selfies at The Bean, cruising along the Chicago River, and embracing the brisk Windy City breeze hand-in-hand."',
+    date: '2027 • The Windy City Adventure'
+  },
+  paris: {
+    image: 'assets/polaroid-paris.jpg',
+    tag: 'Paris, France',
+    title: 'Paris — 2028',
+    text: '"The City of Lights! Warm buttery croissants at charming sidewalk cafés, glittering Eiffel Tower views at night, and strolling the banks of the Seine."',
+    date: '2028 • The City of Love'
+  },
+  switzerland: {
+    image: 'assets/polaroid-switzerland.jpg',
+    tag: 'Swiss Alps, Switzerland',
+    title: 'Switzerland — 2029',
+    text: '"Panoramic alpine trains, snow-dusted Alpine peaks, cozy hot chocolates, and standing together atop the highest mountain wonders."',
+    date: '2029 • Wonderland in the Alps'
   }
 };
 
 const polaroidModal = document.getElementById('polaroid-modal');
+
+function setMapView(view) {
+  sfx.click();
+  const worldView = document.getElementById('world-map-view');
+  const indiaView = document.getElementById('india-map-view');
+  const btnWorld = document.getElementById('btn-view-world');
+  const btnIndia = document.getElementById('btn-view-india');
+  const hint = document.getElementById('map-zoom-hint');
+
+  if (view === 'india') {
+    if (worldView) worldView.classList.add('hidden');
+    if (indiaView) indiaView.classList.remove('hidden');
+    if (btnWorld) btnWorld.classList.remove('active');
+    if (btnIndia) btnIndia.classList.add('active');
+    if (hint) hint.innerHTML = '🔍 <strong>Zoomed into India!</strong> Exploring Pune, Mumbai, Nashik, Shrivardhan & Goa without clutter.';
+  } else {
+    if (indiaView) indiaView.classList.add('hidden');
+    if (worldView) worldView.classList.remove('hidden');
+    if (btnIndia) btnIndia.classList.remove('active');
+    if (btnWorld) btnWorld.classList.add('active');
+    if (hint) hint.innerHTML = '💡 Many trips are in India! <strong>Zoom in</strong> to explore Pune, Mumbai, Nashik, Shrivardhan & Goa without clutter!';
+  }
+}
 
 function openPolaroid(dest) {
   sfx.chime();
@@ -283,26 +334,42 @@ function openPolaroid(dest) {
   const data = travelData[dest];
   if (!data) return;
 
-  document.getElementById('polaroid-emoji').textContent = data.emoji;
-  document.getElementById('polaroid-tag').textContent = data.tag;
-  document.getElementById('polaroid-title').textContent = data.title;
-  document.getElementById('polaroid-text').textContent = data.text;
-  document.getElementById('polaroid-date').textContent = data.date;
+  const imgEl = document.getElementById('polaroid-img');
+  const tagEl = document.getElementById('polaroid-tag');
+  const titleEl = document.getElementById('polaroid-title');
+  const textEl = document.getElementById('polaroid-text');
+  const dateEl = document.getElementById('polaroid-date');
 
-  polaroidModal.classList.remove('hidden');
+  if (imgEl && data.image) {
+    imgEl.src = data.image;
+    imgEl.alt = data.title;
+  }
+  if (tagEl) tagEl.textContent = data.tag;
+  if (titleEl) titleEl.textContent = data.title;
+  if (textEl) textEl.textContent = data.text;
+  if (dateEl) dateEl.textContent = data.date;
+
+  if (polaroidModal) {
+    polaroidModal.classList.remove('hidden');
+  }
 }
 
 function closePolaroid() {
   sfx.click();
-  polaroidModal.classList.add('hidden');
+  if (polaroidModal) {
+    polaroidModal.classList.add('hidden');
+  }
 }
 
 // Close polaroid when clicking outside
 document.addEventListener('click', (e) => {
-  if (!polaroidModal.classList.contains('hidden') && 
+  if (polaroidModal && 
+      !polaroidModal.classList.contains('hidden') && 
       !polaroidModal.contains(e.target) && 
       !e.target.closest('.map-pin') && 
-      !e.target.closest('.brick-chip')) {
+      !e.target.closest('.brick-chip') &&
+      !e.target.closest('.map-toggle-btn') &&
+      !e.target.closest('.back-to-world-btn')) {
     polaroidModal.classList.add('hidden');
   }
 });

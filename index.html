@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -126,11 +126,11 @@
           <div class="timeline-stepper">
             <!-- Milestone 1 -->
             <div class="timeline-brick-node" data-milestone="1">
-              <div class="brick-node-icon">📚</div>
+              <div class="brick-node-icon">🎓</div>
               <div class="brick-node-card">
                 <div class="node-time">5–6 YEARS AGO</div>
-                <h3 class="node-title">Pune: CAT Classes & Desk Dates</h3>
-                <p class="node-desc">Where our journey started! Surrounded by mock tests, coaching formulas, and subtle glances across study tables.</p>
+                <h3 class="node-title">Pune: MBA Days & Desk Dates</h3>
+                <p class="node-desc">Where our story clicked together! Surrounded by MBA lectures, presentations, library study sessions, and subtle glances across the desks.</p>
                 <div class="decision-block">
                   <span class="question-tag">Do you remember?</span>
                   <div class="decision-buttons">
@@ -138,7 +138,7 @@
                     <button class="decision-btn nudge-mem" onclick="nudgeMemory(1)">Remind me! 👀</button>
                   </div>
                   <div id="mem-reveal-1" class="memory-quote hidden">
-                    💡 <em>"You always pretended to study quantitative aptitude just to sit nearby!"</em>
+                    💡 <em>"You always pretended to be buried in MBA case studies just to sit nearby!"</em>
                   </div>
                 </div>
               </div>
@@ -148,9 +148,9 @@
             <div class="timeline-brick-node" data-milestone="2">
               <div class="brick-node-icon">🇬🇧</div>
               <div class="brick-node-card">
-                <div class="node-time">4 YEARS AGO</div>
+                <div class="node-time">2023 • LONDON CHAPTER</div>
                 <h3 class="node-title">London: The MBA & Long Distance</h3>
-                <p class="node-desc">Suitcases packed, timezones synchronized. 5,000 miles apart between Big Ben and Mumbai, held together by hours-long FaceTime calls.</p>
+                <p class="node-desc">Suitcases packed, timezones synchronized. 5,000 miles apart between Big Ben and Mumbai, held together by hours-long FaceTime calls and unwavering love.</p>
                 <div class="decision-block">
                   <span class="question-tag">Memory Checkpoint</span>
                   <div class="decision-buttons">
@@ -158,7 +158,7 @@
                     <button class="decision-btn nudge-mem" onclick="nudgeMemory(2)">The time difference! ⏰</button>
                   </div>
                   <div id="mem-reveal-2" class="memory-quote hidden">
-                    💡 <em>"Freezing London winters vs. sultry Mumbai heatwaves—yet we never missed our night talks."</em>
+                    💡 <em>"Freezing London winters vs. sultry Mumbai heatwaves—yet we never missed our daily bedtime video call."</em>
                   </div>
                 </div>
               </div>
@@ -166,18 +166,18 @@
 
             <!-- Milestone 3 -->
             <div class="timeline-brick-node" data-milestone="3">
-              <div class="brick-node-icon">🇮🇳</div>
+              <div class="brick-node-icon">🏙️</div>
               <div class="brick-node-card">
-                <div class="node-time">3 YEARS AGO → TODAY</div>
-                <h3 class="node-title">Mumbai: Reunited & Stronger Than Ever</h3>
-                <p class="node-desc">Gateway of India, corporate life, weekend getaways, and finally sharing the same timezone permanently.</p>
+                <div class="node-time">2025 • MUMBAI HOMECOMING</div>
+                <h3 class="node-title">Mumbai: Reunited, Sister's MBA & Stronger Than Ever</h3>
+                <p class="node-desc">With my sister also pursuing her MBA in Mumbai, the city became our shared hub of life, laughter, and dreams. Marine Drive sunsets, weekend getaways, and finally being in the same timezone permanently!</p>
                 <div class="decision-block">
                   <span class="question-tag">Final Verdict</span>
                   <div class="decision-buttons">
-                    <button class="decision-btn yes-mem" onclick="revealMemory(3)">Best decision ever! 🥂</button>
+                    <button class="decision-btn yes-mem" onclick="revealMemory(3)">Best chapter ever! 🥂</button>
                   </div>
                   <div id="mem-reveal-3" class="memory-quote hidden">
-                    💡 <em>"Distance taught us how deeply every brick of our love is cemented."</em>
+                    💡 <em>"From Pune MBA days to London distance, and sister's MBA in Mumbai—every brick of our story fits together perfectly!"</em>
                   </div>
                 </div>
               </div>
@@ -203,49 +203,101 @@
           <h2>PASSPORT STAMPS & BRICK WONDERS 🗺️</h2>
         </div>
 
+        <!-- Map View Toggle (World vs India Zoom) -->
+        <div class="map-view-controls">
+          <div class="map-toggle-group">
+            <button id="btn-view-world" class="map-toggle-btn active" onclick="setMapView('world')">
+              🌍 World Map
+            </button>
+            <button id="btn-view-india" class="map-toggle-btn" onclick="setMapView('india')">
+              🇮🇳 India Zoomed View (5 Trips)
+            </button>
+          </div>
+          <div class="map-zoom-hint" id="map-zoom-hint">
+            💡 Many trips are in India! <strong>Zoom in</strong> to explore Pune, Mumbai, Nashik, Shrivardhan & Goa without clutter!
+          </div>
+        </div>
+
         <div class="map-interactive-container">
-          <div class="map-artwork-wrapper">
+          <!-- WORLD VIEW CONTAINER -->
+          <div id="world-map-view" class="map-artwork-wrapper view-active">
             <img src="assets/3-travels.jpg" alt="Lego World Travel Map" class="map-artwork-img" loading="lazy">
             
-            <!-- Interactive Hotspots on the map -->
-            <button class="map-pin pin-paris" onclick="openPolaroid('paris')" title="Paris, France" aria-label="Paris, France">
-              <span class="pin-dot">🗼</span>
-              <span class="pin-label">Paris 2022</span>
+            <!-- World Pins -->
+            <button class="map-pin pin-world-chicago" onclick="openPolaroid('chicago')" title="Chicago 2027" aria-label="Chicago 2027">
+              <span class="pin-dot">🏙️</span>
+              <span class="pin-label">Chicago 2027</span>
             </button>
 
-            <button class="map-pin pin-amsterdam" onclick="openPolaroid('amsterdam')" title="Amsterdam, Netherlands" aria-label="Amsterdam, Netherlands">
-              <span class="pin-dot">🌷</span>
-              <span class="pin-label">Amsterdam</span>
-            </button>
-
-            <button class="map-pin pin-rome" onclick="openPolaroid('rome')" title="Rome, Italy" aria-label="Rome, Italy">
-              <span class="pin-dot">🏛️</span>
-              <span class="pin-label">Rome 2023</span>
-            </button>
-
-            <button class="map-pin pin-london" onclick="openPolaroid('london')" title="London, UK" aria-label="London, UK">
+            <button class="map-pin pin-world-london" onclick="openPolaroid('london')" title="London 2023" aria-label="London 2023">
               <span class="pin-dot">🎡</span>
-              <span class="pin-label">London</span>
+              <span class="pin-label">London 2023</span>
             </button>
 
-            <button class="map-pin pin-india" onclick="openPolaroid('india')" title="India" aria-label="Pune & Mumbai">
-              <span class="pin-dot">❤️</span>
-              <span class="pin-label">Pune & Mumbai</span>
+            <button class="map-pin pin-world-paris" onclick="openPolaroid('paris')" title="Paris 2028" aria-label="Paris 2028">
+              <span class="pin-dot">🗼</span>
+              <span class="pin-label">Paris 2028</span>
+            </button>
+
+            <button class="map-pin pin-world-switzerland" onclick="openPolaroid('switzerland')" title="Switzerland 2029" aria-label="Switzerland 2029">
+              <span class="pin-dot">🏔️</span>
+              <span class="pin-label">Switzerland 2029</span>
+            </button>
+
+            <!-- India Cluster Pin on World Map with Zoom CTA -->
+            <button class="map-pin pin-world-india cluster-pin" onclick="setMapView('india')" title="Zoom into India (5 Trips)" aria-label="Zoom into India">
+              <span class="pin-dot pulse-dot">🇮🇳</span>
+              <span class="pin-label">India (5 Trips) 🔍 Zoom</span>
             </button>
           </div>
 
-          <!-- Polaroid Modal Overlay -->
+          <!-- INDIA ZOOM VIEW CONTAINER -->
+          <div id="india-map-view" class="map-artwork-wrapper hidden">
+            <img src="assets/map-india.jpg" alt="Lego Zoomed India Map" class="map-artwork-img" loading="lazy">
+            
+            <button class="back-to-world-btn" onclick="setMapView('world')">
+              ⬅ Back to World Map
+            </button>
+
+            <!-- India Pins -->
+            <button class="map-pin pin-india-nashik" onclick="openPolaroid('nashik')" title="Nashik 2026" aria-label="Nashik 2026">
+              <span class="pin-dot">🍇</span>
+              <span class="pin-label">Nashik 2026</span>
+            </button>
+
+            <button class="map-pin pin-india-mumbai" onclick="openPolaroid('mumbai')" title="Mumbai 2025" aria-label="Mumbai 2025">
+              <span class="pin-dot">🏙️</span>
+              <span class="pin-label">Mumbai 2025</span>
+            </button>
+
+            <button class="map-pin pin-india-pune" onclick="openPolaroid('pune')" title="Pune 2022" aria-label="Pune 2022">
+              <span class="pin-dot">🎓</span>
+              <span class="pin-label">Pune 2022</span>
+            </button>
+
+            <button class="map-pin pin-india-shrivardhan" onclick="openPolaroid('shrivardhan')" title="Shrivardhan 2023" aria-label="Shrivardhan 2023">
+              <span class="pin-dot">🌊</span>
+              <span class="pin-label">Shrivardhan 2023</span>
+            </button>
+
+            <button class="map-pin pin-india-goa" onclick="openPolaroid('goa')" title="Goa 2025" aria-label="Goa 2025">
+              <span class="pin-dot">🌴</span>
+              <span class="pin-label">Goa 2025</span>
+            </button>
+          </div>
+
+          <!-- Enhanced Polaroid Modal Overlay with Custom Lego Image Display -->
           <div id="polaroid-modal" class="polaroid-display-card hidden">
             <div class="tape-strip"></div>
             <div class="polaroid-inner">
-              <div class="polaroid-img-placeholder" id="polaroid-photo">
-                <span class="photo-icon" id="polaroid-emoji">🗼</span>
+              <div class="polaroid-photo-frame" id="polaroid-photo-frame">
+                <img id="polaroid-img" class="polaroid-photo-img" src="assets/polaroid-paris.jpg" alt="Lego Couple Trip Photo">
                 <span class="photo-tag" id="polaroid-tag">Paris, France</span>
               </div>
               <div class="polaroid-caption">
-                <h4 id="polaroid-title">Paris Trip, 2022</h4>
+                <h4 id="polaroid-title">Paris Trip, 2028</h4>
                 <p id="polaroid-text">"Walking past the Eiffel Tower with crepes in hand, making lifelong memories together."</p>
-                <div class="polaroid-date" id="polaroid-date">Autumn 2022 • The City of Love</div>
+                <div class="polaroid-date" id="polaroid-date">2028 • The City of Love</div>
               </div>
             </div>
             <div class="polaroid-close" onclick="closePolaroid()" aria-label="Close modal">✕</div>
@@ -253,13 +305,17 @@
         </div>
 
         <div class="travel-quick-selector">
-          <span class="selector-title">Click Landmark Memories:</span>
+          <span class="selector-title">All 9 Destinations (Tap any to open Polaroid):</span>
           <div class="chips-list">
-            <button class="brick-chip" onclick="openPolaroid('paris')">🇫🇷 Paris</button>
-            <button class="brick-chip" onclick="openPolaroid('amsterdam')">🇳🇱 Amsterdam</button>
-            <button class="brick-chip" onclick="openPolaroid('rome')">🇮🇹 Rome</button>
-            <button class="brick-chip" onclick="openPolaroid('london')">🇬🇧 London</button>
-            <button class="brick-chip" onclick="openPolaroid('india')">🇮🇳 Pune & Mumbai</button>
+            <button class="brick-chip" onclick="openPolaroid('pune')">🎓 Pune 2022</button>
+            <button class="brick-chip" onclick="openPolaroid('london')">🇬🇧 London 2023</button>
+            <button class="brick-chip" onclick="openPolaroid('shrivardhan')">🌊 Shrivardhan 2023</button>
+            <button class="brick-chip" onclick="openPolaroid('mumbai')">🏙️ Mumbai 2025</button>
+            <button class="brick-chip" onclick="openPolaroid('goa')">🌴 Goa 2025</button>
+            <button class="brick-chip" onclick="openPolaroid('nashik')">🍇 Nashik 2026</button>
+            <button class="brick-chip" onclick="openPolaroid('chicago')">🏙️ Chicago 2027</button>
+            <button class="brick-chip" onclick="openPolaroid('paris')">🗼 Paris 2028</button>
+            <button class="brick-chip" onclick="openPolaroid('switzerland')">🏔️ Switzerland 2029</button>
           </div>
         </div>
 
