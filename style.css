@@ -763,10 +763,12 @@ body {
 @media (max-width: 860px) {
   .story-grid-layout {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
   .story-artwork-box {
-    position: relative;
-    top: unset;
+    position: static;
+    top: auto;
+    margin-bottom: 8px;
   }
 }
 
@@ -776,9 +778,16 @@ body {
   border-radius: 0;
   padding: 0;
   box-shadow: none;
-  position: sticky;
-  top: 86px;
+  position: relative;
   width: 100%;
+}
+
+@media (min-width: 861px) {
+  .story-artwork-box {
+    position: sticky;
+    top: 86px;
+    z-index: 2;
+  }
 }
 
 .story-artwork-img {
@@ -836,6 +845,7 @@ body {
   padding: 14px;
   box-shadow: 0 4px 0 #111;
   flex-grow: 1;
+  isolation: isolate;
 }
 
 .node-time {

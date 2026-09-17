@@ -250,7 +250,7 @@ const travelData = {
     tag: '📍 London, UK',
     year: '2023',
     title: 'London — 2023',
-    text: '"Red double-decker buses, Big Ben, and traversing 5,000 miles of distance. Every chilly morning was warmed by our daily FaceTime calls."',
+    text: '"Red double-decker buses, Big Ben, and traversing 5,000 miles of distance. Every chilly morning was warmed by our daily video calls."',
     date: '2023 • Across The Continents'
   },
   shrivardhan: {
