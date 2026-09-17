@@ -328,49 +328,52 @@ body {
   ) 16 14;
 }
 
+/* Stud Crown reduced by 60% with adjacent mini studs running to block end */
 .banner-stud-crown {
   position: absolute;
-  top: -9px;
-  left: 1%;
-  right: 1%;
-  height: 10px;
+  top: -5px;
+  left: 4px;
+  right: 4px;
+  height: 5px;
   display: flex;
-  justify-content: space-around;
+  gap: 2px;
+  overflow: hidden;
   pointer-events: none;
   z-index: 6;
 }
 
-.b-stud {
-  width: 22px;
-  height: 9px;
-  border: 2px solid #111;
+.b-stud-mini {
+  flex: 0 0 9px;
+  height: 5px;
+  border: 1.2px solid #111;
   border-bottom: none;
-  border-radius: 4px 4px 0 0;
-  box-shadow: inset 0 2px 0 rgba(255,255,255,0.45);
+  border-radius: 2.5px 2.5px 0 0;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
 }
-.b-stud.red { background: #e63946; }
-.b-stud.yellow { background: #ffbe0b; }
-.b-stud.green { background: #2a9d8f; }
-.b-stud.blue { background: #0077b6; }
+.b-stud-mini.red { background: #e63946; }
+.b-stud-mini.yellow { background: #ffbe0b; }
+.b-stud-mini.green { background: #2a9d8f; }
+.b-stud-mini.blue { background: #0077b6; }
 
+/* Reduced Happy Birthday font size on home screen */
 .brick-title,
 .brick-title-home {
   font-family: var(--font-retro);
-  font-size: clamp(0.9rem, 3.2vw, 1.55rem);
+  font-size: clamp(0.7rem, 2.2vw, 1.15rem);
   color: #ffffff;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   margin: 0;
   line-height: 1.4;
   text-shadow: 
-    -2.5px -2.5px 0 #111,
-     2.5px -2.5px 0 #111,
-    -2.5px  2.5px 0 #111,
-     2.5px  2.5px 0 #111,
-     0   3.5px 0 #111,
-     3.5px 0   0 #111,
-     0  -3.5px 0 #111,
-    -3.5px 0   0 #111,
-     5px 5px 0 rgba(0,0,0,0.5);
+    -2px -2px 0 #111,
+     2px -2px 0 #111,
+    -2px  2px 0 #111,
+     2px  2px 0 #111,
+     0    3px 0 #111,
+     3px  0   0 #111,
+     0   -3px 0 #111,
+    -3px  0   0 #111,
+     4px  4px 0 rgba(0,0,0,0.45);
 }
 
 /* Authentic Recreated Lego Brick Banner Frame (Surprise Page) */
@@ -459,43 +462,54 @@ body {
    PAGE 1: HOMEPAGE (THE HOOK)
    ========================================================================== */
 .stage-scene-card {
-  max-width: 1040px;
-  width: 100%;
+  max-width: 440px;
+  width: 94%;
   background: transparent;
   border: none;
   border-radius: 0;
   padding: 0;
   box-shadow: none;
-  margin-bottom: 24px;
+  margin: 10px auto 16px;
   text-align: center;
 }
 
 .stage-image-container {
   position: relative;
   width: 100%;
+  aspect-ratio: 1 / 1;
   border-radius: 14px;
   overflow: hidden;
-  border: 3px solid #111;
-  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.28);
+  border: 3.5px solid #111;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
   background: #84bade;
 }
 
 @media (max-width: 768px) {
+  #page-home .baseplate-wrapper {
+    min-height: 85vh;
+    padding-bottom: 42px;
+    justify-content: flex-start;
+  }
+  .stage-scene-card {
+    max-width: 360px;
+    width: 90%;
+    margin: 8px auto 14px;
+  }
   .stage-image-container {
-    border-radius: 10px;
-    height: auto;
-    min-height: unset;
+    border-radius: 12px;
+    aspect-ratio: 1 / 1;
   }
   .hero-image {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
+    object-fit: cover;
   }
 }
 
 .hero-image {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   object-fit: cover;
 }
@@ -558,34 +572,36 @@ body {
 /* Compact Stud Crown row sitting directly along the button top edge */
 .lego-btn .btn-studs {
   position: absolute;
-  top: -7px;
-  left: 5%;
-  right: 5%;
-  height: 6px;
+  top: -8px;
+  left: 8px;
+  right: 8px;
+  height: 8px;
   display: flex;
-  justify-content: space-around;
+  gap: 3px;
+  justify-content: space-between;
   align-items: flex-end;
   pointer-events: none;
   z-index: 3;
+  overflow: hidden;
 }
 
 .lego-btn .stud {
-  display: inline-block;
-  width: clamp(12px, 2.8vw, 18px);
-  height: 6px;
+  flex: 1 1 14px;
+  max-width: 22px;
+  height: 8px;
   background-color: inherit;
   filter: brightness(1.15);
   border: 2px solid #111;
   border-bottom: none;
-  border-radius: 3px 3px 0 0;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  border-radius: 4px 4px 0 0;
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.45);
   box-sizing: border-box;
 }
 
 /* Fallback for empty .btn-studs */
 .lego-btn .btn-studs:empty {
   background-image: radial-gradient(circle at 50% 100%, currentColor 58%, transparent 62%);
-  background-size: 24px 6px;
+  background-size: 24px 8px;
   background-repeat: repeat-x;
 }
 
@@ -640,12 +656,11 @@ body {
   background-size: 200% 200%;
 }
 
-.lego-btn-rainbow .stud:nth-child(1) { background: #e63946; }
-.lego-btn-rainbow .stud:nth-child(2) { background: #ffbe0b; }
-.lego-btn-rainbow .stud:nth-child(3) { background: #2bb84a; }
-.lego-btn-rainbow .stud:nth-child(4) { background: #0077b6; }
-.lego-btn-rainbow .stud:nth-child(5) { background: #7209b7; }
-.lego-btn-rainbow .stud:nth-child(6) { background: #e63946; }
+.lego-btn-rainbow .stud:nth-child(5n+1) { background: #e63946; }
+.lego-btn-rainbow .stud:nth-child(5n+2) { background: #ffbe0b; }
+.lego-btn-rainbow .stud:nth-child(5n+3) { background: #2bb84a; }
+.lego-btn-rainbow .stud:nth-child(5n+4) { background: #0077b6; }
+.lego-btn-rainbow .stud:nth-child(5n+0) { background: #7209b7; }
 
 @keyframes rainbowShift {
   0% { background-position: 0% 50%; }
