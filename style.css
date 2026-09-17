@@ -764,6 +764,10 @@ body {
   .story-grid-layout {
     grid-template-columns: 1fr;
   }
+  .story-artwork-box {
+    position: relative;
+    top: unset;
+  }
 }
 
 .story-artwork-box {
@@ -772,7 +776,8 @@ body {
   border-radius: 0;
   padding: 0;
   box-shadow: none;
-  position: relative;
+  position: sticky;
+  top: 86px;
   width: 100%;
 }
 
