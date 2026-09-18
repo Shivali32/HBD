@@ -1717,6 +1717,7 @@ body {
   box-sizing: border-box;
   text-align: left;
   transform-origin: top center;
+  scroll-margin-top: 130px;
 }
 
 /* 3D Paper Unfold Keyframe Animation */
