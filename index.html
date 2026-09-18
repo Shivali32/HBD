@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Press+Start+2P&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260917-19">
+  <link rel="stylesheet" href="style.css?v=20260917-20">
 </head>
 <body class="theme-home">
   <!-- Persistent Top Lego Navigation Bar -->
@@ -527,21 +527,7 @@
             </div>
           </div>
           <div class="surprise-banner-outer">
-            <div class="surprise-stud-row">
-              <span class="white-stud"></span><span class="white-stud"></span>
-              <span class="white-stud"></span><span class="white-stud"></span>
-              <span class="white-stud"></span><span class="white-stud"></span>
-              <span class="white-stud"></span><span class="white-stud"></span>
-              <span class="white-stud"></span><span class="white-stud"></span>
-            </div>
             <h1 class="brick-title-surprise">THE BEST IS YET TO COME! HAPPY BIRTHDAY, PRANAV!</h1>
-            <div class="surprise-stud-row">
-              <span class="white-stud"></span><span class="white-stud"></span>
-              <span class="white-stud"></span><span class="white-stud"></span>
-              <span class="white-stud"></span><span class="white-stud"></span>
-              <span class="white-stud"></span><span class="white-stud"></span>
-              <span class="white-stud"></span><span class="white-stud"></span>
-            </div>
           </div>
         </div>
 
@@ -553,87 +539,45 @@
 
           <!-- Unopened State Button -->
           <div id="unredeemed-dock" class="reveal-cta-dock">
-            <button id="btn-redeem-trip" class="lego-btn lego-btn-rainbow lego-btn-huge">
-              <span class="btn-studs">
-                <i class="stud"></i><i class="stud"></i><i class="stud"></i><i class="stud"></i>
-                <i class="stud"></i><i class="stud"></i><i class="stud"></i><i class="stud"></i>
-                <i class="stud"></i><i class="stud"></i><i class="stud"></i><i class="stud"></i>
-                <i class="stud"></i><i class="stud"></i><i class="stud"></i><i class="stud"></i>
-              </span>
-              <span class="btn-text">✨ REDEEM MY SURPRISE TRIP! ✨</span>
+            <button id="btn-redeem-trip" class="magic-rainbow-btn">
+              <span class="magic-rainbow-text">✨ OPEN YOUR BIRTHDAY LETTER ✨</span>
             </button>
-            <p class="cta-hint">Click the rainbow brick to unbox your birthday ticket!</p>
+            <p class="cta-hint">Click the rainbow button to open your special birthday letter!</p>
           </div>
 
-          <!-- Golden Boarding Pass & Surprise Trip Ticket (Revealed on Click) -->
+          <!-- Heartfelt Birthday Letter (Revealed on Click) -->
           <div id="revealed-ticket-container" class="ticket-container hidden">
-            <div class="golden-boarding-pass">
-              <div class="pass-header">
-                <div class="pass-airline">🧱 LEGO AIRWAYS • FLIGHT OF A LIFETIME</div>
-                <div class="pass-class">VIP BIRTHDAY PASS</div>
-              </div>
-
-              <div class="pass-body">
-                <div class="pass-column main-info">
-                  <div class="info-row">
-                    <span class="label">PASSENGER NAME</span>
-                    <span class="val highlight">PRANAV (BIRTHDAY BOY) & HIS FAVORITE PERSON</span>
-                  </div>
-
-                  <div class="flight-route-row">
-                    <div class="route-city">
-                      <span class="code">BOM</span>
-                      <span class="city-name">MUMBAI</span>
-                    </div>
-                    <div class="route-flight-icon">
-                      <span>┈┈┈┈ ✈️ ┈┈┈┈</span>
-                      <span class="direct-badge">CONFIRMED GETAWAY</span>
-                    </div>
-                    <div class="route-city">
-                      <span class="code">???</span>
-                      <span class="city-name">OUR NEXT ADVENTURE!</span>
-                    </div>
-                  </div>
-
-                  <div class="info-grid-3">
-                    <div class="info-box">
-                      <span class="label">DATE</span>
-                      <span class="val">PACK YOUR BAGS! 🧳</span>
-                    </div>
-                    <div class="info-box">
-                      <span class="label">SEATS</span>
-                      <span class="val">1A & 1B (TOGETHER)</span>
-                    </div>
-                    <div class="info-box">
-                      <span class="label">STATUS</span>
-                      <span class="val green-text">BOOKED & READY! 🏖️</span>
-                    </div>
-                  </div>
+            <article class="birthday-letter-card">
+              <div class="letter-top-row">
+                <div class="letter-postmark">
+                  <span>💌</span>
+                  <span>SPECIAL DELIVERY • 18TH SEPTEMBER 2026</span>
                 </div>
-
-                <div class="pass-column tear-off">
-                  <div class="stub-header">BOARDING STUB</div>
-                  <div class="stub-passenger">PRANAV</div>
-                  <div class="stub-dest">NEXT DESTINATION</div>
-                  <div class="barcode">
-                    <span>||| | | |||| | ||| |||| | ||| | |||||</span>
-                  </div>
-                  <div class="stamp-approved">BIRTHDAY APPROVED</div>
+                <div class="letter-wax-seal" title="Sealed with Love">
+                  <span>❤️</span>
                 </div>
               </div>
 
-              <!-- Heartfelt Birthday Card -->
-              <div class="pass-letter-card">
-                <h4>💌 A Note for Pranav:</h4>
-                <p>
-                  "From the first time we met in our Pune MBA class, to surviving the long-distance countdown across London and Mumbai, you have been my favorite person every single step of the way. 
-                  Now that we're back in the same timezone (with sister's MBA in Mumbai too!), our best travels are just beginning. 
-                  Happy Birthday to the most amazing guy in the world! Let's build a million more memories brick by brick."
+              <h2 class="letter-salutation">Dearest Pranav,</h2>
+
+              <div class="letter-content">
+                <p class="letter-paragraph">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
                 </p>
-                <div class="letter-signature">Forever Your Favorite Player 2 ❤️</div>
+                <p class="letter-paragraph">
+                  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida.
+                </p>
+                <p class="letter-paragraph">
+                  Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi.
+                </p>
               </div>
 
-              <div class="replay-dock">
+              <div class="letter-signoff">
+                <p class="letter-closing">Forever and always,</p>
+                <div class="letter-signature-name">Varada ❤️</div>
+              </div>
+
+              <div class="letter-action-dock">
                 <button class="lego-btn lego-btn-yellow" onclick="switchPage('home')">
                   <span class="btn-studs">
                     <i class="stud"></i><i class="stud"></i><i class="stud"></i>
@@ -642,7 +586,7 @@
                   <span class="btn-text">🔄 REPLAY OUR STORY</span>
                 </button>
               </div>
-            </div>
+            </article>
           </div>
 
         </div>
@@ -651,6 +595,6 @@
 
   </main>
 
-  <script src="app.js?v=20260917-9"></script>
+  <script src="app.js?v=20260917-10"></script>
 </body>
 </html>
