@@ -512,10 +512,13 @@ function dodgeNoButton(e) {
   sfx.boing();
   if (navigator.vibrate) navigator.vibrate([40, 20]);
 
-  // Grow the YES button bigger on every dodge!
-  yesScale += 0.12;
+  const isMobile = (quizArena ? quizArena.clientWidth : 360) < 600;
+
+  // Grow the YES button on every dodge with balanced scaling
+  yesScale += isMobile ? 0.05 : 0.08;
+  const maxYesScale = isMobile ? 1.15 : 1.35;
   if (btnYes) {
-    btnYes.style.transform = `scale(${Math.min(yesScale, 1.6)})`;
+    btnYes.style.transform = `scale(${Math.min(yesScale, maxYesScale)})`;
   }
 
   // Check if threshold reached to transform into YES!
@@ -523,7 +526,7 @@ function dodgeNoButton(e) {
     isTransformed = true;
     btnNo.style.transform = 'translate(0px, 0px) scale(1)';
     if (btnYes) {
-      btnYes.style.transform = 'scale(1.1)';
+      btnYes.style.transform = 'scale(1.06)';
     }
     btnNo.classList.remove('lego-btn-red');
     btnNo.classList.add('lego-btn-green');
@@ -539,27 +542,61 @@ function dodgeNoButton(e) {
     return;
   }
 
-  // Bound random coordinates within quizArena
+  // Derive precise boundaries within quizArena
+  const dock = quizArena ? quizArena.querySelector('.quiz-answers-dock') : null;
+  const subtext = quizArena ? quizArena.querySelector('.quiz-subtext') : null;
+
   const arenaWidth = quizArena ? quizArena.clientWidth : 320;
-  const arenaHeight = quizArena ? quizArena.clientHeight : 250;
-  const btnWidth = btnNo ? (btnNo.offsetWidth || 110) : 110;
-  const btnHeight = btnNo ? (btnNo.offsetHeight || 50) : 50;
+  const arenaHeight = quizArena ? quizArena.clientHeight : 340;
+  const btnWidth = btnNo ? (btnNo.offsetWidth || 130) : 130;
+  const btnHeight = btnNo ? (btnNo.offsetHeight || 55) : 55;
 
-  const maxX = Math.max(25, (arenaWidth / 2) - (btnWidth / 2) - 20);
-  const maxY = Math.max(20, (arenaHeight / 2) - (btnHeight / 2) - 25);
+  // Natural untransformed position of btnNo inside quizArena
+  const dockLeft = dock ? dock.offsetLeft : 0;
+  const dockTop = dock ? dock.offsetTop : 200;
+  const naturalLeft = btnNo ? (btnNo.offsetLeft + dockLeft) : (arenaWidth / 2);
+  const naturalTop = btnNo ? (btnNo.offsetTop + dockTop) : (arenaHeight * 0.65);
 
-  let randomX = (Math.random() - 0.5) * 2 * maxX;
-  let randomY = (Math.random() - 0.5) * 2 * maxY;
+  // Safe inner bounds inside quizArena (with 16px padding inside the whiteboard borders)
+  const minSafeLeft = 16;
+  const maxSafeLeft = Math.max(minSafeLeft, arenaWidth - btnWidth - 16);
 
-  // Ensure button dodges away from the center to avoid covering YES
-  if (Math.abs(randomX) < 45 && Math.abs(randomY) < 35) {
-    randomX = (randomX >= 0 ? 1 : -1) * (50 + Math.random() * (maxX - 50));
-    randomY = (randomY >= 0 ? 1 : -1) * (40 + Math.random() * (maxY - 40));
+  // Top bound: stay safely below the question subtext
+  const subtextBottom = subtext ? (subtext.offsetTop + subtext.offsetHeight + 10) : 110;
+  const minSafeTop = Math.max(16, subtextBottom);
+
+  // Bottom bound: stay safely above the bottom of the arena and dialogue bubble
+  const maxSafeTop = Math.max(minSafeTop, arenaHeight - btnHeight - 40);
+
+  // Allowable translation ranges relative to natural origin
+  const minTx = minSafeLeft - naturalLeft;
+  const maxTx = maxSafeLeft - naturalLeft;
+  const minTy = minSafeTop - naturalTop;
+  const maxTy = maxSafeTop - naturalTop;
+
+  // Scripted high-drama dodges for stages 1 to 3 that guarantee 100% visibility:
+  let targetTx = 0;
+  let targetTy = 0;
+
+  if (dodgeCount === 1) {
+    // Stage 1: Jump up on right side (clear of YES button)
+    targetTx = isMobile ? 0 : (minTx * 0.68);
+    targetTy = minTy * 0.85;
+  } else if (dodgeCount === 2) {
+    // Stage 2: Jump down and slightly left on right side (clear of YES button)
+    targetTx = isMobile ? Math.max(minTx * 0.2, -30) : (maxTx > 45 ? maxTx * 0.8 : minTx * 0.4);
+    targetTy = isMobile ? (maxTy * 0.75) : (minTy * 0.55);
+  } else {
+    // Stage 3: Feint high up
+    targetTx = isMobile ? Math.max(minTx * 0.15, -20) : (minTx * 0.85);
+    targetTy = minTy * 0.95;
   }
-  randomX = Math.max(-maxX, Math.min(maxX, randomX));
-  randomY = Math.max(-maxY, Math.min(maxY, randomY));
 
-  btnNo.style.transform = `translate(${randomX}px, ${randomY}px) scale(0.94)`;
+  // Strictly clamp target translation to stay completely inside the white block
+  targetTx = Math.max(minTx, Math.min(maxTx, targetTx));
+  targetTy = Math.max(minTy, Math.min(maxTy, targetTy));
+
+  btnNo.style.transform = `translate(${targetTx}px, ${targetTy}px) scale(0.95)`;
 
   // Update witty dialogue message
   const phrase = wittyPhrases[(dodgeCount - 1) % wittyPhrases.length];

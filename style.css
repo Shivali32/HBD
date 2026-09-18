@@ -379,12 +379,15 @@ body {
 }
 
 /* Authentic Recreated Lego Brick Banner Frame (Surprise Page) */
-.surprise-banner-wrapper,
-.brick-banner-frame.gold-banner {
+.surprise-banner-wrapper {
   position: relative;
   max-width: 880px;
   width: 100%;
   margin: 22px auto 20px;
+  box-sizing: border-box;
+}
+
+.surprise-banner-outer {
   background: #ffffff;
   border: 3.5px solid #111;
   border-radius: 4px;
@@ -397,6 +400,7 @@ body {
   border-right: 15px solid #e63946;
   border-image: none;
   box-sizing: border-box;
+  position: relative;
 }
 
 .surprise-stud-crown {
@@ -1353,10 +1357,10 @@ body {
 }
 
 .quiz-inner-board {
-  min-height: 380px;
+  min-height: 400px;
   border: 4px solid #111;
   border-radius: 16px;
-  padding: 36px 20px;
+  padding: 32px 20px 36px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -1371,8 +1375,11 @@ body {
 @media (max-width: 600px) {
   .quiz-inner-board {
     border-radius: 12px;
-    padding: 24px 14px;
-    min-height: 340px;
+    padding: 20px 14px 28px;
+    min-height: 410px;
+  }
+  .quiz-subtext {
+    margin-bottom: 14px;
   }
 }
 
@@ -1396,7 +1403,7 @@ body {
   font-family: var(--font-fun);
   font-size: 0.95rem;
   color: #64748b;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .quiz-answers-dock {
@@ -1749,6 +1756,14 @@ body {
   box-shadow: 0 4px 10px rgba(155, 17, 30, 0.35), inset 0 2px 4px rgba(255,255,255,0.4);
   border: 2px solid #790c17;
   user-select: none;
+}
+
+.wax-seal-heart {
+  font-size: 1.35rem;
+  line-height: 1;
+  color: #ffffff;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));
+  display: inline-block;
 }
 
 .letter-salutation {
