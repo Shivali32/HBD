@@ -807,10 +807,34 @@ function renderConfetti() {
   }
 }
 
-// Interactive sound & haptics for home memory polaroids
-document.querySelectorAll('.home-memory-card').forEach(card => {
-  card.addEventListener('click', () => {
-    sfx.click();
-    if (navigator.vibrate) navigator.vibrate(25);
-  });
+// ==========================================================================
+// INTERACTIVE MEMORY POLAROID CARDS (FLIP BETWEEN ORIGINAL & LEGO)
+// ==========================================================================
+document.querySelectorAll('.home-memory-card').forEach((card) => {
+  function toggleMemoryMode(e) {
+    if (e && e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
+    if (e) e.preventDefault();
+
+    const isLegoNow = card.classList.toggle('is-lego');
+    const badgeText = card.querySelector('.badge-text');
+    const badgeIcon = card.querySelector('.badge-icon');
+
+    if (isLegoNow) {
+      sfx.chime();
+      if (badgeText) badgeText.textContent = 'Real';
+      if (badgeIcon) badgeIcon.textContent = '📸';
+      card.setAttribute('title', 'Click to see real photo!');
+    } else {
+      sfx.click();
+      if (badgeText) badgeText.textContent = 'Lego-fy';
+      if (badgeIcon) badgeIcon.textContent = '✨';
+      card.setAttribute('title', 'Click to transform into Lego!');
+    }
+
+    if (navigator.vibrate) navigator.vibrate(35);
+  }
+
+  card.addEventListener('click', toggleMemoryMode);
+  card.addEventListener('keydown', toggleMemoryMode);
 });
+

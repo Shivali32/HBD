@@ -585,10 +585,17 @@ body {
 }
 
 /* ==========================================================================
-   HOMEPAGE POLAROID MEMORIES (CUTE LEGO MINI-SNAPSHOTS)
+   HOMEPAGE POLAROID MEMORIES (INTERACTIVE REAL & LEGO SNAPSHOTS)
    ========================================================================== */
+.home-memories-container {
+  margin: 10px auto 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .home-memories-dock {
-  margin: 12px auto 8px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -611,6 +618,7 @@ body {
   cursor: pointer;
   user-select: none;
   touch-action: manipulation;
+  perspective: 900px;
 }
 
 .home-memory-card.card-left {
@@ -621,11 +629,14 @@ body {
   transform: rotate(3deg);
 }
 
-.home-memory-card:hover,
-.home-memory-card:active {
-  transform: scale(1.08) rotate(0deg) translateY(-4px);
+.home-memory-card:hover {
+  transform: scale(1.06) rotate(0deg) translateY(-3px);
   z-index: 10;
   box-shadow: 0 6px 0 #111, 0 12px 22px rgba(0, 0, 0, 0.25);
+}
+
+.home-memory-card:active {
+  transform: scale(0.98) rotate(0deg);
 }
 
 .memory-pin-stud {
@@ -639,6 +650,7 @@ body {
   border-bottom: none;
   border-radius: 3px 3px 0 0;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  z-index: 5;
 }
 
 .memory-pin-stud.red { background: #e63946; }
@@ -648,16 +660,75 @@ body {
   width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 4px;
-  overflow: hidden;
   border: 1.5px solid #111;
   background: #cbd5e1;
+  position: relative;
+  perspective: 700px;
+}
+
+.photo-flipper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 3D Flip state when Lego mode is toggled */
+.home-memory-card.is-lego .photo-flipper {
+  transform: rotateY(180deg);
 }
 
 .memory-photo {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 2px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.memory-photo.photo-real {
+  transform: rotateY(0deg);
+  z-index: 2;
+}
+
+.memory-photo.photo-lego {
+  transform: rotateY(180deg);
+  z-index: 1;
+}
+
+/* Interactive Badge in bottom-right corner of photo */
+.photo-mode-badge {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background: rgba(17, 24, 39, 0.82);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: #fff;
+  font-family: var(--font-fun);
+  font-size: 0.58rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  pointer-events: none;
+  z-index: 6;
+  letter-spacing: 0.2px;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.home-memory-card.is-lego .photo-mode-badge {
+  background: rgba(230, 57, 70, 0.92);
 }
 
 .memory-caption {
@@ -670,13 +741,47 @@ body {
   white-space: nowrap;
 }
 
+/* Tap prompt pill below cards */
+.memories-interactive-hint {
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #ffffff;
+  border: 1.5px solid #111;
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-family: var(--font-fun);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #334155;
+  box-shadow: 0 2px 0 #111;
+  letter-spacing: 0.2px;
+  animation: softPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes softPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
 @media (max-width: 350px) {
   .home-memory-card {
-    width: 118px;
+    width: 120px;
     padding: 4px 4px 5px;
   }
   .memory-caption {
     font-size: 0.62rem;
+  }
+  .photo-mode-badge {
+    font-size: 0.5rem;
+    padding: 1px 4px;
+    bottom: 3px;
+    right: 3px;
+  }
+  .memories-interactive-hint {
+    font-size: 0.64rem;
+    padding: 2px 8px;
   }
 }
 
