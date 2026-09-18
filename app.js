@@ -193,6 +193,10 @@ function switchPage(pageKey) {
 
   // Scroll to top smoothly
   window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  if (pageKey === 'quiz' && typeof resetQuizState === 'function') {
+    resetQuizState();
+  }
 }
 
 // Nav Click Listeners
@@ -418,45 +422,191 @@ document.addEventListener('keydown', (e) => {
 
 
 // ==========================================================================
-// THE ULTIMATE QUESTION - THE FINAL ANSWER IS YES!
+// THE ULTIMATE QUESTION: THE RUNAWAY "NO" BUTTON THAT BECOMES "YES"
 // ==========================================================================
 const btnNo = document.getElementById('btn-quiz-no');
 const btnYes = document.getElementById('btn-quiz-yes');
+const noLabel = document.getElementById('no-btn-label');
+const dialogueBubble = document.getElementById('quiz-dialogue-bubble');
+const bubbleMessage = document.getElementById('bubble-message');
+const quizArena = document.getElementById('quiz-arena');
 const quizSuccessPanel = document.getElementById('quiz-success-panel');
 const quizSuccessTitle = document.getElementById('quiz-success-title');
 const quizSuccessDesc = document.getElementById('quiz-success-desc');
 
-function revealQuizAnswer(choice) {
+let dodgeCount = 0;
+let yesScale = 1.0;
+let isTransformed = false;
+let lastDodgeTime = 0;
+const MAX_DODGES = 4; // After 4 dodges, NO transforms into YES!
+
+const wittyPhrases = [
+  "Nice try, Pranav! 😂",
+  "Nope! You can't live without me! 😜",
+  "Error 404: 'NO' button not found! ⚠️",
+  "Best friends forever, no escape! 💕",
+  "Oops, missed it! 🏃‍♂️💨",
+  "Almost had it... NOT! 😆"
+];
+
+function resetQuizState() {
+  dodgeCount = 0;
+  isTransformed = false;
+  yesScale = 1.0;
+  lastDodgeTime = 0;
+  if (btnYes) {
+    btnYes.style.transform = 'scale(1)';
+  }
+  if (btnNo) {
+    btnNo.style.transform = 'translate(0px, 0px) scale(1)';
+    btnNo.classList.remove('lego-btn-green');
+    btnNo.classList.add('lego-btn-red');
+  }
+  if (noLabel) {
+    noLabel.textContent = 'NO 🙅‍♂️';
+  }
+  if (dialogueBubble) {
+    dialogueBubble.classList.add('hidden');
+  }
+  if (quizSuccessPanel) {
+    quizSuccessPanel.classList.add('hidden');
+  }
+}
+
+function revealQuizSuccess() {
   sfx.fanfare();
   if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
-  launchConfetti(60);
+  launchConfetti(70);
 
   if (quizSuccessTitle) {
     quizSuccessTitle.textContent = "FINAL ANSWER: YES!";
   }
 
   if (quizSuccessDesc) {
-    if (choice === 'no') {
-      quizSuccessDesc.innerHTML = "You clicked <strong>NO</strong>... but the final answer is <strong>YES</strong>: as she is so much more than a best friend now! 🥰<br><br>Every call, every road trip, and every chapter proved that we belong together. Now it's time for your birthday reward!";
-    } else {
-      quizSuccessDesc.innerHTML = "The final answer is <strong>YES</strong>: as she is so much more than a best friend now! 🥰<br><br>Every call, every road trip, and every chapter proved that we belong together. Now it's time for your birthday reward!";
-    }
+    quizSuccessDesc.innerHTML = "Because she is so much more than just a best friend now! 🥰<br><br>Every call, every road trip, and every chapter proved that we belong together. Now it's time for your birthday reward!";
   }
 
-  quizSuccessPanel.classList.remove('hidden');
+  if (quizSuccessPanel) {
+    quizSuccessPanel.classList.remove('hidden');
+  }
 }
 
-if (btnNo) {
-  btnNo.addEventListener('click', (e) => {
+function dodgeNoButton(e) {
+  if (e) {
     e.preventDefault();
-    revealQuizAnswer('no');
+    e.stopPropagation();
+  }
+
+  // If already transformed into YES, clicking triggers success!
+  if (isTransformed) {
+    revealQuizSuccess();
+    return;
+  }
+
+  // Throttle rapid consecutive events (e.g. pointerdown + click)
+  const now = Date.now();
+  if (now - lastDodgeTime < 180) return;
+  lastDodgeTime = now;
+
+  dodgeCount++;
+  sfx.boing();
+  if (navigator.vibrate) navigator.vibrate([40, 20]);
+
+  // Grow the YES button bigger on every dodge!
+  yesScale += 0.12;
+  if (btnYes) {
+    btnYes.style.transform = `scale(${Math.min(yesScale, 1.6)})`;
+  }
+
+  // Check if threshold reached to transform into YES!
+  if (dodgeCount >= MAX_DODGES) {
+    isTransformed = true;
+    btnNo.style.transform = 'translate(0px, 0px) scale(1)';
+    if (btnYes) {
+      btnYes.style.transform = 'scale(1.1)';
+    }
+    btnNo.classList.remove('lego-btn-red');
+    btnNo.classList.add('lego-btn-green');
+    if (noLabel) {
+      noLabel.textContent = "YES! 🥰";
+    }
+    if (bubbleMessage) {
+      bubbleMessage.textContent = "Okay fine, now you HAVE to click YES! 🥰";
+    }
+    if (dialogueBubble) {
+      dialogueBubble.classList.remove('hidden');
+    }
+    return;
+  }
+
+  // Bound random coordinates within quizArena
+  const arenaWidth = quizArena ? quizArena.clientWidth : 320;
+  const arenaHeight = quizArena ? quizArena.clientHeight : 250;
+  const btnWidth = btnNo ? (btnNo.offsetWidth || 110) : 110;
+  const btnHeight = btnNo ? (btnNo.offsetHeight || 50) : 50;
+
+  const maxX = Math.max(25, (arenaWidth / 2) - (btnWidth / 2) - 20);
+  const maxY = Math.max(20, (arenaHeight / 2) - (btnHeight / 2) - 25);
+
+  let randomX = (Math.random() - 0.5) * 2 * maxX;
+  let randomY = (Math.random() - 0.5) * 2 * maxY;
+
+  // Ensure button dodges away from the center to avoid covering YES
+  if (Math.abs(randomX) < 45 && Math.abs(randomY) < 35) {
+    randomX = (randomX >= 0 ? 1 : -1) * (50 + Math.random() * (maxX - 50));
+    randomY = (randomY >= 0 ? 1 : -1) * (40 + Math.random() * (maxY - 40));
+  }
+  randomX = Math.max(-maxX, Math.min(maxX, randomX));
+  randomY = Math.max(-maxY, Math.min(maxY, randomY));
+
+  btnNo.style.transform = `translate(${randomX}px, ${randomY}px) scale(0.94)`;
+
+  // Update witty dialogue message
+  const phrase = wittyPhrases[(dodgeCount - 1) % wittyPhrases.length];
+  if (bubbleMessage) {
+    bubbleMessage.textContent = phrase;
+  }
+  if (dialogueBubble) {
+    dialogueBubble.classList.remove('hidden');
+  }
+}
+
+// Attach dodging listeners to NO button
+if (btnNo) {
+  // Desktop hover
+  btnNo.addEventListener('mouseenter', (e) => {
+    if (!isTransformed) dodgeNoButton(e);
+  });
+
+  // Mobile touch & pointer events
+  btnNo.addEventListener('touchstart', (e) => {
+    if (!isTransformed) {
+      dodgeNoButton(e);
+    }
+  }, { passive: false });
+
+  btnNo.addEventListener('pointerdown', (e) => {
+    if (!isTransformed && (e.pointerType === 'touch' || e.pointerType === 'pen')) {
+      dodgeNoButton(e);
+    }
+  });
+
+  // Click handler
+  btnNo.addEventListener('click', (e) => {
+    if (!isTransformed) {
+      dodgeNoButton(e);
+    } else {
+      e.preventDefault();
+      revealQuizSuccess();
+    }
   });
 }
 
+// YES Button Click Handler
 if (btnYes) {
   btnYes.addEventListener('click', (e) => {
     e.preventDefault();
-    revealQuizAnswer('yes');
+    revealQuizSuccess();
   });
 }
 
