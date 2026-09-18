@@ -625,19 +625,18 @@ if (btnRedeem) {
     unredeemedDock.classList.add('hidden');
     ticketContainer.classList.remove('hidden');
 
+    // Trigger smooth 3D unfolding animation on the letter card without scrolling
+    const letterCard = ticketContainer.querySelector('.birthday-letter-card');
+    if (letterCard) {
+      letterCard.classList.remove('unfolding');
+      void letterCard.offsetWidth; // Force DOM reflow to restart animation reliably
+      letterCard.classList.add('unfolding');
+    }
+
     // Trigger grand celebration confetti
     launchConfetti(120);
     setTimeout(() => launchConfetti(80), 500);
     setTimeout(() => launchConfetti(60), 1200);
-
-    // Scroll smoothly to the revealed letter card clearing the sticky navbar
-    setTimeout(() => {
-      const navBar = document.querySelector('.lego-nav-bar');
-      const navHeight = navBar ? navBar.offsetHeight : 80;
-      const cardRect = ticketContainer.getBoundingClientRect();
-      const targetY = cardRect.top + window.pageYOffset - navHeight - 14;
-      window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
-    }, 50);
   });
 }
 
