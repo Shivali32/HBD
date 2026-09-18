@@ -2039,7 +2039,7 @@ body {
   border-radius: 18px;
   max-width: 460px;
   width: 100%;
-  padding: 34px 24px 28px;
+  padding: 24px 22px 24px;
   box-shadow: 0 12px 0 #111, 0 20px 40px rgba(0, 0, 0, 0.35);
   box-sizing: border-box;
   text-align: center;
@@ -2071,7 +2071,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 48px;
+  height: 42px;
   overflow: hidden;
   border-radius: 14px 14px 0 0;
   pointer-events: none;
@@ -2085,14 +2085,14 @@ body {
   clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 
-/* Red Wax Seal Stamp */
+/* Red Wax Seal Stamp - Positioned at tip of flap without overlapping text */
 .envelope-wax-seal {
   position: absolute;
-  top: 26px;
+  top: 16px;
   left: 50%;
   transform: translateX(-50%);
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   background: radial-gradient(circle at 35% 35%, #e63946, #8f0e1a);
   border-radius: 50%;
   display: flex;
@@ -2136,7 +2136,7 @@ body {
 }
 
 .envelope-body-content {
-  margin-top: 26px;
+  margin-top: 50px;
 }
 
 .envelope-badge {
@@ -2250,10 +2250,18 @@ body {
 
 @media (max-width: 480px) {
   .sealed-envelope-card {
-    padding: 30px 16px 22px;
+    padding: 20px 14px 20px;
+  }
+  .envelope-wax-seal {
+    top: 14px;
+    width: 40px;
+    height: 40px;
+  }
+  .envelope-body-content {
+    margin-top: 44px;
   }
   .envelope-title {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
   .envelope-subtitle {
     font-size: 0.84rem;
