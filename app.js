@@ -806,3 +806,11 @@ function renderConfetti() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 }
+
+// Interactive sound & haptics for home memory polaroids
+document.querySelectorAll('.home-memory-card').forEach(card => {
+  card.addEventListener('click', () => {
+    sfx.click();
+    if (navigator.vibrate) navigator.vibrate(25);
+  });
+});
