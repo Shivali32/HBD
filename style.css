@@ -233,8 +233,16 @@ body {
     margin-bottom: 2px;
   }
   .home-btn {
-    padding: 4px 10px;
+    width: calc((100% - 15px) / 4);
+    box-sizing: border-box;
+    padding: 5px 3px;
     font-size: 0.8rem;
+  }
+  .home-text {
+    font-size: 0.68rem;
+    font-family: var(--font-fun);
+    font-weight: 700;
+    white-space: nowrap;
   }
   .sound-chip {
     padding: 3px 9px;
@@ -384,6 +392,7 @@ body {
   max-width: 880px;
   width: 100%;
   margin: 22px auto 20px;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -401,13 +410,14 @@ body {
   border-image: none;
   box-sizing: border-box;
   position: relative;
+  width: 100%;
 }
 
 .surprise-stud-crown {
   position: absolute;
-  top: -5px;
-  left: 4px;
-  right: 4px;
+  top: -4px;
+  left: 2px;
+  right: 2px;
   height: 5px;
   display: flex;
   gap: 2px;
@@ -542,11 +552,21 @@ body {
     margin-bottom: 12px;
     padding: 6px 14px;
   }
-  .surprise-banner-wrapper,
-  .brick-banner-frame.gold-banner {
+  .surprise-banner-wrapper {
     margin: 8px auto 8px;
+    max-width: 95%;
+    padding: 0;
+    width: 100%;
+    position: relative;
+  }
+  .surprise-banner-outer {
     padding: 8px 12px;
-    border-width: 10px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-right-width: 10px;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 
