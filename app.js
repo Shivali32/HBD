@@ -438,6 +438,7 @@ let dodgeCount = 0;
 let yesScale = 1.0;
 let isTransformed = false;
 let lastDodgeTime = 0;
+let transformTime = 0;
 const MAX_DODGES = 4; // After 4 dodges, NO transforms into YES!
 
 const wittyPhrases = [
@@ -454,6 +455,7 @@ function resetQuizState() {
   isTransformed = false;
   yesScale = 1.0;
   lastDodgeTime = 0;
+  transformTime = 0;
   if (btnYes) {
     btnYes.style.transform = 'scale(1)';
   }
@@ -497,8 +499,9 @@ function dodgeNoButton(e) {
     e.stopPropagation();
   }
 
-  // If already transformed into YES, clicking triggers success!
+  // If already transformed into YES, clicking triggers success (respecting transform cooldown)
   if (isTransformed) {
+    if (Date.now() - transformTime < 450) return;
     revealQuizSuccess();
     return;
   }
@@ -524,6 +527,7 @@ function dodgeNoButton(e) {
   // Check if threshold reached to transform into YES!
   if (dodgeCount >= MAX_DODGES) {
     isTransformed = true;
+    transformTime = Date.now();
     btnNo.style.transform = 'translate(0px, 0px) scale(1)';
     if (btnYes) {
       btnYes.style.transform = 'scale(1.06)';
@@ -615,25 +619,44 @@ if (btnNo) {
     if (!isTransformed) dodgeNoButton(e);
   });
 
-  // Mobile touch & pointer events
+  // Mobile touch event
   btnNo.addEventListener('touchstart', (e) => {
     if (!isTransformed) {
+      if (e.cancelable) e.preventDefault();
       dodgeNoButton(e);
+    } else {
+      // Cooldown check prevents the transforming tap from immediately triggering YES
+      if (Date.now() - transformTime < 450) {
+        if (e.cancelable) e.preventDefault();
+        return;
+      }
+      if (e.cancelable) e.preventDefault();
+      revealQuizSuccess();
     }
   }, { passive: false });
 
   btnNo.addEventListener('pointerdown', (e) => {
-    if (!isTransformed && (e.pointerType === 'touch' || e.pointerType === 'pen')) {
-      dodgeNoButton(e);
+    if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+      if (!isTransformed) {
+        dodgeNoButton(e);
+      }
     }
   });
 
-  // Click handler
+  // Click handler (desktop clicks and non-canceled clicks)
   btnNo.addEventListener('click', (e) => {
     if (!isTransformed) {
       dodgeNoButton(e);
     } else {
-      e.preventDefault();
+      // Debounce synthetic click from the touch that just transformed the button
+      if (Date.now() - transformTime < 450) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        return;
+      }
+      if (e) e.preventDefault();
       revealQuizSuccess();
     }
   });
