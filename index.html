@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Press+Start+2P&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260918-10">
+  <link rel="stylesheet" href="style.css?v=20260918-12">
 </head>
 <body class="theme-home">
   <!-- Persistent Top Lego Navigation Bar -->
@@ -105,40 +105,28 @@
           <div class="home-memories-container">
             <div class="home-memories-dock">
               <!-- Beach Days Polaroid Card (Click to Flip) -->
-              <div class="home-memory-card card-left" id="card-memory-beach" role="button" tabindex="0" title="Click to transform into Lego!">
+              <div class="home-memory-card card-left" id="card-memory-beach" role="button" tabindex="0" title="Click to flip photo!">
                 <div class="memory-pin-stud red"></div>
                 <div class="memory-photo-wrap">
                   <div class="photo-flipper">
                     <img src="assets/memory-beach-real.jpg?v=20260918-1" alt="Beach Days Real Photo" class="memory-photo photo-real" loading="eager">
                     <img src="assets/memory-beach-lego.jpg?v=20260918-1" alt="Beach Days Cute Lego" class="memory-photo photo-lego" loading="eager">
                   </div>
-                  <div class="photo-mode-badge" title="Tap to switch mode">
-                    <span class="badge-icon">✨</span>
-                    <span class="badge-text">Lego-fy</span>
-                  </div>
                 </div>
                 <div class="memory-caption">Beach Days 🌊</div>
               </div>
 
               <!-- Cozy Dates Polaroid Card (Click to Flip) -->
-              <div class="home-memory-card card-right" id="card-memory-cafe" role="button" tabindex="0" title="Click to transform into Lego!">
+              <div class="home-memory-card card-right" id="card-memory-cafe" role="button" tabindex="0" title="Click to flip photo!">
                 <div class="memory-pin-stud yellow"></div>
                 <div class="memory-photo-wrap">
                   <div class="photo-flipper">
                     <img src="assets/memory-cafe-real.jpg?v=20260918-1" alt="Cozy Dates Real Photo" class="memory-photo photo-real" loading="eager">
                     <img src="assets/memory-cafe-lego.jpg?v=20260918-1" alt="Cozy Dates Cute Lego" class="memory-photo photo-lego" loading="eager">
                   </div>
-                  <div class="photo-mode-badge" title="Tap to switch mode">
-                    <span class="badge-icon">✨</span>
-                    <span class="badge-text">Lego-fy</span>
-                  </div>
                 </div>
                 <div class="memory-caption">Cozy Dates ☕</div>
               </div>
-            </div>
-            <div class="memories-interactive-hint">
-              <span class="hint-hand">👆</span>
-              <span class="hint-text">Tap photos to Lego-fy! 🧱</span>
             </div>
           </div>
         </div>
@@ -580,6 +568,67 @@
             </button>
           </div>
 
+          <!-- Sealed Envelope Password Modal -->
+          <div id="letter-lock-modal" class="letter-lock-modal hidden">
+            <div class="envelope-modal-backdrop" id="envelope-modal-backdrop"></div>
+            <div class="sealed-envelope-card" id="sealed-envelope-card">
+              <!-- Top decorative flap of the envelope -->
+              <div class="envelope-flap-wrapper">
+                <div class="envelope-flap"></div>
+              </div>
+              
+              <!-- Red wax seal stamp with white heart -->
+              <div class="envelope-wax-seal" id="envelope-wax-seal" title="Sealed Secret">
+                <span class="wax-seal-heart">🤍</span>
+              </div>
+
+              <!-- Close button -->
+              <button class="envelope-close-btn" id="btn-close-envelope" title="Close">✕</button>
+
+              <div class="envelope-body-content">
+                <div class="envelope-badge">
+                  <span>💌 TOP SECRET DISPATCH</span>
+                </div>
+
+                <h3 class="envelope-title">SEALED BIRTHDAY LETTER</h3>
+                <p class="envelope-subtitle">This letter is sealed with a secret passcode! Enter the password to break the seal and open:</p>
+
+                <!-- Passcode Input Form -->
+                <form id="envelope-passcode-form" class="envelope-form" onsubmit="return false;">
+                  <div class="passcode-input-wrapper" id="passcode-input-box">
+                    <span class="passcode-icon">🔐</span>
+                    <input 
+                      type="text" 
+                      id="letter-passcode-input" 
+                      class="passcode-input" 
+                      placeholder="Enter secret passcode..." 
+                      autocomplete="off" 
+                      autocorrect="off" 
+                      autocapitalize="none" 
+                      spellcheck="false"
+                    >
+                  </div>
+
+                  <!-- Error message with humorous puns (no hints!) -->
+                  <div id="passcode-error-msg" class="passcode-error-banner hidden">
+                    <span class="error-emoji">😂</span>
+                    <span id="passcode-error-text" class="error-text"></span>
+                  </div>
+
+                  <div class="envelope-btn-row">
+                    <button type="submit" id="btn-unlock-letter" class="lego-btn lego-btn-yellow envelope-unlock-btn">
+                      <span class="btn-studs">
+                        <i class="stud"></i><i class="stud"></i><i class="stud"></i><i class="stud"></i>
+                        <i class="stud"></i><i class="stud"></i><i class="stud"></i><i class="stud"></i>
+                      </span>
+                      <span class="btn-text">✨ BREAK THE SEAL & OPEN ✨</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
           <!-- Heartfelt Birthday Letter (Revealed on Click) -->
           <div id="revealed-ticket-container" class="ticket-container hidden">
             <article class="birthday-letter-card">
@@ -940,6 +989,6 @@
 
   </main>
 
-  <script src="app.js?v=20260918-10"></script>
+  <script src="app.js?v=20260918-12"></script>
 </body>
 </html>

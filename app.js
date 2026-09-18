@@ -672,33 +672,150 @@ if (btnYes) {
 
 
 // ==========================================================================
-// PAGE 5: BIRTHDAY SURPRISE REVEAL & CONFETTI CANNON
+// PAGE 5: BIRTHDAY SURPRISE REVEAL & SEALED ENVELOPE PASSCODE MODAL
 // ==========================================================================
 const btnRedeem = document.getElementById('btn-redeem-trip');
 const unredeemedDock = document.getElementById('unredeemed-dock');
 const ticketContainer = document.getElementById('revealed-ticket-container');
+const letterLockModal = document.getElementById('letter-lock-modal');
+const sealedEnvelopeCard = document.getElementById('sealed-envelope-card');
+const btnCloseEnvelope = document.getElementById('btn-close-envelope');
+const envelopeModalBackdrop = document.getElementById('envelope-modal-backdrop');
+const envelopePasscodeForm = document.getElementById('envelope-passcode-form');
+const letterPasscodeInput = document.getElementById('letter-passcode-input');
+const passcodeInputBox = document.getElementById('passcode-input-box');
+const passcodeErrorMsg = document.getElementById('passcode-error-msg');
+const passcodeErrorText = document.getElementById('passcode-error-text');
 
-if (btnRedeem) {
-  btnRedeem.addEventListener('click', () => {
+// Witty puns when password is wrong (strictly NO hints)
+const wrongPasscodePuns = [
+  "Brrr! Cold guess... but that's not what keeps us warm! 🥶😜",
+  "Access denied! Did your memory brick fall off? Try again, bro! 🧱😂",
+  "Nice try, Sherlock! Even the Lego detective couldn't crack that one! 🕵️‍♂️✨",
+  "Wrong passcode! This secret vault is locked tighter than two stuck 2x4 Lego bricks! 🔐😆",
+  "Nope! You can't just build your way in with random guesses! 🚫🧱",
+  "Error 403: Heartfelt letter is password-protected for Pranav's eyes only! 🙈❤️",
+  "Incorrect! Did you leave your detective thinking cap in London? 🇬🇧😂"
+];
+
+let punIndex = 0;
+
+function openEnvelopeModal() {
+  sfx.click();
+  if (letterLockModal) {
+    letterLockModal.classList.remove('hidden');
+  }
+  if (sealedEnvelopeCard) {
+    sealedEnvelopeCard.classList.remove('unsealing');
+  }
+  if (passcodeErrorMsg) {
+    passcodeErrorMsg.classList.add('hidden');
+  }
+  if (letterPasscodeInput) {
+    letterPasscodeInput.value = '';
+    setTimeout(() => letterPasscodeInput.focus(), 150);
+  }
+}
+
+function closeEnvelopeModal() {
+  sfx.click();
+  if (letterLockModal) {
+    letterLockModal.classList.add('hidden');
+  }
+  if (passcodeErrorMsg) {
+    passcodeErrorMsg.classList.add('hidden');
+  }
+}
+
+function handlePasscodeSubmit(e) {
+  if (e) e.preventDefault();
+  if (!letterPasscodeInput) return;
+
+  const entered = letterPasscodeInput.value.trim().toLowerCase();
+
+  // Validate passcode "hoodie" (case-insensitive)
+  if (entered === 'hoodie') {
+    // CORRECT PASSCODE!
     sfx.fanfare();
     if (navigator.vibrate) navigator.vibrate([120, 80, 200]);
-    unredeemedDock.classList.add('hidden');
-    ticketContainer.classList.remove('hidden');
 
-    // Trigger smooth 3D unfolding animation on the letter card without scrolling
-    const letterCard = ticketContainer.querySelector('.birthday-letter-card');
-    if (letterCard) {
-      letterCard.classList.remove('unfolding');
-      void letterCard.offsetWidth; // Force DOM reflow to restart animation reliably
-      letterCard.classList.add('unfolding');
+    if (passcodeErrorMsg) {
+      passcodeErrorMsg.classList.add('hidden');
     }
 
-    // Trigger grand celebration confetti
-    launchConfetti(120);
-    setTimeout(() => launchConfetti(80), 500);
-    setTimeout(() => launchConfetti(60), 1200);
-  });
+    // Play sealed envelope unsealing / breaking animation
+    if (sealedEnvelopeCard) {
+      sealedEnvelopeCard.classList.add('unsealing');
+    }
+
+    setTimeout(() => {
+      // Hide modal and unredeemed dock
+      if (letterLockModal) {
+        letterLockModal.classList.add('hidden');
+      }
+      if (sealedEnvelopeCard) {
+        sealedEnvelopeCard.classList.remove('unsealing');
+      }
+      if (unredeemedDock) {
+        unredeemedDock.classList.add('hidden');
+      }
+      if (ticketContainer) {
+        ticketContainer.classList.remove('hidden');
+      }
+
+      // Trigger smooth 3D unfolding animation on the letter card
+      const letterCard = ticketContainer ? ticketContainer.querySelector('.birthday-letter-card') : null;
+      if (letterCard) {
+        letterCard.classList.remove('unfolding');
+        void letterCard.offsetWidth; // Force DOM reflow to restart animation reliably
+        letterCard.classList.add('unfolding');
+      }
+
+      // Trigger grand celebration confetti
+      launchConfetti(140);
+      setTimeout(() => launchConfetti(90), 500);
+      setTimeout(() => launchConfetti(60), 1200);
+    }, 600);
+
+  } else {
+    // INCORRECT PASSCODE: Play boing, shake input, and display a witty pun (no hint)
+    sfx.boing();
+    if (navigator.vibrate) navigator.vibrate([80, 50, 80]);
+
+    if (passcodeInputBox) {
+      passcodeInputBox.classList.remove('shake');
+      void passcodeInputBox.offsetWidth; // force reflow
+      passcodeInputBox.classList.add('shake');
+    }
+
+    const pun = wrongPasscodePuns[punIndex % wrongPasscodePuns.length];
+    punIndex++;
+
+    if (passcodeErrorText) {
+      passcodeErrorText.textContent = pun;
+    }
+    if (passcodeErrorMsg) {
+      passcodeErrorMsg.classList.remove('hidden');
+    }
+
+    letterPasscodeInput.select();
+  }
 }
+
+// Attach event listeners for sealed envelope modal
+if (btnRedeem) {
+  btnRedeem.addEventListener('click', openEnvelopeModal);
+}
+if (btnCloseEnvelope) {
+  btnCloseEnvelope.addEventListener('click', closeEnvelopeModal);
+}
+if (envelopeModalBackdrop) {
+  envelopeModalBackdrop.addEventListener('click', closeEnvelopeModal);
+}
+if (envelopePasscodeForm) {
+  envelopePasscodeForm.addEventListener('submit', handlePasscodeSubmit);
+}
+
 
 
 // ==========================================================================
@@ -816,19 +933,13 @@ document.querySelectorAll('.home-memory-card').forEach((card) => {
     if (e) e.preventDefault();
 
     const isLegoNow = card.classList.toggle('is-lego');
-    const badgeText = card.querySelector('.badge-text');
-    const badgeIcon = card.querySelector('.badge-icon');
 
     if (isLegoNow) {
       sfx.chime();
-      if (badgeText) badgeText.textContent = 'Real';
-      if (badgeIcon) badgeIcon.textContent = '📸';
-      card.setAttribute('title', 'Click to see real photo!');
+      card.setAttribute('title', 'Click to see original photo!');
     } else {
       sfx.click();
-      if (badgeText) badgeText.textContent = 'Lego-fy';
-      if (badgeIcon) badgeIcon.textContent = '✨';
-      card.setAttribute('title', 'Click to transform into Lego!');
+      card.setAttribute('title', 'Click to see cute Lego version!');
     }
 
     if (navigator.vibrate) navigator.vibrate(35);
