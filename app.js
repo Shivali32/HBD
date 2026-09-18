@@ -241,7 +241,7 @@ const travelData = {
     image: 'assets/polaroid-pune.jpg',
     tag: '📍 Pune, India',
     year: '2022',
-    title: 'Pune — 2022',
+    title: 'Pune - 2022',
     text: '"Where it all began during our MBA days! Late hours in the library, presentation prep, sharing cutting chai, and building the foundation of our bond."',
     date: '2022 • The MBA Days'
   },
@@ -249,7 +249,7 @@ const travelData = {
     image: 'assets/polaroid-london.jpg',
     tag: '📍 London, UK',
     year: '2023',
-    title: 'London — 2023',
+    title: 'London - 2023',
     text: '"Red double-decker buses, Big Ben, and traversing 5,000 miles of distance. Every chilly morning was warmed by our daily video calls."',
     date: '2023 • Across The Continents'
   },
@@ -257,7 +257,7 @@ const travelData = {
     image: 'assets/polaroid-shrivardhan.jpg',
     tag: '📍 Shrivardhan, MH',
     year: '2023',
-    title: 'Shrivardhan — 2023',
+    title: 'Shrivardhan - 2023',
     text: '"Golden sunset strolls along pristine Konkan beaches, rhythmic ocean waves, and serene coastal tranquility with just the two of us."',
     date: '2023 • Coastal Serenity'
   },
@@ -265,7 +265,7 @@ const travelData = {
     image: 'assets/polaroid-lonavla.jpg',
     tag: '📍 Lonavla, MH',
     year: '2024',
-    title: 'Lonavla — 2024',
+    title: 'Lonavla - 2024',
     text: '"Scenic Western Ghats getaways, misty mountain hills, cascading waterfalls, hot cutting chai in the monsoon drizzle, and cozy drives hand-in-hand."',
     date: '2024 • Monsoon Hills & Chai'
   },
@@ -273,7 +273,7 @@ const travelData = {
     image: 'assets/polaroid-mumbai.jpg',
     tag: '📍 Mumbai, India',
     year: '2025',
-    title: 'Mumbai — 2025',
+    title: 'Mumbai - 2025',
     text: '"Reunited in the maximum city! Marine Drive sea breeze, bright city lights, celebrating sister’s MBA in Mumbai, and happily sharing the same timezone."',
     date: '2025 • Reunited & Thriving'
   },
@@ -281,7 +281,7 @@ const travelData = {
     image: 'assets/polaroid-goa.jpg',
     tag: '📍 Goa, India',
     year: '2025',
-    title: 'Goa — 2025',
+    title: 'Goa - 2025',
     text: '"Golden sand, coconut palms, sea breezes, and non-stop laughter! Unwinding by beach shacks, dancing to waves, and sunny carefree joy."',
     date: '2025 • Tropical Sunshine'
   },
@@ -289,7 +289,7 @@ const travelData = {
     image: 'assets/polaroid-nashik.jpg',
     tag: '📍 Nashik, MH',
     year: '2026',
-    title: 'Nashik — 2026',
+    title: 'Nashik - 2026',
     text: '"Rolling vineyard hills, barrel tastings, gorgeous sunset vistas, and raising a toast to how sweetly our love has aged through every chapter."',
     date: '2026 • Wine Country Romance'
   },
@@ -297,7 +297,7 @@ const travelData = {
     image: 'assets/polaroid-chicago.jpg',
     tag: '📍 Chicago, USA',
     year: '2027',
-    title: 'Chicago — 2027',
+    title: 'Chicago - 2027',
     text: '"Taking iconic skyline selfies at The Bean, cruising along the Chicago River, and embracing the brisk Windy City breeze hand-in-hand."',
     date: '2027 • The Windy City Adventure'
   },
@@ -305,7 +305,7 @@ const travelData = {
     image: 'assets/polaroid-paris.jpg',
     tag: '📍 Paris, France',
     year: '2028',
-    title: 'Paris — 2028',
+    title: 'Paris - 2028',
     text: '"The City of Lights! Warm buttery croissants at charming sidewalk cafés, glittering Eiffel Tower views at night, and strolling the banks of the Seine."',
     date: '2028 • The City of Love'
   },
@@ -313,7 +313,7 @@ const travelData = {
     image: 'assets/polaroid-switzerland.jpg',
     tag: '📍 Swiss Alps',
     year: '2029',
-    title: 'Switzerland — 2029',
+    title: 'Switzerland - 2029',
     text: '"Panoramic alpine trains, snow-dusted Alpine peaks, cozy hot chocolates, and standing together atop the highest mountain wonders."',
     date: '2029 • Wonderland in the Alps'
   }

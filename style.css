@@ -464,21 +464,21 @@ body {
    PAGE 1: HOMEPAGE (THE HOOK)
    ========================================================================== */
 .stage-scene-card {
-  max-width: 540px;
-  width: 94%;
+  max-width: 640px;
+  width: 95%;
   background: transparent;
   border: none;
   border-radius: 0;
   padding: 0;
   box-shadow: none;
-  margin: 12px auto 14px;
+  margin: 10px auto 14px;
   text-align: center;
 }
 
 .stage-image-container {
   position: relative;
   width: 100%;
-  aspect-ratio: 800 / 559;
+  aspect-ratio: 770 / 245;
   border-radius: 14px;
   overflow: hidden;
   border: 3.5px solid #111;
@@ -511,13 +511,13 @@ body {
     line-height: 1.35;
   }
   .stage-scene-card {
-    max-width: 380px;
-    width: 92%;
+    max-width: 420px;
+    width: 95%;
     margin: 6px auto 8px;
   }
   .stage-image-container {
     border-radius: 12px;
-    aspect-ratio: 800 / 559;
+    aspect-ratio: 770 / 245;
   }
   .hero-image {
     width: 100%;
@@ -531,7 +531,7 @@ body {
     gap: 4px;
   }
   .builder-level-pill {
-    margin: 6px auto 4px;
+    margin: 8px auto 6px;
     padding: 5px 12px;
     font-size: clamp(0.64rem, 2.7vw, 0.76rem);
   }
@@ -773,7 +773,7 @@ body {
   border-radius: 0;
   padding: 0;
   box-shadow: none;
-  position: static;
+  position: relative;
   width: 100%;
   margin-bottom: 12px;
 }
@@ -788,8 +788,8 @@ body {
 
 .artwork-badge {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 14px;
+  right: 14px;
   background: #ffbe0b;
   border: 2px solid #111;
   border-radius: 6px;
@@ -798,6 +798,7 @@ body {
   font-weight: 700;
   font-size: 0.78rem;
   box-shadow: 0 2px 0 #111;
+  z-index: 10;
 }
 
 .timeline-stepper {
