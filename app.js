@@ -418,86 +418,47 @@ document.addEventListener('keydown', (e) => {
 
 
 // ==========================================================================
-// THE RELATIONSHIP QUIZ - THE RUNAWAY "NO" BUTTON
+// THE ULTIMATE QUESTION - THE FINAL ANSWER IS YES!
 // ==========================================================================
 const btnNo = document.getElementById('btn-quiz-no');
 const btnYes = document.getElementById('btn-quiz-yes');
-const noLabel = document.getElementById('no-btn-label');
-const dialogueBubble = document.getElementById('quiz-dialogue-bubble');
-const bubbleMessage = document.getElementById('bubble-message');
-const quizArena = document.getElementById('quiz-arena');
 const quizSuccessPanel = document.getElementById('quiz-success-panel');
+const quizSuccessTitle = document.getElementById('quiz-success-title');
+const quizSuccessDesc = document.getElementById('quiz-success-desc');
 
-let dodgeCount = 0;
-let yesScale = 1.0;
-
-const wittyPhrases = [
-  "Nice try, Pranav! 😂",
-  "Nope! That button doesn't work! 😜",
-  "Are you sure? Try again! 😉",
-  "Oops, missed it! 🏃‍♂️💨",
-  "Error 404: 'NO' not found! ⚠️",
-  "You know it made us stronger! 💕",
-  "Almost had it... NOT! 😆",
-  "Just click YES already! 💖"
-];
-
-function dodgeNoButton(e) {
-  if (e) {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-
-  dodgeCount++;
-  sfx.boing();
-  if (navigator.vibrate) navigator.vibrate([40, 20]);
-
-  // Grow the YES button bigger on every dodge!
-  yesScale += 0.12;
-  btnYes.style.transform = `scale(${Math.min(yesScale, 1.7)})`;
-
-  // Safely bound the random coordinates inside the quiz arena
-  const arenaWidth = quizArena.clientWidth;
-  const arenaHeight = quizArena.clientHeight;
-  const btnWidth = btnNo.offsetWidth || 110;
-  const btnHeight = btnNo.offsetHeight || 50;
-
-  // Maximum allowed translation from the center
-  const maxX = Math.max(10, (arenaWidth / 2) - (btnWidth / 2) - 15);
-  const maxY = Math.max(10, (arenaHeight / 2) - (btnHeight / 2) - 25);
-
-  const randomX = (Math.random() - 0.5) * 2 * maxX;
-  const randomY = (Math.random() - 0.5) * 2 * maxY;
-
-  btnNo.style.transform = `translate(${randomX}px, ${randomY}px) scale(0.92)`;
-
-  // Update button label & dialogue bubble
-  const randomPhrase = wittyPhrases[dodgeCount % wittyPhrases.length];
-  bubbleMessage.textContent = randomPhrase;
-  dialogueBubble.classList.remove('hidden');
-
-  if (dodgeCount >= 3) {
-    noLabel.textContent = "YES? 🥺";
-  }
-}
-
-// Dodge on hover, touch, pointer events
-btnNo.addEventListener('mouseenter', dodgeNoButton);
-btnNo.addEventListener('touchstart', dodgeNoButton, { passive: false });
-btnNo.addEventListener('pointerdown', (e) => {
-  if (e.pointerType === 'touch' || e.pointerType === 'pen') {
-    dodgeNoButton(e);
-  }
-});
-btnNo.addEventListener('click', dodgeNoButton);
-
-// YES Button Click Handler
-btnYes.addEventListener('click', () => {
+function revealQuizAnswer(choice) {
   sfx.fanfare();
   if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
-  launchConfetti(40);
+  launchConfetti(60);
+
+  if (quizSuccessTitle) {
+    quizSuccessTitle.textContent = "FINAL ANSWER: YES!";
+  }
+
+  if (quizSuccessDesc) {
+    if (choice === 'no') {
+      quizSuccessDesc.innerHTML = "You clicked <strong>NO</strong>... but the final answer is <strong>YES</strong>: as she is so much more than a best friend now! 🥰<br><br>Every call, every road trip, and every chapter proved that we belong together. Now it's time for your birthday reward!";
+    } else {
+      quizSuccessDesc.innerHTML = "The final answer is <strong>YES</strong>: as she is so much more than a best friend now! 🥰<br><br>Every call, every road trip, and every chapter proved that we belong together. Now it's time for your birthday reward!";
+    }
+  }
+
   quizSuccessPanel.classList.remove('hidden');
-});
+}
+
+if (btnNo) {
+  btnNo.addEventListener('click', (e) => {
+    e.preventDefault();
+    revealQuizAnswer('no');
+  });
+}
+
+if (btnYes) {
+  btnYes.addEventListener('click', (e) => {
+    e.preventDefault();
+    revealQuizAnswer('yes');
+  });
+}
 
 
 // ==========================================================================

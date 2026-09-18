@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Press+Start+2P&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260917-18">
+  <link rel="stylesheet" href="style.css?v=20260917-19">
 </head>
 <body class="theme-home">
   <!-- Persistent Top Lego Navigation Bar -->
@@ -449,7 +449,7 @@
       <div class="baseplate-wrapper">
         <div class="page-header-pill pink-pill">
           <span class="pill-studs"></span>
-          <h2>OUR LOVE STORY: THE OFFICIAL QUIZ 💘</h2>
+          <h2>THE ULTIMATE QUESTION ❓</h2>
         </div>
 
         <!-- The Lego Whiteboard Question Card -->
@@ -457,10 +457,8 @@
           <div class="quiz-stud-border"></div>
           
           <div class="quiz-inner-board" id="quiz-arena">
-            <div class="quiz-counter-tag">QUESTION 01 / 01</div>
-            
             <h3 class="quiz-question-text">
-              "DIDN'T THOSE LONG DISTANCE CALLS MAKE US STRONGER?"
+              “Do you really want to spend the rest of your life without your best friend?”
             </h3>
 
             <p class="quiz-subtext">Choose your honest answer below, Pranav... (Choose wisely! 😉)</p>
@@ -476,7 +474,7 @@
                 <span class="btn-text">YES! 💖</span>
               </button>
 
-              <!-- The Elusive Runaway NO Button -->
+              <!-- The NO Button -->
               <button id="btn-quiz-no" class="lego-btn lego-btn-red lego-btn-large">
                 <span class="btn-studs">
                   <i class="stud"></i><i class="stud"></i><i class="stud"></i><i class="stud"></i>
@@ -486,20 +484,20 @@
               </button>
             </div>
 
-            <!-- Humorous Prank Bubble -->
+            <!-- Humorous Dialogue Bubble -->
             <div id="quiz-dialogue-bubble" class="prank-bubble hidden">
               <span class="bubble-tail"></span>
-              <span class="bubble-text" id="bubble-message">Nice try! That button doesn't work! 😜</span>
+              <span class="bubble-text" id="bubble-message">The final answer is YES! 🎉</span>
             </div>
           </div>
         </div>
 
-        <!-- Success Reveal State (Triggered on YES) -->
+        <!-- Success Reveal State (Triggered on Click) -->
         <div id="quiz-success-panel" class="quiz-success-modal hidden">
           <div class="success-brick-card">
-            <div class="success-emojis">🎉 💑 💖</div>
-            <h3>CORRECT ANSWER!</h3>
-            <p>Every call, every flight, and every timezone only proved that we belong together. Now it's time for your birthday reward!</p>
+            <div class="success-emojis">🎉 👦 ❤️ 👧 💖</div>
+            <h3 id="quiz-success-title">FINAL ANSWER: YES!</h3>
+            <p id="quiz-success-desc">Because she is so much more than just a best friend now! Every call, every road trip, and every chapter proved that we belong together. Now it's time for your birthday reward!</p>
             <button class="lego-btn lego-btn-glow lego-btn-yellow" data-target="surprise">
               <span class="btn-studs">
                 <i class="stud"></i><i class="stud"></i><i class="stud"></i><i class="stud"></i>
