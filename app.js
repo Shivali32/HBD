@@ -689,13 +689,13 @@ const passcodeErrorText = document.getElementById('passcode-error-text');
 
 // Witty puns when password is wrong (strictly NO hints)
 const wrongPasscodePuns = [
-  "Brrr! Cold guess... but that's not what keeps us warm! 🥶😜",
+  "Wrong tune! That note fell completely flat, maestro! 🎶😜",
   "Access denied! Did your memory brick fall off? Try again, bro! 🧱😂",
-  "Nice try, Sherlock! Even the Lego detective couldn't crack that one! 🕵️‍♂️✨",
-  "Wrong passcode! This secret vault is locked tighter than two stuck 2x4 Lego bricks! 🔐😆",
+  "Nice try, Sherlock! Even the Lego detective couldn't crack that melody! 🕵️‍♂️✨",
+  "Wrong lyrics! This secret vault is locked tighter than two stuck 2x4 Lego bricks! 🔐😆",
   "Nope! You can't just build your way in with random guesses! 🚫🧱",
   "Error 403: Heartfelt letter is password-protected for Pranav's eyes only! 🙈❤️",
-  "Incorrect! Did you leave your detective thinking cap in London? 🇬🇧😂"
+  "Off-key guess! Listen to your heart and hum it out! 🎵😂"
 ];
 
 let punIndex = 0;
@@ -731,10 +731,20 @@ function handlePasscodeSubmit(e) {
   if (e) e.preventDefault();
   if (!letterPasscodeInput) return;
 
-  const entered = letterPasscodeInput.value.trim().toLowerCase();
+  const rawEntered = (letterPasscodeInput.value || '').trim().toLowerCase();
+  const normalized = rawEntered.replace(/\s+/g, ' ');
+  const stripped = rawEntered.replace(/[^a-z0-9]/gi, '');
 
-  // Validate passcode "hoodie" (case-insensitive)
-  if (entered === 'hoodie') {
+  // Validate passcode "abhi na jao chod kar" (case-insensitive)
+  // Supports minor phonetic variants or extra spaces seamlessly
+  const isCorrect = (
+    normalized === 'abhi na jao chod kar' ||
+    normalized === 'abhi na jao chhod kar' ||
+    stripped === 'abhinajaochodkar' ||
+    stripped === 'abhinajaochhodkar'
+  );
+
+  if (isCorrect) {
     // CORRECT PASSCODE!
     sfx.fanfare();
     if (navigator.vibrate) navigator.vibrate([120, 80, 200]);
