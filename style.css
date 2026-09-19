@@ -281,20 +281,33 @@ body {
 }
 
 /* ==========================================================================
-   PAGES VIEWPORT & VISIBILITY
+   PAGES VIEWPORT & VISIBILITY + SMOOTH PAGE TRANSITION
    ========================================================================== */
+@keyframes pageTransitionEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.992);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.002);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .page-section {
   display: none;
   opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
   width: 100%;
 }
 
 .page-section.active {
   display: block;
   opacity: 1;
-  transform: translateY(0);
+  animation: pageTransitionEnter 0.36s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* ==========================================================================
@@ -851,6 +864,93 @@ body {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* ==========================================================================
+   UNIFIED NEXT-PAGE BUTTON TRANSITION ANIMATIONS (SAME FOR ALL PAGES)
+   ========================================================================== */
+.btn-next-page {
+  position: relative;
+  overflow: hidden;
+  max-width: 530px;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+              filter 0.2s ease !important;
+  animation: nextBtnSubtlePulse 3.5s ease-in-out infinite;
+}
+
+.btn-next-page .btn-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+/* Inviting gentle breathing pulse on shadow & brightness (stable layout) */
+@keyframes nextBtnSubtlePulse {
+  0%, 100% {
+    box-shadow: 0 6px 0 #111, 0 8px 14px rgba(0, 0, 0, 0.2);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow: 0 7px 0 #111, 0 11px 18px rgba(0, 0, 0, 0.28);
+    filter: brightness(1.04);
+  }
+}
+
+/* Light sweep shimmer effect across button on hover */
+.btn-next-page::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-20deg);
+  pointer-events: none;
+  transition: left 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 4;
+}
+
+.btn-next-page:hover::after {
+  left: 150%;
+}
+
+.btn-next-page:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 10px 0 #111, 0 14px 22px rgba(0, 0, 0, 0.3);
+  filter: brightness(1.06);
+}
+
+/* Forward nudge animation for the button icon / emoji */
+.btn-next-page .next-btn-arrow {
+  display: inline-block;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  margin-left: 6px;
+}
+
+.btn-next-page:hover .next-btn-arrow {
+  transform: translateX(6px) scale(1.2);
+}
+
+/* Tactile press / transitioning state when button is clicked */
+.btn-next-page:active,
+.btn-next-page.btn-transitioning {
+  transform: translateY(5px) scale(0.96) !important;
+  box-shadow: 0 1px 0 #111, 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  transition: transform 0.08s ease, box-shadow 0.08s ease !important;
+  filter: brightness(0.95);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .btn-next-page {
+    animation: none !important;
+  }
+  .btn-next-page .next-btn-arrow {
+    transform: none !important;
+  }
 }
 
 /* ==========================================================================
@@ -2288,6 +2388,10 @@ body {
   }
   .passcode-error-banner .error-text {
     font-size: 0.78rem;
+  }
+  .btn-next-page {
+    font-size: clamp(0.72rem, 3.2vw, 0.96rem);
+    padding: 14px 18px;
   }
 }
 

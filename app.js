@@ -177,10 +177,19 @@ function switchPage(pageKey) {
     btn.classList.toggle('active', btn.dataset.page === pageKey);
   });
 
-  // Switch Active Page Element
+  // Switch Active Page Element with fresh transition trigger
   Object.keys(pages).forEach(key => {
     const isCurrent = (key === pageKey);
-    pages[key].section.classList.toggle('active', isCurrent);
+    const sec = pages[key].section;
+    if (isCurrent) {
+      // Retrigger CSS entrance transition animation reliably
+      sec.style.animation = 'none';
+      void sec.offsetHeight; // trigger reflow
+      sec.style.animation = '';
+      sec.classList.add('active');
+    } else {
+      sec.classList.remove('active');
+    }
   });
 
   // Update Body Baseplate Color Theme
@@ -191,8 +200,8 @@ function switchPage(pageKey) {
     metaThemeColor.setAttribute('content', pages[pageKey].color);
   }
 
-  // Scroll to top smoothly
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Instant scroll to top so page entrance transition begins from the top
+  window.scrollTo({ top: 0, behavior: 'instant' });
 
   if (pageKey === 'quiz' && typeof resetQuizState === 'function') {
     resetQuizState();
@@ -207,11 +216,23 @@ document.querySelectorAll('.nav-brick').forEach(btn => {
   });
 });
 
-// Inline Target Buttons Listeners
+// Inline Target Buttons Listeners with tactile button transition animation
 document.querySelectorAll('[data-target]').forEach(btn => {
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
     const targetPage = btn.dataset.target;
-    if (targetPage) switchPage(targetPage);
+    if (!targetPage) return;
+
+    // Trigger tactile button click transition animation
+    btn.classList.add('btn-transitioning');
+    sfx.click();
+    if (navigator.vibrate) navigator.vibrate(35);
+
+    // Brief delay to display button transition before smooth page entry
+    setTimeout(() => {
+      btn.classList.remove('btn-transitioning');
+      switchPage(targetPage);
+    }, 120);
   });
 });
 
